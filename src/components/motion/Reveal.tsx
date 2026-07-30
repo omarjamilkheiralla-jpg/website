@@ -11,6 +11,8 @@ type RevealProps = {
   className?: string;
   /** Distance in px the element travels upward as it fades in. */
   offset?: number;
+  /** Anchor target, so in-page links can point at a revealed block. */
+  id?: string;
 };
 
 /**
@@ -24,6 +26,7 @@ export default function Reveal({
   as = "div",
   className = "",
   offset = 24,
+  id,
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
@@ -43,6 +46,7 @@ export default function Reveal({
 
   return (
     <MotionTag
+      id={id}
       className={className}
       initial="hidden"
       whileInView="visible"

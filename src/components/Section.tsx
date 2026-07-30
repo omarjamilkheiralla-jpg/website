@@ -1,12 +1,14 @@
 import type { ReactNode } from "react";
 
-type Tone = "cream" | "linen" | "ink" | "green";
+type Tone = "cream" | "linen" | "shell" | "ink" | "green" | "forest";
 
 const tones: Record<Tone, string> = {
   cream: "bg-cream",
   linen: "bg-linen",
+  shell: "bg-shell",
   ink: "bg-ink",
   green: "bg-green",
+  forest: "bg-forest",
 };
 
 type SectionProps = {
@@ -41,7 +43,7 @@ export default function Section({
         divider ? "border-t border-gold/25" : ""
       } ${className}`}
     >
-      <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">{children}</div>
+      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">{children}</div>
     </section>
   );
 }

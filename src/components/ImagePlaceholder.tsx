@@ -2,8 +2,12 @@ type ImagePlaceholderProps = {
   /** Describes the photography that belongs here; also used as the a11y label. */
   label: string;
   ratio?: "square" | "portrait" | "landscape" | "wide";
-  tone?: "linen" | "cream" | "green";
+  tone?: "linen" | "cream" | "shell" | "green";
   rounded?: boolean;
+  /** Off for tiles that sit flush inside an already-ruled band. */
+  bordered?: boolean;
+  /** Drops the intrinsic aspect ratio so the tile can fill its grid cell. */
+  fill?: boolean;
   /** Subtle zoom when an ancestor marked `group` is hovered. */
   zoom?: boolean;
   className?: string;
@@ -19,6 +23,7 @@ const ratios = {
 const tones = {
   linen: "bg-linen text-green/45",
   cream: "bg-cream text-green/40",
+  shell: "bg-shell text-green/40",
   green: "bg-green/90 text-cream/50",
 };
 
@@ -32,6 +37,8 @@ export default function ImagePlaceholder({
   ratio = "landscape",
   tone = "linen",
   rounded = true,
+  bordered = true,
+  fill = false,
   zoom = true,
   className = "",
 }: ImagePlaceholderProps) {
@@ -40,9 +47,9 @@ export default function ImagePlaceholder({
       role="img"
       aria-label={label}
       title={label}
-      className={`relative w-full overflow-hidden border border-gold/25 ${ratios[ratio]} ${
-        rounded ? "rounded-sm" : ""
-      } ${className}`}
+      className={`relative w-full overflow-hidden ${bordered ? "border border-gold/25" : ""} ${
+        fill ? "" : ratios[ratio]
+      } ${rounded ? "rounded-sm" : ""} ${className}`}
     >
       <div
         className={`flex h-full w-full items-center justify-center transition-transform duration-500 ease-out ${

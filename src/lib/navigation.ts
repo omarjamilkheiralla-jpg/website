@@ -19,19 +19,59 @@ export const primaryNav: NavLink[] = [
       { label: "PURE", href: "/collections/pure" },
     ],
   },
+  { label: "Ingredients", href: "/ingredients" },
   { label: "Journal", href: "/journal" },
+  { label: "Where to Buy", href: "/where-to-buy" },
   { label: "Contact", href: "/contact" },
 ];
 
-export const footerLinks: NavLink[] = [
-  { label: "About Rosica", href: "/about" },
-  { label: "Collections", href: "/collections" },
-  { label: "Ingredient Library", href: "/ingredients" },
-  { label: "Journal", href: "/journal" },
-  { label: "Contact", href: "/contact" },
-  { label: "FAQs", href: "/faqs" },
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms & Conditions", href: "/terms" },
+/**
+ * Footer link groups, matching the column structure in the approved designs.
+ * Adding a Skin Care or Body Care collection is a one-line change here.
+ */
+export const footerColumns: { heading: string; links: NavLink[] }[] = [
+  {
+    heading: "Rosica",
+    links: [
+      { label: "About Rosica", href: "/about" },
+      { label: "Our Philosophy", href: "/about#philosophy" },
+      { label: "Sustainability", href: "/about#promise" },
+      { label: "Quality Assurance", href: "/about#quality" },
+    ],
+  },
+  {
+    heading: "Collections",
+    links: [
+      { label: "Essentials", href: "/collections/essentials" },
+      { label: "PURE", href: "/collections/pure" },
+      { label: "All Products", href: "/collections" },
+    ],
+  },
+  {
+    heading: "Knowledge",
+    links: [
+      { label: "Ingredient Library", href: "/ingredients" },
+      { label: "Journal", href: "/journal" },
+      { label: "Hair Care Guide", href: "/journal" },
+    ],
+  },
+  {
+    heading: "Customer Care",
+    links: [
+      { label: "FAQs", href: "/faqs" },
+      { label: "Contact Us", href: "/contact" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms & Conditions", href: "/terms" },
+    ],
+  },
+  {
+    heading: "Where to Buy",
+    links: [
+      { label: "Official Store", href: "/where-to-buy" },
+      { label: "Retail Partners", href: "/where-to-buy" },
+      { label: "Wholesale Inquiries", href: "/contact" },
+    ],
+  },
 ];
 
 export const socialLinks = [

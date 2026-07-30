@@ -3,11 +3,28 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import CTAButton from "./CTAButton";
+import BrandMark from "./BrandMark";
 import { primaryNav } from "@/lib/navigation";
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
+function SearchIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-[1.125rem] w-[1.125rem]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m16 16 4.5 4.5" />
+    </svg>
+  );
 }
 
 export default function Navbar() {
@@ -60,12 +77,17 @@ export default function Navbar() {
     };
   }, [openDropdown]);
 
+  const navLinkClass = (active: boolean) =>
+    `relative py-1 text-[0.6875rem] font-medium uppercase tracking-[0.16em] transition-colors duration-300 hover:text-gold ${
+      active ? "text-green" : "text-ink-muted"
+    }`;
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ease-out ${
         solid
-          ? "border-gold/25 bg-cream/95 shadow-[0_10px_30px_-24px_rgba(30,30,26,0.6)] backdrop-blur-md"
-          : "border-transparent bg-transparent"
+          ? "bg-cream/95 shadow-[0_10px_30px_-24px_rgba(30,30,26,0.6)] backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <a
@@ -75,17 +97,12 @@ export default function Navbar() {
         Skip to content
       </a>
 
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 sm:px-8">
-        <Link
-          href="/"
-          className="font-serif text-2xl tracking-[0.16em] text-green uppercase transition-colors hover:text-gold"
-        >
-          Rosica
-        </Link>
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
+        <BrandMark size="sm" />
 
         {/* Desktop navigation */}
-        <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-9">
+        <nav aria-label="Primary" className="hidden xl:block">
+          <ul className="flex items-center gap-7">
             {primaryNav.map((link) => {
               const active = isActive(pathname, link.href);
 
@@ -95,11 +112,16 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       aria-current={active ? "page" : undefined}
-                      className={`link-underline text-sm tracking-wide transition-colors hover:text-gold ${
-                        active ? "text-green" : "text-ink-muted"
-                      }`}
+                      className={navLinkClass(active)}
                     >
                       {link.label}
+                      {/* Gold underline marks the current section. */}
+                      <span
+                        aria-hidden="true"
+                        className={`absolute inset-x-0 -bottom-1 h-px origin-left bg-gold transition-transform duration-300 ease-out ${
+                          active ? "scale-x-100" : "scale-x-0"
+                        }`}
+                      />
                     </Link>
                   </li>
                 );
@@ -120,14 +142,12 @@ export default function Navbar() {
                     aria-expanded={expanded}
                     aria-controls={`${menuId}-collections`}
                     onClick={() => setOpenDropdown(expanded ? null : link.label)}
-                    className={`link-underline flex items-center gap-1.5 text-sm tracking-wide transition-colors hover:text-gold ${
-                      active ? "text-green" : "text-ink-muted"
-                    }`}
+                    className={`${navLinkClass(active)} flex items-center gap-1.5`}
                   >
                     {link.label}
                     <svg
                       viewBox="0 0 12 8"
-                      className={`h-2 w-3 transition-transform duration-300 ${
+                      className={`h-2 w-2.5 transition-transform duration-300 ${
                         expanded ? "rotate-180" : ""
                       }`}
                       fill="none"
@@ -137,18 +157,24 @@ export default function Navbar() {
                     >
                       <path d="M1 1.5 6 6.5l5-5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-0 -bottom-1 h-px origin-left bg-gold transition-transform duration-300 ease-out ${
+                        active ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
                   </button>
 
                   <ul
                     id={`${menuId}-collections`}
-                    className={`absolute left-1/2 top-full w-56 -translate-x-1/2 border border-gold/30 bg-cream py-2 shadow-[0_18px_40px_-28px_rgba(30,30,26,0.55)] ${
+                    className={`absolute left-1/2 top-full w-52 -translate-x-1/2 border border-gold/30 bg-cream py-2 shadow-[0_18px_40px_-28px_rgba(30,30,26,0.55)] ${
                       expanded ? "block" : "hidden"
                     }`}
                   >
                     <li>
                       <Link
                         href={link.href}
-                        className="block px-5 py-2.5 text-sm text-ink-muted transition-colors hover:bg-linen hover:text-green"
+                        className="block px-5 py-2.5 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-linen hover:text-green"
                       >
                         All Collections
                       </Link>
@@ -157,7 +183,7 @@ export default function Navbar() {
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className="block px-5 py-2.5 text-sm text-ink-muted transition-colors hover:bg-linen hover:text-green"
+                          className="block px-5 py-2.5 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-linen hover:text-green"
                         >
                           {child.label}
                         </Link>
@@ -170,41 +196,66 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <div className="hidden lg:block">
-          <CTAButton href="/collections" size="sm">
-            Explore Collections
-          </CTAButton>
-        </div>
-
-        {/* Mobile trigger */}
-        <button
-          type="button"
-          className="flex h-10 w-10 items-center justify-center text-green lg:hidden"
-          aria-expanded={mobileOpen}
-          aria-controls={`${menuId}-mobile`}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            aria-hidden="true"
+        {/* Utilities: search, language toggle, Buy Now */}
+        <div className="flex items-center gap-3 sm:gap-4">
+          <Link
+            href="/search"
+            aria-label="Search Rosica"
+            className="hidden h-9 w-9 items-center justify-center text-green transition-colors duration-300 hover:text-gold sm:flex"
           >
-            {mobileOpen ? (
-              <path d="M5 5l14 14M19 5 5 19" />
-            ) : (
-              <>
-                <path d="M3.5 7h17" />
-                <path d="M3.5 12h17" />
-                <path d="M3.5 17h17" />
-              </>
-            )}
-          </svg>
-        </button>
+            <SearchIcon />
+          </Link>
+
+          <span aria-hidden="true" className="hidden h-5 w-px bg-gold/40 sm:block" />
+
+          {/* TODO: point at the Arabic locale once the RTL build is ready */}
+          <Link
+            href="/ar"
+            lang="ar"
+            dir="rtl"
+            hrefLang="ar"
+            className="hidden font-serif text-sm text-green transition-colors duration-300 hover:text-gold sm:block"
+          >
+            العربية
+          </Link>
+
+          <Link
+            href="/where-to-buy"
+            className="hidden rounded-sm bg-green px-5 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-[background-color,color,transform] duration-300 ease-out hover:scale-[1.03] hover:bg-gold hover:text-ink motion-reduce:hover:scale-100 sm:inline-block"
+          >
+            Buy Now
+          </Link>
+
+          {/* Mobile trigger */}
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center text-green xl:hidden"
+            aria-expanded={mobileOpen}
+            aria-controls={`${menuId}-mobile`}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              {mobileOpen ? (
+                <path d="M5 5l14 14M19 5 5 19" />
+              ) : (
+                <>
+                  <path d="M3.5 7h17" />
+                  <path d="M3.5 12h17" />
+                  <path d="M3.5 17h17" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile navigation */}
@@ -212,15 +263,15 @@ export default function Navbar() {
         id={`${menuId}-mobile`}
         aria-label="Primary mobile"
         hidden={!mobileOpen}
-        className="border-t border-gold/25 bg-cream lg:hidden"
+        className="border-t border-gold/25 bg-cream xl:hidden"
       >
-        <ul className="mx-auto w-full max-w-6xl px-6 py-4 sm:px-8">
+        <ul className="mx-auto w-full max-w-7xl px-6 py-4 sm:px-8">
           {primaryNav.map((link) => (
             <li key={link.href} className="border-b border-gold/15 last:border-b-0">
               <Link
                 href={link.href}
                 aria-current={isActive(pathname, link.href) ? "page" : undefined}
-                className="block py-3.5 text-sm tracking-wide text-green"
+                className="block py-3.5 text-[0.6875rem] uppercase tracking-[0.16em] text-green"
               >
                 {link.label}
               </Link>
@@ -230,7 +281,7 @@ export default function Navbar() {
                     <li key={child.href}>
                       <Link
                         href={child.href}
-                        className="block py-2 text-sm text-ink-muted transition-colors hover:text-gold"
+                        className="block py-2 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-gold"
                       >
                         {child.label}
                       </Link>
@@ -240,10 +291,22 @@ export default function Navbar() {
               ) : null}
             </li>
           ))}
-          <li className="pt-5 pb-2">
-            <CTAButton href="/collections" size="sm" className="w-full">
-              Explore Collections
-            </CTAButton>
+          <li className="flex items-center gap-4 pt-5 pb-2">
+            <Link
+              href="/where-to-buy"
+              className="flex-1 rounded-sm bg-green px-5 py-3 text-center text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-colors duration-300 hover:bg-gold hover:text-ink"
+            >
+              Buy Now
+            </Link>
+            <Link
+              href="/ar"
+              lang="ar"
+              dir="rtl"
+              hrefLang="ar"
+              className="font-serif text-sm text-green"
+            >
+              العربية
+            </Link>
           </li>
         </ul>
       </nav>

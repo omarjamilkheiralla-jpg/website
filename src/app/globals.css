@@ -14,10 +14,16 @@
 
   /* Softer / derived tones used for borders, hovers and muted copy. */
   --color-gold-soft: #d8bd8a;
+  /* Palest gold — small text on the Botanical Green band (WCAG AA ≥ 4.5:1). */
+  --color-gold-pale: #e6d2a8;
   /* Darkened gold reserved for small text on Cream/Linen (WCAG AA ≥ 4.5:1). */
   --color-gold-deep: #7a5d22;
   --color-green-deep: #33482a;
+  /* Deep forest used for the footer band, per the approved references. */
+  --color-forest: #2c4433;
   --color-ink-muted: #57564e;
+  /* Warmer linen for the alternating "shell" panels in the references. */
+  --color-shell: #f3ece0;
 
   --font-serif: var(--font-cormorant), ui-serif, Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -99,6 +105,26 @@
   .link-underline:focus-visible::after {
     transform: scaleX(1);
     transform-origin: left;
+  }
+
+  /*
+    Gold rule with a small floret at its centre — the divider that sits under
+    the collection headings in the approved designs.
+  */
+  .ornament-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-gold);
+  }
+
+  .ornament-rule::before,
+  .ornament-rule::after {
+    content: "";
+    height: 1px;
+    flex: 1 1 auto;
+    background-color: currentColor;
+    opacity: 0.55;
   }
 
   /* Soft lift used by collection / ingredient / product cards. */

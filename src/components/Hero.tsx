@@ -2,6 +2,9 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+import Icon, { type IconName } from "./Icon";
+
+export type HeroFeature = { icon: IconName; label: string };
 
 type HeroProps = {
   eyebrow?: string;
@@ -9,14 +12,20 @@ type HeroProps = {
   body?: string | string[];
   /** Named products listed beneath the body copy. */
   bullets?: string[];
+  /** Small gold icon row under the heading (Protect / Strengthen / Balance). */
+  features?: HeroFeature[];
   actions?: ReactNode;
   /**
-   * "full-bleed" places the copy on a Cream/Linen panel over a full-width
-   * background image area. "panel" is the calmer inner-page treatment.
+   * "split" places the copy beside full-bleed photography, as in the approved
+   * designs. "panel" is the calmer, copy-only treatment for utility pages.
    */
-  variant?: "full-bleed" | "panel";
-  /** Describes the photography that belongs behind the hero. */
+  variant?: "split" | "panel";
+  /** Gold rule with a floret under the heading — used by the collection pages. */
+  ornament?: boolean;
+  /** Describes the photography that belongs in the hero. */
   imageLabel?: string;
+  /** "tall" is the homepage; "short" suits the inner pages. */
+  height?: "tall" | "short";
 };
 
 const container: Variants = {
@@ -24,14 +33,55 @@ const container: Variants = {
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
+/**
+ * Stand-in for the hero photography: a warm botanical wash with a soft
+ * line-drawn sprig. Swap the whole block for <Image fill /> when art lands.
+ */
+function HeroMedia({ label, className = "" }: { label: string; className?: string }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div
+      role="img"
+      aria-label={label}
+      className={`relative overflow-hidden bg-[linear-gradient(145deg,#f3ece0_0%,#e6dac4_45%,#cfd3c2_78%,#a9b3a0_100%)] ${className}`}
+    >
+      <motion.svg
+        viewBox="0 0 600 700"
+        preserveAspectRatio="xMidYMid slice"
+        className="h-full w-full text-green/25"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        aria-hidden="true"
+        initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: reduceMotion ? 0 : 1.4, ease: "easeOut" }}
+      >
+        <path d="M300 700V210" />
+        <path d="M300 320c0-70 46-118 130-134-8 70-54 118-130 134Z" />
+        <path d="M300 430c0-70 46-118 130-134-8 70-54 118-130 134Z" />
+        <path d="M300 375c0-70-46-118-130-134 8 70 54 118 130 134Z" />
+        <path d="M300 485c0-70-46-118-130-134 8 70 54 118 130 134Z" />
+        <circle cx="300" cy="170" r="46" />
+        <circle cx="300" cy="170" r="76" />
+      </motion.svg>
+    </div>
+  );
+}
+
 export default function Hero({
   eyebrow,
   title,
   body,
   bullets,
+  features,
   actions,
-  variant = "full-bleed",
-  imageLabel = "Botanical still life photography",
+  variant = "split",
+  ornament = false,
+  imageLabel = "Rosica botanical product photography",
+  height = "short",
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
   const paragraphs = typeof body === "string" ? [body] : (body ?? []);
@@ -58,18 +108,28 @@ export default function Hero({
       <motion.h1
         variants={item}
         className={
-          variant === "panel"
-            ? "text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
-            : "text-4xl leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
+          height === "tall"
+            ? "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
+            : "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.25rem]"
         }
       >
         {title}
       </motion.h1>
 
+      {ornament ? (
+        <motion.span
+          variants={item}
+          aria-hidden="true"
+          className="ornament-rule mt-7 max-w-sm"
+        >
+          <Icon name="sparkle" className="h-3.5 w-3.5" />
+        </motion.span>
+      ) : null}
+
       {paragraphs.length > 0 ? (
         <motion.div
           variants={item}
-          className="mt-6 space-y-4 text-base leading-relaxed text-ink-muted sm:text-[1.0625rem]"
+          className="mt-6 max-w-xl space-y-4 text-base leading-relaxed text-ink-muted"
         >
           {paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -78,10 +138,28 @@ export default function Hero({
       ) : null}
 
       {bullets && bullets.length > 0 ? (
-        <motion.ul variants={item} className="mt-6 space-y-3 border-l border-gold/50 pl-5">
+        <motion.ul variants={item} className="mt-6 space-y-2.5 border-l border-gold/50 pl-5">
           {bullets.map((bullet) => (
-            <li key={bullet} className="font-serif text-lg text-green sm:text-xl">
+            <li key={bullet} className="font-serif text-lg text-green">
               {bullet}
+            </li>
+          ))}
+        </motion.ul>
+      ) : null}
+
+      {features && features.length > 0 ? (
+        <motion.ul variants={item} className="mt-9 flex flex-wrap items-start gap-x-8 gap-y-6">
+          {features.map((feature) => (
+            <li
+              key={feature.label}
+              className="flex min-w-[4.5rem] flex-col items-center gap-2.5 text-center"
+            >
+              <span className="text-gold">
+                <Icon name={feature.icon} className="h-7 w-7" />
+              </span>
+              <span className="text-[0.6875rem] uppercase tracking-[0.14em] text-ink-muted">
+                {feature.label}
+              </span>
             </li>
           ))}
         </motion.ul>
@@ -98,12 +176,7 @@ export default function Hero({
   if (variant === "panel") {
     return (
       <section className="relative overflow-hidden bg-linen">
-        {/* TODO: replace with real hero photography */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(250deg,#c8cfbf_0%,#e3d9c6_55%,transparent_100%)] opacity-70 lg:block"
-        />
-        <div className="relative mx-auto w-full max-w-6xl px-6 pb-24 pt-36 sm:px-8 sm:pb-28 sm:pt-44 lg:pb-36">
+        <div className="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-36 sm:px-8 sm:pb-28 sm:pt-44">
           <div className="max-w-3xl">{content}</div>
         </div>
       </section>
@@ -111,38 +184,33 @@ export default function Hero({
   }
 
   return (
-    <section className="relative isolate overflow-hidden bg-linen">
-      {/* TODO: replace with real hero photography (botanical / nature imagery) */}
-      <div
-        aria-hidden="true"
-        title={imageLabel}
-        className="absolute inset-0 -z-10 bg-[linear-gradient(150deg,#efe3d0_0%,#e3d9c6_38%,#c8cfbf_72%,#3f5a44_100%)]"
-      >
-        <motion.svg
-          viewBox="0 0 800 600"
-          preserveAspectRatio="xMidYMid slice"
-          className="h-full w-full opacity-20"
-          fill="none"
-          stroke="#3f5a44"
-          strokeWidth="1"
+    <section className="relative isolate overflow-hidden bg-shell">
+      {/* TODO: replace with real hero photography (product / botanical imagery) */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block">
+        <HeroMedia label={imageLabel} className="h-full w-full" />
+        {/* Soft wash so the copy column blends into the photography. */}
+        <span
           aria-hidden="true"
-          initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.06 }}
-          animate={{ opacity: 0.2, scale: 1 }}
-          transition={{ duration: reduceMotion ? 0 : 1.6, ease: "easeOut" }}
-        >
-          <path d="M-40 520C120 470 200 380 240 240s10-220 10-220" />
-          <path d="M120 620C260 560 340 470 400 320s60-260 60-260" />
-          <path d="M320 660C470 590 560 480 620 330s80-300 80-300" />
-          <circle cx="640" cy="140" r="90" />
-          <circle cx="640" cy="140" r="140" />
-        </motion.svg>
+          className="absolute inset-y-0 left-0 w-40 bg-[linear-gradient(90deg,var(--color-shell)_0%,transparent_100%)]"
+        />
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-6 pb-24 pt-36 sm:px-8 sm:pb-32 sm:pt-48 lg:pb-40 lg:pt-52">
-        <div className="max-w-2xl rounded-sm border border-gold/30 bg-cream/92 p-8 shadow-[0_30px_80px_-60px_rgba(30,30,26,0.6)] backdrop-blur-sm sm:p-12 lg:p-14">
-          {content}
+      <div className="relative mx-auto w-full max-w-7xl px-6 sm:px-8">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+          <div
+            className={
+              height === "tall"
+                ? "pb-16 pt-32 sm:pt-40 lg:flex lg:min-h-[42rem] lg:flex-col lg:justify-center lg:py-28"
+                : "pb-16 pt-32 sm:pt-40 lg:flex lg:min-h-[34rem] lg:flex-col lg:justify-center lg:py-24"
+            }
+          >
+            {content}
+          </div>
         </div>
       </div>
+
+      {/* Stacked media for narrow screens. */}
+      <HeroMedia label={imageLabel} className="aspect-[4/3] w-full lg:hidden" />
     </section>
   );
 }

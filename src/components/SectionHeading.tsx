@@ -30,7 +30,7 @@ export default function SectionHeading({
   return (
     <div className={`flex flex-col ${alignment} max-w-3xl ${className}`}>
       {eyebrow ? (
-        <p className={`eyebrow mb-5 ${tone === "light" ? "text-gold-soft" : "text-gold-deep"}`}>
+        <p className={`eyebrow mb-5 ${tone === "light" ? "text-gold-pale" : "text-gold-deep"}`}>
           {eyebrow}
         </p>
       ) : null}
