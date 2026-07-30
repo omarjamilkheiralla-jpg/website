@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 import Icon, { type IconName } from "./Icon";
@@ -22,6 +23,8 @@ type HeroProps = {
   variant?: "split" | "panel";
   /** Gold rule with a floret under the heading — used by the collection pages. */
   ornament?: boolean;
+  /** Path under /public; falls back to the botanical wash when absent. */
+  image?: string;
   /** Describes the photography that belongs in the hero. */
   imageLabel?: string;
   /** "tall" is the homepage; "short" suits the inner pages. */
@@ -37,8 +40,33 @@ const container: Variants = {
  * Stand-in for the hero photography: a warm botanical wash with a soft
  * line-drawn sprig. Swap the whole block for <Image fill /> when art lands.
  */
-function HeroMedia({ label, className = "" }: { label: string; className?: string }) {
+function HeroMedia({
+  label,
+  src,
+  priority = false,
+  className = "",
+}: {
+  label: string;
+  src?: string;
+  priority?: boolean;
+  className?: string;
+}) {
   const reduceMotion = useReducedMotion();
+
+  if (src) {
+    return (
+      <div className={`relative overflow-hidden bg-shell ${className}`}>
+        <Image
+          src={src}
+          alt={label}
+          fill
+          priority={priority}
+          sizes="(max-width: 1024px) 100vw, 52vw"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -80,6 +108,7 @@ export default function Hero({
   actions,
   variant = "split",
   ornament = false,
+  image,
   imageLabel = "Rosica botanical product photography",
   height = "short",
 }: HeroProps) {
@@ -185,9 +214,9 @@ export default function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-shell">
-      {/* TODO: replace with real hero photography (product / botanical imagery) */}
+      {/* Product photography when supplied; botanical wash until then. */}
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block">
-        <HeroMedia label={imageLabel} className="h-full w-full" />
+        <HeroMedia label={imageLabel} src={image} priority className="h-full w-full" />
         {/* Soft wash so the copy column blends into the photography. */}
         <span
           aria-hidden="true"
@@ -210,7 +239,7 @@ export default function Hero({
       </div>
 
       {/* Stacked media for narrow screens. */}
-      <HeroMedia label={imageLabel} className="aspect-[4/3] w-full lg:hidden" />
+      <HeroMedia label={imageLabel} src={image} className="aspect-[4/3] w-full lg:hidden" />
     </section>
   );
 }

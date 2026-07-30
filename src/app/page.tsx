@@ -5,11 +5,12 @@ import SectionHeading from "@/components/SectionHeading";
 import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Media from "@/components/Media";
 import IngredientCarousel from "@/components/IngredientCarousel";
 import NewsletterForm from "@/components/NewsletterForm";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { generic, genericAlt, product } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica | Inspired by Nature. Refined Through Science.",
@@ -38,7 +39,12 @@ const values: { icon: IconName; title: string; body: string; href: string }[] = 
   },
 ];
 
-const ingredients = ["Honey", "Propolis", "Aloe Vera", "Rosemary"];
+const ingredients = [
+  { name: "Honey", image: generic.honey, alt: genericAlt.honey },
+  { name: "Propolis", image: generic.propolis, alt: genericAlt.propolis },
+  { name: "Aloe Vera", image: generic.aloeVera, alt: genericAlt.aloeVera },
+  { name: "Rosemary", image: generic.rosemary, alt: genericAlt.rosemary },
+];
 
 const collections = [
   {
@@ -47,6 +53,8 @@ const collections = [
     body: "Created for everyday nourishment, repair, and protection with carefully balanced botanical formulations.",
     cta: "Discover Essentials",
     href: "/collections/essentials",
+    image: product.essentialsGroup,
+    imageAlt: "The three Rosica Essentials products with honeycomb and botanicals",
   },
   {
     name: "Rosica PURE",
@@ -54,6 +62,8 @@ const collections = [
     body: "Designed to revitalize and strengthen with advanced botanical ingredients for a refreshing premium care experience.",
     cta: "Discover PURE",
     href: "/collections/pure",
+    image: product.pureBottle,
+    imageAlt: "Rosica PURE Botanical Restore Shampoo with aloe vera and rosemary",
   },
 ];
 
@@ -172,12 +182,12 @@ export default function HomePage() {
                   <p className="mt-3 font-serif text-xl text-gold-deep">{collection.tagline}</p>
                   <p className="mt-4 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
 
-                  {/* TODO: replace with real product photo */}
-                  <ImagePlaceholder
-                    label={`${collection.name} product photography`}
+                  <Media
+                    src={collection.image}
+                    alt={collection.imageAlt}
                     ratio="wide"
-                    tone="cream"
-                    rounded={false}
+                    placeholderTone="cream"
+                    sizes="(max-width: 640px) 100vw, 40vw"
                     className="mt-8"
                   />
 
@@ -250,12 +260,11 @@ export default function HomePage() {
                 from every Rosica product.
               </p>
 
-              {/* TODO: replace with real editorial photography */}
-              <ImagePlaceholder
-                label="Rosica journal editorial photography"
+              <Media
+                src={generic.journal}
+                alt={genericAlt.journal}
                 ratio="wide"
-                tone="cream"
-                rounded={false}
+                sizes="(max-width: 1024px) 100vw, 30vw"
                 className="mt-8"
               />
 

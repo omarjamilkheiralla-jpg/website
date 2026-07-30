@@ -5,9 +5,10 @@ import SectionHeading from "@/components/SectionHeading";
 import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Media from "@/components/Media";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { generic, genericAlt, product } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "About Rosica | Rooted in Nature. Driven by Science.",
@@ -59,7 +60,8 @@ const collectionCards = [
     body: "Rosica Essentials provides everyday botanical care designed to nourish, repair, and protect.",
     cta: "Discover Essentials",
     href: "/collections/essentials",
-    image: "The three Rosica Essentials products with honeycomb and botanicals",
+    image: product.essentialsGroup,
+    imageAlt: "The three Rosica Essentials products with honeycomb and botanicals",
   },
   {
     name: "Rosica PURE",
@@ -67,7 +69,8 @@ const collectionCards = [
     body: "Rosica PURE offers advanced botanical formulations created to revitalize, strengthen, and energize.",
     cta: "Discover PURE",
     href: "/collections/pure",
-    image: "Botanical Restore Shampoo with aloe vera and rosemary",
+    image: product.pureBottle,
+    imageAlt: "Rosica PURE Botanical Restore Shampoo with aloe vera and rosemary",
   },
 ];
 
@@ -104,6 +107,7 @@ export default function AboutPage() {
           "Rosica was founded on a simple belief: nature possesses extraordinary power to nurture, restore, and inspire confidence. By combining carefully selected botanical ingredients with modern cosmetic science, we create premium beauty products that are effective, refined, and designed for everyday rituals.",
           "Our journey begins with botanical hair care and continues toward a complete natural beauty portfolio including skin care and body care—always guided by the same commitment to quality, integrity, and innovation.",
         ]}
+        image={product.rangeGroup}
         imageLabel="The full Rosica range with honey, aloe vera and botanical stems"
         actions={<CTAButton href="#our-story">Discover Our Journey</CTAButton>}
       />
@@ -112,14 +116,12 @@ export default function AboutPage() {
       <Section tone="shell" id="our-story">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-16">
           <Reveal className="group">
-            {/* TODO: replace with real brand photography */}
-            <ImagePlaceholder
-              label="Botanical stems in glass vessels on a sunlit surface"
-              ratio="landscape"
-              tone="cream"
-              rounded={false}
-              className="h-full"
+            <Media
+              src={generic.labGlassware}
+              alt={genericAlt.labGlassware}
               fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="h-full min-h-72"
             />
           </Reveal>
 
@@ -173,12 +175,11 @@ export default function AboutPage() {
             </SectionHeading>
 
             <div className="group mt-10">
-              {/* TODO: replace with real laboratory photography */}
-              <ImagePlaceholder
-                label="A botanical leaf in a petri dish beside a pipette"
+              <Media
+                src={generic.labFlowerTube}
+                alt={genericAlt.labFlowerTube}
                 ratio="landscape"
-                tone="shell"
-                rounded={false}
+                sizes="(max-width: 1024px) 100vw, 30vw"
               />
             </div>
           </Reveal>
@@ -190,6 +191,16 @@ export default function AboutPage() {
               align="left"
               body="Our products are manufactured in facilities operating under internationally recognized quality standards, ensuring safety, consistency, hygiene, and manufacturing excellence."
             />
+
+            <div className="group mt-10">
+              <Media
+                src={generic.manufacturing}
+                alt={genericAlt.manufacturing}
+                ratio="landscape"
+                sizes="(max-width: 1024px) 100vw, 30vw"
+              />
+            </div>
+
             <MarkRow marks={manufacturingMarks} />
           </Reveal>
 
@@ -229,12 +240,12 @@ export default function AboutPage() {
                   <p className="mt-3 font-serif text-xl text-gold-deep">{collection.tagline}</p>
                   <p className="mt-4 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
 
-                  {/* TODO: replace with real product photo */}
-                  <ImagePlaceholder
-                    label={collection.image}
+                  <Media
+                    src={collection.image}
+                    alt={collection.imageAlt}
                     ratio="wide"
-                    tone="cream"
-                    rounded={false}
+                    placeholderTone="cream"
+                    sizes="(max-width: 1024px) 100vw, 35vw"
                     className="mt-8"
                   />
 

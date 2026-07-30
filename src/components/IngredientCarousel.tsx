@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import ArrowLink from "./ArrowLink";
-import ImagePlaceholder from "./ImagePlaceholder";
+import Media from "./Media";
 
 /**
  * Horizontal ingredient rail with the paging arrows from the approved design.
@@ -10,7 +10,9 @@ import ImagePlaceholder from "./ImagePlaceholder";
  * ingredients still read as a calm row on a wide screen while the component
  * keeps working as the Ingredient Library grows.
  */
-export default function IngredientCarousel({ ingredients }: { ingredients: string[] }) {
+export type Ingredient = { name: string; image: string; alt: string };
+
+export default function IngredientCarousel({ ingredients }: { ingredients: Ingredient[] }) {
   const track = useRef<HTMLUListElement | null>(null);
   const [canScrollBack, setCanScrollBack] = useState(false);
   const [canScrollOn, setCanScrollOn] = useState(false);
@@ -55,22 +57,21 @@ export default function IngredientCarousel({ ingredients }: { ingredients: strin
       >
         {ingredients.map((ingredient) => (
           <li
-            key={ingredient}
+            key={ingredient.name}
             className="group w-[62%] shrink-0 snap-start sm:w-[38%] lg:w-[calc((100%-4.5rem)/4)]"
           >
             <article className="card-lift flex h-full flex-col border border-gold/20 bg-cream p-4 hover:border-gold/60">
-              {/* TODO: replace with real ingredient photography */}
-              <ImagePlaceholder
-                label={`${ingredient} botanical ingredient`}
+              <Media
+                src={ingredient.image}
+                alt={ingredient.alt}
                 ratio="landscape"
-                tone="linen"
-                rounded={false}
+                sizes="(max-width: 640px) 62vw, (max-width: 1024px) 38vw, 300px"
               />
               <h3 className="mt-5 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">
-                {ingredient}
+                {ingredient.name}
               </h3>
               <div className="mt-4 flex justify-center">
-                <ArrowLink href="/ingredients" label={`Explore ${ingredient}`}>
+                <ArrowLink href="/ingredients" label={`Explore ${ingredient.name}`}>
                   Explore
                 </ArrowLink>
               </div>

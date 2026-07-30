@@ -1,13 +1,15 @@
 import Icon, { type IconName } from "./Icon";
-import ImagePlaceholder from "./ImagePlaceholder";
+import Media from "./Media";
 import { RevealGroup, RevealItem } from "./motion/RevealGroup";
 
 export type Benefit = {
   icon: IconName;
   title: string;
   body: string;
-  /** Describes the imagery that belongs in this cell. */
-  image: string;
+  /** Path under /public, or undefined to fall back to the placeholder. */
+  image?: string;
+  /** Alt text for the image — also the placeholder's description. */
+  imageAlt: string;
 };
 
 /**
@@ -48,12 +50,12 @@ export default function BenefitStrip({
 
             {/* Pushed to the bottom so the tiles align across uneven copy. */}
             <div className="mt-auto pt-7">
-              {/* TODO: replace with real photography */}
-              <ImagePlaceholder
-                label={benefit.image}
+              <Media
+                src={benefit.image}
+                alt={benefit.imageAlt}
                 ratio="wide"
-                tone="cream"
-                rounded={false}
+                placeholderTone="cream"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
               />
             </div>
           </RevealItem>

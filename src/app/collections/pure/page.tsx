@@ -3,10 +3,11 @@ import Hero, { type HeroFeature } from "@/components/Hero";
 import Section from "@/components/Section";
 import CTAButton from "@/components/CTAButton";
 import Icon from "@/components/Icon";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Media from "@/components/Media";
 import BenefitStrip, { type Benefit } from "@/components/BenefitStrip";
 import PromiseBand, { type Standard } from "@/components/PromiseBand";
 import Reveal from "@/components/motion/Reveal";
+import { generic, genericAlt, product } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica PURE | Advanced Botanical Care",
@@ -26,25 +27,29 @@ const benefits: Benefit[] = [
     icon: "leaf",
     title: "Minimal & Pure",
     body: "Sulfate-free formulations powered by carefully selected botanical ingredients for gentle everyday cleansing.",
-    image: "Botanical leaf suspended in clear gel",
+    image: generic.leaves,
+    imageAlt: genericAlt.leaves,
   },
   {
     icon: "molecule",
     title: "Effective Botanicals",
     body: "Advanced botanical complexes work together to nourish, strengthen, and restore healthy-looking hair.",
-    image: "Young botanical seedling in laboratory glassware",
+    image: generic.labFlowerTube,
+    imageAlt: genericAlt.labFlowerTube,
   },
   {
     icon: "droplet",
     title: "Scalp & Hair Care",
     body: "Balanced formulations help support scalp comfort while promoting soft, healthy, and revitalized hair.",
-    image: "Close-up of a healthy scalp and hair parting",
+    image: generic.hairTexture,
+    imageAlt: genericAlt.hairTexture,
   },
   {
     icon: "globe",
     title: "Conscious by Nature",
     body: "Created with respect for both people and the environment through responsible formulation and sustainable thinking.",
-    image: "Fresh green botanical foliage",
+    image: generic.foliage,
+    imageAlt: genericAlt.foliage,
   },
 ];
 
@@ -75,6 +80,7 @@ export default function PurePage() {
         ]}
         bullets={["Botanical Restore Shampoo"]}
         features={heroFeatures}
+        image={product.pureBottle}
         imageLabel="Botanical Restore Shampoo with aloe vera on a stone plinth"
         actions={<CTAButton href="#product">View All PURE Products</CTAButton>}
       />
@@ -86,12 +92,12 @@ export default function PurePage() {
         <h2 className="sr-only">The Rosica PURE collection</h2>
         <div className="group grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <Reveal>
-            {/* TODO: replace with real product photo */}
-            <ImagePlaceholder
-              label="Botanical Restore Shampoo product photography"
+            <Media
+              src={product.botanicalRestoreShampoo}
+              alt="Rosica PURE Botanical Restore Shampoo"
               ratio="portrait"
-              tone="shell"
-              rounded={false}
+              placeholderTone="shell"
+              sizes="(max-width: 1024px) 100vw, 40vw"
               className="mx-auto max-w-md"
             />
           </Reveal>
@@ -114,7 +120,8 @@ export default function PurePage() {
       </Section>
 
       <PromiseBand
-        image="Botanical stems in glass vessels in soft, shadowed daylight"
+        image={generic.labGlassware}
+        imageAlt={genericAlt.labGlassware}
         heading="Pure Care. Visible Results."
         body={[
           "Rosica PURE combines the purity of nature with scientific innovation to create premium botanical formulations that respect your hair, your scalp, and the environment.",

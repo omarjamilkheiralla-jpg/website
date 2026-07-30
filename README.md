@@ -92,6 +92,23 @@ Grid containers set an explicit base column (`grid-cols-1`) before their `lg:` t
 it the single implicit column is auto-sized, and a wide child — the ingredient rail — drags the
 whole page wider than the viewport on mobile.
 
+## Imagery
+
+All imagery goes through `<Media>`, which renders `next/image` when given a `src` and falls back
+to the botanical placeholder when not. Paths and alt text live in `src/lib/media.ts`.
+
+- **`generic`** — licensed stock photography in `public/images/` standing in for the botanical,
+  laboratory and editorial shots in the designs. Pexels licence: free for commercial use, no
+  attribution required. Swap for brand-shot photography whenever you like; only `media.ts`
+  changes.
+- **`product`** — every entry is `undefined`. Rosica product photography is brand-owned and
+  cannot be substituted, so those slots still render the placeholder. **Fill in a path in
+  `media.ts` and it appears everywhere that slot is used** — hero, collection cards, product
+  grids — with no component changes.
+
+The outstanding product slots are `rangeGroup` (all four bottles, used by the homepage, About and
+Collections heroes), `essentialsGroup`, `pureBottle`, and one per named product.
+
 ## Motion
 
 Framer Motion drives the scroll reveals (fade + ~24px rise, children staggered ~90–120ms), the
@@ -113,8 +130,12 @@ Collections are data-driven, not hardcoded to hair care:
 
 ## Before launch
 
-- Replace the placeholder art. Every spot is marked `{/* TODO: replace with real product photo */}`
-  and renders `<ImagePlaceholder>`; swap in `next/image` with real `alt` text.
+- Supply Rosica product photography and fill in the `product` map in `src/lib/media.ts`. This is
+  the single largest visual gap against the reference designs — those layouts are carried by
+  large product shots, and every one of those slots is currently a placeholder.
+- Review the stock imagery in `public/images/` and replace with brand photography where it
+  matters. `ingredient-propolis.jpg` is the weakest match: it shows bees on honeycomb rather than
+  propolis resin itself, because usable propolis photography was not available.
 - Wire `NewsletterForm` to the newsletter provider (marked `TODO`; it currently only shows a
   local confirmation).
 - Point the footer social links at the real Rosica profiles and set the production URL in

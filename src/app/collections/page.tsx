@@ -5,9 +5,10 @@ import SectionHeading from "@/components/SectionHeading";
 import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Media from "@/components/Media";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { generic, genericAlt, product } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Collections | Two Collections. Complete Botanical Care.",
@@ -30,7 +31,8 @@ const collections: {
   features: { icon: IconName; label: string }[];
   cta: string;
   href: string;
-  image: string;
+  image?: string;
+  imageAlt: string;
 }[] = [
   {
     eyebrow: "Collection 01",
@@ -54,7 +56,8 @@ const collections: {
     ],
     cta: "Explore Essentials",
     href: "/collections/essentials",
-    image: "The three Rosica Essentials products with honeycomb and botanicals",
+    image: product.essentialsGroup,
+    imageAlt: "The three Rosica Essentials products with honeycomb and botanicals",
   },
   {
     eyebrow: "Collection 02",
@@ -74,7 +77,8 @@ const collections: {
     ],
     cta: "Explore PURE",
     href: "/collections/pure",
-    image: "Botanical Restore Shampoo with aloe vera and rosemary",
+    image: product.pureBottle,
+    imageAlt: "Rosica PURE Botanical Restore Shampoo with aloe vera and rosemary",
   },
 ];
 
@@ -95,6 +99,7 @@ export default function CollectionsPage() {
           "Rosica collections are thoughtfully created to meet different beauty needs while sharing one philosophy: premium botanical care inspired by nature and refined through modern cosmetic science.",
           "Every collection is developed with carefully selected ingredients, elegant formulations, and a commitment to exceptional everyday care.",
         ]}
+        image={product.rangeGroup}
         imageLabel="The full Rosica range arranged on stone with honeycomb, aloe and rosemary"
         actions={<CTAButton href="#collections">Explore Our Collections</CTAButton>}
       />
@@ -151,12 +156,12 @@ export default function CollectionsPage() {
                   ))}
                 </ul>
 
-                {/* TODO: replace with real product photo */}
-                <ImagePlaceholder
-                  label={collection.image}
+                <Media
+                  src={collection.image}
+                  alt={collection.imageAlt}
                   ratio="wide"
-                  tone="cream"
-                  rounded={false}
+                  placeholderTone="cream"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
                   className="mt-9"
                 />
 
@@ -228,12 +233,11 @@ export default function CollectionsPage() {
           </Reveal>
 
           <Reveal delay={0.12} className="group">
-            {/* TODO: replace with real brand photography */}
-            <ImagePlaceholder
-              label="Botanical cuttings and glassware suggesting future Rosica collections"
+            <Media
+              src={generic.labFlowerTube}
+              alt={genericAlt.labFlowerTube}
               ratio="landscape"
-              tone="linen"
-              rounded={false}
+              sizes="(max-width: 1024px) 100vw, 45vw"
             />
           </Reveal>
         </div>

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Hero, { type HeroFeature } from "@/components/Hero";
 import Section from "@/components/Section";
 import CTAButton from "@/components/CTAButton";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
+import Media from "@/components/Media";
 import BenefitStrip, { type Benefit } from "@/components/BenefitStrip";
 import PromiseBand, { type Standard } from "@/components/PromiseBand";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { generic, genericAlt, product } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica Essentials | Everyday Botanical Care",
@@ -15,9 +16,17 @@ export const metadata: Metadata = {
 
 /** The three approved Essentials products — no others. */
 const products = [
-  { name: "Honey & Propolis Repair Shampoo", tag: "Repair" },
-  { name: "Purifying & Fresh Cleanse Shampoo", tag: "Cleanse" },
-  { name: "Deep Repair Conditioner", tag: "Condition" },
+  {
+    name: "Honey & Propolis Repair Shampoo",
+    tag: "Repair",
+    image: product.honeyPropolisRepairShampoo,
+  },
+  {
+    name: "Purifying & Fresh Cleanse Shampoo",
+    tag: "Cleanse",
+    image: product.purifyingFreshCleanseShampoo,
+  },
+  { name: "Deep Repair Conditioner", tag: "Condition", image: product.deepRepairConditioner },
 ];
 
 const heroFeatures: HeroFeature[] = [
@@ -31,25 +40,29 @@ const benefits: Benefit[] = [
     icon: "leaf",
     title: "Natural & Gentle",
     body: "Carefully selected botanical ingredients help cleanse and care for hair while respecting its natural balance.",
-    image: "Chamomile flowers in a glass dish",
+    image: generic.chamomile,
+    imageAlt: genericAlt.chamomile,
   },
   {
     icon: "molecule",
     title: "Effective Results",
     body: "Advanced botanical formulations help nourish, strengthen, and improve the overall appearance of healthy-looking hair.",
-    image: "Botanical formulation in laboratory glassware",
+    image: generic.labTestTubes,
+    imageAlt: genericAlt.labTestTubes,
   },
   {
     icon: "droplet",
     title: "Suitable for Everyday Care",
     body: "Balanced formulations designed for regular use and suitable for most hair types, including color-treated and chemically treated hair.",
-    image: "Close-up of healthy, softly waved hair",
+    image: generic.hairTexture,
+    imageAlt: genericAlt.hairTexture,
   },
   {
     icon: "globe",
     title: "Conscious by Nature",
     body: "Every Rosica Essentials product is developed with respect for both people and the environment through thoughtful formulation and responsible manufacturing.",
-    image: "Fresh botanical leaves on a pale background",
+    image: generic.leaves,
+    imageAlt: genericAlt.leaves,
   },
 ];
 
@@ -78,8 +91,9 @@ export default function EssentialsPage() {
           "Rosica Essentials is our everyday botanical care collection, thoughtfully created to cleanse, nourish, repair, and protect. Combining carefully selected botanical ingredients with modern cosmetic science, every formula is designed to deliver effective daily care while maintaining the perfect balance between performance and gentleness.",
           "The collection currently includes:",
         ]}
-        bullets={products.map((product) => product.name)}
+        bullets={products.map((item) => item.name)}
         features={heroFeatures}
+        image={product.essentialsGroup}
         imageLabel="The three Rosica Essentials products with honeycomb and botanicals"
         actions={<CTAButton href="#products">View All Essentials</CTAButton>}
       />
@@ -90,18 +104,18 @@ export default function EssentialsPage() {
       <Section tone="cream" id="products">
         <h2 className="sr-only">The Rosica Essentials collection</h2>
         <RevealGroup className="grid gap-8 md:grid-cols-3" stagger={0.11}>
-          {products.map((product) => (
-            <RevealItem key={product.name} className="h-full">
+          {products.map((item) => (
+            <RevealItem key={item.name} className="h-full">
               <article className="card-lift group flex h-full flex-col items-center border border-gold/20 bg-shell p-8 text-center hover:border-gold/60">
-                {/* TODO: replace with real product photo */}
-                <ImagePlaceholder
-                  label={`${product.name} product photography`}
+                <Media
+                  src={item.image}
+                  alt={`Rosica ${item.name}`}
                   ratio="portrait"
-                  tone="cream"
-                  rounded={false}
+                  placeholderTone="cream"
+                  sizes="(max-width: 768px) 100vw, 30vw"
                 />
-                <p className="eyebrow mt-8 text-gold-deep">{product.tag}</p>
-                <h3 className="mt-3 text-xl sm:text-2xl">{product.name}</h3>
+                <p className="eyebrow mt-8 text-gold-deep">{item.tag}</p>
+                <h3 className="mt-3 text-xl sm:text-2xl">{item.name}</h3>
               </article>
             </RevealItem>
           ))}
@@ -109,7 +123,8 @@ export default function EssentialsPage() {
       </Section>
 
       <PromiseBand
-        image="Botanical cuttings in laboratory glassware on a sunlit bench"
+        image={generic.labGlassware}
+        imageAlt={genericAlt.labGlassware}
         heading="The Rosica Essentials Promise"
         body={[
           "Rosica Essentials combines the purity of nature with the precision of cosmetic science to create formulations you can rely on every day.",

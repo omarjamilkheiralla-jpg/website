@@ -1,12 +1,13 @@
 import Icon, { type IconName } from "./Icon";
-import ImagePlaceholder from "./ImagePlaceholder";
+import Media from "./Media";
 import Reveal from "./motion/Reveal";
 import { RevealGroup, RevealItem } from "./motion/RevealGroup";
 
 export type Standard = { icon: IconName; label: string };
 
 type PromiseBandProps = {
-  image: string;
+  image?: string;
+  imageAlt: string;
   heading: string;
   body: string[];
   /** The short promise list that follows the body copy. */
@@ -24,6 +25,7 @@ type PromiseBandProps = {
  */
 export default function PromiseBand({
   image,
+  imageAlt,
   heading,
   body,
   promises,
@@ -34,15 +36,15 @@ export default function PromiseBand({
   return (
     <section className="bg-linen">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)_minmax(0,1.15fr)]">
-        {/* TODO: replace with real photography */}
         <div className="group bg-linen">
-          <ImagePlaceholder
-            label={image}
-            tone="cream"
-            rounded={false}
-            bordered={false}
+          <Media
+            src={image}
+            alt={imageAlt}
             fill
-            className="h-full min-h-64"
+            bordered={false}
+            placeholderTone="cream"
+            sizes="(max-width: 1024px) 100vw, 25vw"
+            className="min-h-64"
           />
         </div>
 
