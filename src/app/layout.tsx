@@ -32,6 +32,10 @@ export const metadata: Metadata = {
     "natural cosmetics",
     "botanical ingredients",
   ],
+  // The site is a private work in progress behind Vercel's deployment
+  // protection. noindex is belt-and-braces: if protection is ever lifted, search
+  // engines still will not list it. REMOVE THIS BLOCK AT LAUNCH.
+  robots: { index: false, follow: false, nocache: true },
   openGraph: {
     type: "website",
     siteName: "Rosica",
