@@ -65,6 +65,7 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
                 src={ingredient.image}
                 alt={ingredient.alt}
                 ratio="landscape"
+                rounded
                 sizes="(max-width: 640px) 62vw, (max-width: 1024px) 38vw, 300px"
               />
               <h3 className="mt-5 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">

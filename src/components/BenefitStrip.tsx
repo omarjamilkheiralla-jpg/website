@@ -13,9 +13,10 @@ export type Benefit = {
 };
 
 /**
- * Four-cell benefit band. Each cell pairs a gold line icon and copy with
- * imagery alongside it, bleeding to the cell edge — the treatment used on the
- * collection pages in the approved designs.
+ * Four-cell benefit band. Copy sits above its photograph rather than beside it:
+ * at four cells across, a side-by-side split left the image too narrow to read
+ * as photography. Each image is inset from the cell edge so it floats, and is
+ * therefore rounded.
  */
 export default function BenefitStrip({
   benefits,
@@ -41,26 +42,24 @@ export default function BenefitStrip({
           <RevealItem
             as="li"
             key={benefit.title}
-            className={`group flex items-stretch gap-4 ${bg}`}
+            className={`group flex flex-col px-7 py-9 sm:px-8 ${bg}`}
           >
-            <div className="flex min-w-0 flex-1 flex-col py-9 pl-7 sm:pl-8">
-              <span className="text-gold">
-                <Icon name={benefit.icon} className="h-7 w-7" />
-              </span>
-              <h3 className="mt-5 text-xl">{benefit.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{benefit.body}</p>
-            </div>
+            <span className="text-gold">
+              <Icon name={benefit.icon} className="h-7 w-7" />
+            </span>
+            <h3 className="mt-5 text-xl">{benefit.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">{benefit.body}</p>
 
-            {/* Imagery runs to the cell edge alongside the copy */}
-            <div className="w-[38%] shrink-0 self-stretch">
+            {/* Photography closes the cell, given the full width to breathe */}
+            <div className="mt-auto pt-8">
               <Media
                 src={benefit.image}
                 alt={benefit.imageAlt}
-                fill
+                ratio="landscape"
+                rounded
                 bordered={false}
                 placeholderTone="cream"
-                sizes="(max-width: 640px) 40vw, (max-width: 1024px) 20vw, 130px"
-                className="h-full min-h-44"
+                sizes="(max-width: 640px) 88vw, (max-width: 1024px) 44vw, 300px"
               />
             </div>
           </RevealItem>

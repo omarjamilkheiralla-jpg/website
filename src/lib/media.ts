@@ -12,21 +12,30 @@
  */
 
 export const generic = {
+  // Ingredient library — one photograph per botanical.
   honey: "/images/ingredient-honey.jpg",
   propolis: "/images/ingredient-propolis.jpg",
   aloeVera: "/images/ingredient-aloe-vera.jpg",
   rosemary: "/images/ingredient-rosemary.jpg",
+
+  // Botanical still life.
   chamomile: "/images/botanical-chamomile.jpg",
   leaves: "/images/botanical-leaves.jpg",
   foliage: "/images/botanical-foliage.jpg",
-  oliveShadow: "/images/botanical-olive-shadow.jpg",
-  oliveVase: "/images/botanical-olive-vase.jpg",
   shadowWall: "/images/botanical-shadow-wall.jpg",
+  vaseLinen: "/images/botanical-vase-linen.jpg",
+
+  // Laboratory and formulation.
   labGlassware: "/images/lab-glassware.jpg",
   labFlowerTube: "/images/lab-flower-tube.jpg",
-  labTestTubes: "/images/lab-test-tubes.jpg",
+  labFlaskFlower: "/images/lab-flask-flower.jpg",
+  labFlatlay: "/images/lab-flatlay.jpg",
+  labOverhead: "/images/lab-overhead.jpg",
+
+  // Ritual and editorial.
+  soapLinen: "/images/spa-soap-linen.jpg",
   hairTexture: "/images/hair-texture.jpg",
-  manufacturing: "/images/manufacturing.jpg",
+  hairScalp: "/images/hair-scalp.jpg",
   journal: "/images/journal-editorial.jpg",
 } as const;
 
@@ -36,17 +45,23 @@ export const genericAlt = {
   propolis: "A golden honeycomb filled with honey, seen close up",
   aloeVera: "Close-up of aloe vera leaves against a plain white background",
   rosemary: "A sprig of fresh rosemary on pale marble in soft light",
+
   chamomile: "Chamomile flowers in bloom",
   leaves: "A single green palm leaf resting on soft beige fabric",
   foliage: "A green leaf branch resting on a pale linen surface",
-  oliveShadow: "Olive branch shadows falling across a warm neutral wall",
-  oliveVase: "Olive branches arranged in a vase against a pale wall",
-  shadowWall: "Soft botanical shadows cast on a pale wall",
+  shadowWall: "Soft botanical shadows cast across a warm cream wall",
+  vaseLinen: "A slender flowering branch in a pale ceramic vase on draped linen",
+
   labGlassware: "Botanical stems in laboratory glassware in soft daylight",
   labFlowerTube: "A single flower suspended in a glass test tube",
-  labTestTubes: "Laboratory test tubes holding botanical cuttings",
+  labFlaskFlower: "A white bloom standing inside a tall graduated glass cylinder",
+  labFlatlay:
+    "Pale blossoms, a round glass flask and petri dishes arranged on a white surface",
+  labOverhead: "Clean laboratory glassware and petri dishes seen from above",
+
+  soapLinen: "Amber botanical soap bars laid out on white linen with dried grasses",
   hairTexture: "Close-up of long, healthy brown hair",
-  manufacturing: "Laboratory glassware and equipment in a clean facility",
+  hairScalp: "The back of a woman's head showing long, smooth, healthy hair",
   journal: "An open book beside a jar of flowers in warm daylight",
 } as const;
 
@@ -66,10 +81,14 @@ export const product = {
   essentialsGroup: "/images/product-essentials-group.jpg",
   /** Essentials group with the backdrop extended for the wide hero band. */
   essentialsGroupHero: "/images/product-essentials-group-hero.jpg",
+  /** Essentials group in a tall frame, for the Collections side panel. */
+  essentialsGroupPanel: "/images/product-essentials-group-panel.jpg",
   /** Botanical Restore Shampoo styled with olive and aloe. */
   pureBottle: "/images/product-botanical-restore-shampoo.jpg",
   /** The same shot, backdrop extended for the wide hero band. */
   pureBottleHero: "/images/product-pure-bottle-hero.jpg",
+  /** The same shot in a tall frame, for the Collections side panel. */
+  pureBottlePanel: "/images/product-pure-bottle-panel.jpg",
   honeyPropolisRepairShampoo: "/images/product-honey-propolis-repair-shampoo.jpg",
   purifyingFreshCleanseShampoo: "/images/product-purifying-fresh-cleanse-shampoo.jpg",
   deepRepairConditioner: "/images/product-deep-repair-conditioner.jpg",
@@ -86,9 +105,13 @@ export const productAlt = {
     "The three Rosica Essentials products on travertine with rosemary and blossom",
   essentialsGroupHero:
     "The three Rosica Essentials products on travertine with rosemary and blossom",
+  essentialsGroupPanel:
+    "The three Rosica Essentials products on travertine with rosemary and blossom",
   pureBottle:
     "Rosica Pure Botanical Restore Shampoo on travertine with olive branches and aloe vera",
   pureBottleHero:
+    "Rosica Pure Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+  pureBottlePanel:
     "Rosica Pure Botanical Restore Shampoo on travertine with olive branches and aloe vera",
   honeyPropolisRepairShampoo:
     "Rosica Essentials Honey & Propolis Repair Shampoo with yellow blossom and green leaves",

@@ -95,17 +95,29 @@ export default function BrandMark({
 
   const lockup = (
     <span className={`flex flex-col ${className}`}>
+      {/*
+        Exposed as a labelled image so assistive tech announces "Rosica" once
+        rather than spelling the botanical "i" out of the wordmark.
+
+        Gold on cream is 2.06:1, below the 3:1 an automated contrast checker
+        asks of large text. That is deliberate and permitted: WCAG 1.4.3 exempts
+        text that is part of a logo or brand name, and this is the approved
+        lockup. Do not darken it to satisfy a linter — the tagline beneath is
+        real text and does carry a passing contrast ratio.
+      */}
       <span
+        role="img"
+        aria-label="Rosica"
         className={`font-serif font-medium leading-none tracking-[0.02em] text-gold ${s.word}`}
       >
-        Ros
-        {/* The mark replaces the letter, as it does in the brand logo. The
-            letter itself stays for screen readers and for copied text. */}
-        <span className="relative inline-block h-[1em] w-[0.38em] align-baseline">
-          <span className="sr-only">i</span>
-          <BotanicalMark className="absolute bottom-[-0.12em] left-1/2 h-[1.10em] w-auto -translate-x-1/2 text-gold" />
+        <span aria-hidden="true">
+          Ros
+          {/* The mark replaces the letter, as it does in the brand logo. */}
+          <span className="relative inline-block h-[1em] w-[0.38em] align-baseline">
+            <BotanicalMark className="absolute bottom-[-0.12em] left-1/2 h-[1.10em] w-auto -translate-x-1/2 text-gold" />
+          </span>
+          ca
         </span>
-        ca
       </span>
 
       {withTagline ? (

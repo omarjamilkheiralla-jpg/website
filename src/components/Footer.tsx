@@ -52,7 +52,7 @@ export default function Footer() {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-6 py-16 sm:px-8 sm:py-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,2.6fr)_minmax(0,1.25fr)] lg:gap-14">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,3.1fr)_minmax(0,1.2fr)] lg:gap-10">
           {/* Wordmark, bilingual tagline and brand blurb */}
           <div>
             <BrandMark size="md" tone="light" />
@@ -65,12 +65,16 @@ export default function Footer() {
           {/* Link columns */}
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5"
+            className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5"
           >
             {footerColumns.map((column) => (
               <div key={column.heading}>
-                <h2 className="eyebrow text-gold-soft">{column.heading}</h2>
-                <ul className="mt-5 space-y-3">
+                {/* Two-line reserve keeps every list starting on the same
+                    baseline when a heading wraps. */}
+                <h2 className="eyebrow flex min-h-9 items-start text-gold-soft">
+                  {column.heading}
+                </h2>
+                <ul className="mt-4 space-y-3">
                   {column.links.map((link) => (
                     <li key={`${column.heading}-${link.label}`}>
                       <Link

@@ -61,6 +61,43 @@ const promiseMarks: Mark[] = [
   { icon: "leaf", label: "Inspired by Nature" },
 ];
 
+/** The middle About band: nature × science, manufacturing, and quality. */
+const pillars: {
+  id?: string;
+  eyebrow: string;
+  title?: string;
+  body: string;
+  image: string;
+  imageAlt: string;
+  link?: { href: string; label: string };
+  marks?: Mark[];
+}[] = [
+  {
+    eyebrow: "Nature × Science",
+    title: "The Perfect Balance",
+    body: "We blend botanical wisdom with scientific innovation to create formulas that deliver real results—from nature, refined by science.",
+    image: generic.labFlowerTube,
+    imageAlt: genericAlt.labFlowerTube,
+    link: { href: "/ingredients", label: "Learn More About Our Ingredients" },
+  },
+  {
+    id: "quality",
+    eyebrow: "Our Manufacturing",
+    title: "Crafted with Care",
+    body: "Our products are manufactured in world-class facilities that follow the highest standards of quality, safety, and hygiene.",
+    image: generic.labGlassware,
+    imageAlt: genericAlt.labGlassware,
+    marks: manufacturingMarks,
+  },
+  {
+    eyebrow: "Quality You Can Trust",
+    body: "We are committed to creating premium botanical beauty that is effective, honest, and made with a deep respect for nature and for you.",
+    image: generic.soapLinen,
+    imageAlt: genericAlt.soapLinen,
+    marks: qualityMarks,
+  },
+];
+
 const collectionCards = [
   {
     name: "Rosica Essentials",
@@ -112,16 +149,16 @@ export default function AboutPage() {
 
       {/* Story and philosophy share one band, as in the artwork */}
       <section id="our-story" className="border-t border-gold/20 bg-shell">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.15fr)_minmax(0,1.5fr)]">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.15fr)_minmax(0,1.5fr)]">
           <div className="group bg-shell">
             <Media
-              src={generic.labGlassware}
-              alt={genericAlt.labGlassware}
+              src={generic.shadowWall}
+              alt={genericAlt.shadowWall}
               fill
               bordered={false}
               placeholderTone="cream"
-              sizes="(max-width: 1024px) 100vw, 20vw"
-              className="h-full min-h-60"
+              sizes="(max-width: 1024px) 100vw, 30vw"
+              className="h-full min-h-[24rem]"
             />
           </div>
 
@@ -147,7 +184,9 @@ export default function AboutPage() {
           <Reveal className="bg-shell px-8 py-12 sm:px-9" delay={0.1} id="philosophy">
             <p className="eyebrow text-gold-deep">Our Philosophy</p>
             <h2 className="sr-only">Our philosophy</h2>
-            <ul className="mt-7 grid grid-cols-2 gap-8 lg:grid-cols-4">
+            {/* Two across, not four: at four the copy wrapped to a column of
+                single words at this cell width. */}
+            <ul className="mt-7 grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2">
               {philosophy.map((item) => (
                 <li key={item.title} className="text-center">
                   <span className="inline-flex text-gold">
@@ -164,76 +203,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Nature × science, manufacturing and quality */}
+      {/*
+        Nature × science, manufacturing and quality. Each panel carries its own
+        photograph across the full cell width — narrow image columns beside the
+        copy read as slivers rather than photography.
+      */}
       <section className="border-t border-gold/20 bg-cream">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.1fr)_minmax(0,0.6fr)_minmax(0,1.1fr)_minmax(0,0.6fr)_minmax(0,1.1fr)]">
-          <div className="group bg-cream">
-            <Media
-              src={generic.labFlowerTube}
-              alt={genericAlt.labFlowerTube}
-              fill
-              bordered={false}
-              placeholderTone="shell"
-              sizes="(max-width: 1024px) 100vw, 14vw"
-              className="h-full min-h-56"
-            />
-          </div>
+        <h2 className="sr-only">How Rosica is made</h2>
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-3">
+          {pillars.map((pillar, i) => (
+            <Reveal
+              key={pillar.eyebrow}
+              className="group flex flex-col bg-cream"
+              delay={0.08 * i}
+              id={pillar.id}
+            >
+              <Media
+                src={pillar.image}
+                alt={pillar.imageAlt}
+                ratio="landscape"
+                bordered={false}
+                placeholderTone="shell"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
 
-          <Reveal className="bg-cream px-7 py-12">
-            <p className="eyebrow text-gold-deep">Nature × Science</p>
-            <h2 className="mt-3 text-[1.75rem]">The Perfect Balance</h2>
-            <p className="mt-5 text-sm leading-relaxed text-ink-muted">
-              We blend botanical wisdom with scientific innovation to create formulas that deliver
-              real results—from nature, refined by science.
-            </p>
-            <div className="mt-7">
-              <ArrowLink href="/ingredients">Learn More About Our Ingredients</ArrowLink>
-            </div>
-          </Reveal>
-
-          <div className="group bg-cream">
-            <Media
-              src={generic.manufacturing}
-              alt={genericAlt.manufacturing}
-              fill
-              bordered={false}
-              placeholderTone="shell"
-              sizes="(max-width: 1024px) 100vw, 14vw"
-              className="h-full min-h-56"
-            />
-          </div>
-
-          <Reveal className="bg-cream px-7 py-12" delay={0.08} id="quality">
-            <p className="eyebrow text-gold-deep">Our Manufacturing</p>
-            <h2 className="mt-3 text-[1.75rem]">Crafted with Care</h2>
-            <p className="mt-5 text-sm leading-relaxed text-ink-muted">
-              Our products are manufactured in world-class facilities that follow the highest
-              standards of quality, safety, and hygiene.
-            </p>
-            <MarkRow marks={manufacturingMarks} />
-          </Reveal>
-
-          <div className="group bg-cream">
-            <Media
-              src={generic.labTestTubes}
-              alt={genericAlt.labTestTubes}
-              fill
-              bordered={false}
-              placeholderTone="shell"
-              sizes="(max-width: 1024px) 100vw, 14vw"
-              className="h-full min-h-56"
-            />
-          </div>
-
-          <Reveal className="bg-cream px-7 py-12" delay={0.16}>
-            <p className="eyebrow text-gold-deep">Quality You Can Trust</p>
-            <h2 className="sr-only">Quality you can trust</h2>
-            <p className="mt-5 text-sm leading-relaxed text-ink-muted">
-              We are committed to creating premium botanical beauty that is effective, honest, and
-              made with a deep respect for nature and for you.
-            </p>
-            <MarkRow marks={qualityMarks} />
-          </Reveal>
+              <div className="flex flex-1 flex-col px-7 py-11 sm:px-9">
+                <p className="eyebrow text-gold-deep">{pillar.eyebrow}</p>
+                {pillar.title ? (
+                  <h3 className="mt-3 text-[1.75rem]">{pillar.title}</h3>
+                ) : null}
+                <p className="mt-5 text-sm leading-relaxed text-ink-muted">{pillar.body}</p>
+                {pillar.link ? (
+                  <div className="mt-7">
+                    <ArrowLink href={pillar.link.href}>{pillar.link.label}</ArrowLink>
+                  </div>
+                ) : null}
+                {pillar.marks ? <MarkRow marks={pillar.marks} /> : null}
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -255,27 +263,25 @@ export default function AboutPage() {
           {collectionCards.map((collection, i) => (
             <Reveal
               key={collection.name}
-              className="group flex items-stretch gap-4 bg-shell"
+              className="group flex flex-col bg-shell px-7 py-12"
               delay={0.08 * (i + 1)}
             >
-              <div className="min-w-0 flex-1 py-12 pl-7">
-                <p className="eyebrow text-gold-deep">{collection.name}</p>
-                <p className="mt-3 font-serif text-lg text-green">{collection.tagline}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
-                <div className="mt-6">
-                  <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
-                </div>
+              <p className="eyebrow text-gold-deep">{collection.name}</p>
+              <p className="mt-3 font-serif text-lg text-green">{collection.tagline}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
+              <div className="mt-6">
+                <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
               </div>
-              <div className="w-[38%] shrink-0 self-stretch">
+              {/* Square crop keeps every bottle whole; inset, so rounded */}
+              <div className="mt-auto pt-9">
                 <Media
                   src={collection.image}
                   alt={collection.imageAlt}
-                  fill
+                  ratio="square"
+                  rounded
                   bordered={false}
-                  position="center bottom"
                   placeholderTone="cream"
-                  sizes="(max-width: 1024px) 38vw, 16vw"
-                  className="h-full min-h-56"
+                  sizes="(max-width: 1024px) 88vw, 320px"
                 />
               </div>
             </Reveal>

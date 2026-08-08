@@ -37,8 +37,8 @@ const collections: {
     ],
     cta: "Explore Essentials",
     href: "/collections/essentials",
-    image: product.essentialsGroup,
-    imageAlt: productAlt.essentialsGroup,
+    image: product.essentialsGroupPanel,
+    imageAlt: productAlt.essentialsGroupPanel,
   },
   {
     name: "Pure",
@@ -51,8 +51,8 @@ const collections: {
     ],
     cta: "Explore Pure",
     href: "/collections/pure",
-    image: product.pureBottle,
-    imageAlt: productAlt.pureBottle,
+    image: product.pureBottlePanel,
+    imageAlt: productAlt.pureBottlePanel,
   },
 ];
 
@@ -113,7 +113,9 @@ export default function CollectionsPage() {
 
                   <p className="mt-6 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
 
-                  <ul className="mt-8 grid grid-cols-4 gap-3">
+                  {/* Two across: four columns ran the tracked-out labels into
+                      one another at this panel width. */}
+                  <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6">
                     {collection.features.map((feature) => (
                       <li
                         key={feature.label}
@@ -134,8 +136,12 @@ export default function CollectionsPage() {
                   </div>
                 </div>
 
-                {/* Product photography runs to the panel edge, as in the artwork */}
-                <div className="w-[42%] shrink-0 self-stretch">
+                {/*
+                  Product photography runs to the panel edge, as in the artwork.
+                  The tall crop is anchored to the bottom so the bottles stay
+                  whole however deep the copy column grows.
+                */}
+                <div className="w-[52%] shrink-0 self-stretch">
                   <Media
                     src={collection.image}
                     alt={collection.imageAlt}
@@ -143,8 +149,8 @@ export default function CollectionsPage() {
                     bordered={false}
                     position="center bottom"
                     placeholderTone="cream"
-                    sizes="(max-width: 1024px) 42vw, 22vw"
-                    className="h-full min-h-72"
+                    sizes="(max-width: 1024px) 52vw, 340px"
+                    className="h-full min-h-[26rem]"
                   />
                 </div>
               </article>

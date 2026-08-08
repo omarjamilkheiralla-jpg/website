@@ -30,8 +30,8 @@ const benefits: Benefit[] = [
     icon: "molecule",
     title: "Effective Results",
     body: "Advanced botanicals work in harmony to cleanse, nourish, and strengthen from root to tip.",
-    image: generic.labTestTubes,
-    imageAlt: genericAlt.labTestTubes,
+    image: generic.labFlatlay,
+    imageAlt: genericAlt.labFlatlay,
   },
   {
     icon: "droplet",

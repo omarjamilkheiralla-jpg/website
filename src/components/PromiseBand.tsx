@@ -30,7 +30,7 @@ export default function PromiseBand({
 }: PromiseBandProps) {
   return (
     <section className="border-t border-gold/20 bg-linen">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,2.1fr)_minmax(0,1.1fr)]">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-stretch gap-px bg-gold/20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,2.25fr)_minmax(0,1.15fr)]">
         <div className="group bg-linen">
           <Media
             src={image}
@@ -38,8 +38,8 @@ export default function PromiseBand({
             fill
             bordered={false}
             placeholderTone="cream"
-            sizes="(max-width: 1024px) 100vw, 22vw"
-            className="h-full min-h-56"
+            sizes="(max-width: 1024px) 100vw, 30vw"
+            className="h-full min-h-[20rem]"
           />
         </div>
 
@@ -55,15 +55,17 @@ export default function PromiseBand({
           <h3 className="sr-only">Formula standards</h3>
           <RevealGroup
             as="ul"
-            className="mt-9 grid grid-cols-2 gap-5 border-t border-gold/25 pt-7 lg:grid-cols-4"
+            className="mt-9 grid grid-cols-2 gap-x-4 gap-y-6 border-t border-gold/25 pt-7 lg:grid-cols-4"
             stagger={0.08}
           >
             {standards.map((standard) => (
-              <RevealItem as="li" key={standard.label} className="flex items-center gap-3">
+              <RevealItem as="li" key={standard.label} className="flex items-center gap-2.5">
                 <span className="shrink-0 text-gold">
                   <Icon name={standard.icon} className="h-7 w-7" />
                 </span>
-                <span className="text-xs leading-snug text-ink-muted">{standard.label}</span>
+                <span className="min-w-0 text-xs leading-snug text-ink-muted">
+                  {standard.label}
+                </span>
               </RevealItem>
             ))}
           </RevealGroup>

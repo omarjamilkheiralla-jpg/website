@@ -24,22 +24,22 @@ const benefits: Benefit[] = [
     icon: "leaf",
     title: "Minimal & Pure",
     body: "Sulfate-free formulations powered by carefully selected botanical ingredients.",
-    image: generic.leaves,
-    imageAlt: genericAlt.leaves,
+    image: generic.vaseLinen,
+    imageAlt: genericAlt.vaseLinen,
   },
   {
     icon: "molecule",
     title: "Effective Botanicals",
     body: "Advanced botanical complexes work in harmony to nourish, strengthen, and restore.",
-    image: generic.labFlowerTube,
-    imageAlt: genericAlt.labFlowerTube,
+    image: generic.labFlaskFlower,
+    imageAlt: genericAlt.labFlaskFlower,
   },
   {
     icon: "droplet",
     title: "Scalp & Hair Care",
     body: "Thoughtfully developed to support scalp comfort and promote the look of healthy, beautiful hair.",
-    image: generic.hairTexture,
-    imageAlt: genericAlt.hairTexture,
+    image: generic.hairScalp,
+    imageAlt: genericAlt.hairScalp,
   },
   {
     icon: "globe",
@@ -74,8 +74,8 @@ export default function PurePage() {
       <BenefitStrip heading="Collection benefits" benefits={benefits} />
 
       <PromiseBand
-        image={generic.labGlassware}
-        imageAlt={genericAlt.labGlassware}
+        image={generic.labOverhead}
+        imageAlt={genericAlt.labOverhead}
         heading="The Rosica Pure Promise"
         body={[
           "We combine the purity of nature with scientific innovation to create high-performance formulations that respect your hair and the planet.",

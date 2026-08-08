@@ -190,8 +190,19 @@ export default function HomePage() {
           <RevealGroup className="grid gap-6 sm:grid-cols-2" stagger={0.12}>
             {collections.map((collection) => (
               <RevealItem key={collection.name} className="h-full">
-                <article className="card-lift group flex h-full items-stretch gap-5 rounded-md border border-gold/20 bg-linen p-7 hover:border-gold/60">
-                  <div className="flex min-w-0 flex-1 flex-col">
+                {/* The card floats, so it is rounded — and the photography runs
+                    to its edges rather than sitting in a narrow side panel. */}
+                <article className="card-lift group flex h-full flex-col overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
+                  <Media
+                    src={collection.image}
+                    alt={collection.imageAlt}
+                    ratio="landscape"
+                    bordered={false}
+                    placeholderTone="cream"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 440px"
+                  />
+
+                  <div className="flex min-w-0 flex-1 flex-col p-7">
                     <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
                       {collection.name}
                     </h3>
@@ -200,20 +211,6 @@ export default function HomePage() {
                     <div className="mt-auto pt-7">
                       <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
                     </div>
-                  </div>
-
-                  {/* Bottles sit beside the copy inside the card, per the artwork */}
-                  <div className="w-[38%] shrink-0 self-stretch">
-                    <Media
-                      src={collection.image}
-                      alt={collection.imageAlt}
-                      fill
-                      rounded
-                      position="center bottom"
-                      placeholderTone="cream"
-                      sizes="(max-width: 640px) 40vw, 22vw"
-                      className="h-full min-h-52"
-                    />
                   </div>
                 </article>
               </RevealItem>
@@ -237,7 +234,7 @@ export default function HomePage() {
       <section className="border-t border-gold/20 bg-cream">
         <h2 className="sr-only">The Rosica ritual, journal and community</h2>
         <RevealGroup
-          className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-px bg-gold/20 md:grid-cols-2 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.7fr)_minmax(0,1.05fr)_minmax(0,1.15fr)]"
+          className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-px bg-gold/20 md:grid-cols-2 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,2.05fr)_minmax(0,1fr)_minmax(0,1.05fr)]"
           stagger={0.09}
         >
           {/* Ritual intro */}
@@ -290,24 +287,22 @@ export default function HomePage() {
           </RevealItem>
 
           {/* Community */}
-          <RevealItem className="group relative flex items-stretch gap-4 overflow-hidden bg-cream">
-            <div className="min-w-0 flex-1 py-10 pl-7">
-              <p className="eyebrow text-gold-deep">Join the Rosica Community</p>
-              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-                Be the first to know about new launches, education and exclusive offers.
-              </p>
-              <div className="mt-5">
-                <ArrowLink href="/journal">Explore Articles</ArrowLink>
-              </div>
+          <RevealItem className="group flex flex-col bg-cream px-7 py-10">
+            <p className="eyebrow text-gold-deep">Join the Rosica Community</p>
+            <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+              Be the first to know about new launches, education and exclusive offers.
+            </p>
+            <div className="mt-5">
+              <ArrowLink href="/journal">Explore Articles</ArrowLink>
             </div>
-            <div className="w-[42%] shrink-0 self-stretch">
+            <div className="mt-auto pt-8">
               <Media
                 src={generic.journal}
                 alt={genericAlt.journal}
-                fill
+                ratio="landscape"
+                rounded
                 bordered={false}
-                sizes="(max-width: 768px) 40vw, 160px"
-                className="h-full min-h-44"
+                sizes="(max-width: 768px) 88vw, 300px"
               />
             </div>
           </RevealItem>

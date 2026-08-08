@@ -27,7 +27,11 @@ type HeroProps = {
   image?: string;
   /** Describes the photography that belongs in the hero. */
   imageLabel?: string;
-  /** object-position for the hero photo; "center bottom" keeps bottles whole. */
+  /**
+   * object-position for the hero photo. The default anchors to the right, where
+   * the products sit — the backdrop to their left is what gets cropped when the
+   * frame is narrower than the photograph, so no bottle is ever cut.
+   */
   imagePosition?: string;
   /** "tall" is the homepage; "short" suits the inner pages. */
   height?: "tall" | "short";
@@ -116,7 +120,7 @@ export default function Hero({
   ornament = false,
   image,
   imageLabel = "Rosica botanical product photography",
-  imagePosition = "center",
+  imagePosition = "right center",
   height = "short",
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
@@ -236,7 +240,8 @@ export default function Hero({
           className="h-full w-full"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,246,238,0.94)_0%,rgba(250,246,238,0.72)_45%,rgba(250,246,238,0.55)_100%)] lg:hidden" />
-        <span className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.93)_30%,rgba(250,246,238,0.55)_52%,rgba(250,246,238,0)_72%)]" />
+        {/* Clears the photography by ~60% so no bottle sits under the wash */}
+        <span className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.92)_26%,rgba(250,246,238,0.5)_44%,rgba(250,246,238,0)_60%)]" />
       </div>
       {/* The photo is decorative here; the alt text lives on this label. */}
       <span className="sr-only">{imageLabel}</span>

@@ -84,6 +84,7 @@ export default function IngredientsPage() {
                   src={ingredient.image}
                   alt={ingredient.alt}
                   ratio="square"
+                  rounded
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
                 />
                 <h3 className="mt-6 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">
