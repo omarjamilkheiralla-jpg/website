@@ -109,7 +109,7 @@ export default function HomePage() {
       <Hero
         eyebrow="BOTANICAL BEAUTY"
         title="Inspired by Nature. Refined Through Science."
-        body="Discover a premium natural beauty experience inspired by nature and elevated through modern cosmetic science. At Rosica, we thoughtfully formulate every product using carefully selected botanical ingredients and advanced cosmetic expertise to deliver effective, elegant everyday care. Our journey begins with premium hair care and will continue with carefully crafted skin care and body care collections, all united by one philosophy: beauty inspired by nature."
+        body="Premium botanical beauty developed through thoughtful formulation, carefully selected ingredients, and a commitment to everyday care."
         image={product.rangeGroupHero}
         imageLabel={productAlt.rangeGroupHero}
         height="tall"
@@ -124,7 +124,7 @@ export default function HomePage() {
       />
 
       {/* Brand values — three cells split by hairline gold rules */}
-      <section className="border-y border-gold/20 bg-cream">
+      <section id="main-content" className="border-y border-gold/20 bg-cream">
         <h2 className="sr-only">Why Rosica?</h2>
         <RevealGroup
           as="ul"
@@ -191,25 +191,30 @@ export default function HomePage() {
           <RevealGroup className="grid gap-6 sm:grid-cols-2" stagger={0.12}>
             {collections.map((collection) => (
               <RevealItem key={collection.name} className="h-full">
-                <article className="card-lift group flex h-full flex-col border border-gold/20 bg-linen p-8 hover:border-gold/60">
-                  <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
-                    {collection.name}
-                  </h3>
-                  <p className="mt-3 font-serif text-xl text-gold-deep">{collection.tagline}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
+                <article className="card-lift group flex h-full items-stretch gap-5 rounded-md border border-gold/20 bg-linen p-7 hover:border-gold/60">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
+                      {collection.name}
+                    </h3>
+                    <p className="mt-3 font-serif text-xl text-gold-deep">{collection.tagline}</p>
+                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
+                    <div className="mt-auto pt-7">
+                      <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
+                    </div>
+                  </div>
 
-                  <Media
-                    src={collection.image}
-                    alt={collection.imageAlt}
-                    ratio="landscape"
-                    position="center bottom"
-                    placeholderTone="cream"
-                    sizes="(max-width: 640px) 100vw, 40vw"
-                    className="mt-8"
-                  />
-
-                  <div className="mt-8 pt-1">
-                    <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
+                  {/* Bottles sit beside the copy inside the card, per the artwork */}
+                  <div className="w-[38%] shrink-0 self-stretch">
+                    <Media
+                      src={collection.image}
+                      alt={collection.imageAlt}
+                      fill
+                      rounded
+                      position="center bottom"
+                      placeholderTone="cream"
+                      sizes="(max-width: 640px) 40vw, 22vw"
+                      className="h-full min-h-52"
+                    />
                   </div>
                 </article>
               </RevealItem>
@@ -268,7 +273,7 @@ export default function HomePage() {
 
           {/* Journal */}
           <Reveal delay={0.12} className="group">
-            <article className="card-lift flex h-full flex-col border border-gold/20 bg-shell p-8 hover:border-gold/60">
+            <article className="card-lift flex h-full flex-col rounded-md border border-gold/20 bg-shell p-8 hover:border-gold/60">
               <p className="eyebrow text-gold-deep">From Our Journal</p>
               <h2 className="mt-4 text-2xl sm:text-[1.75rem]">Knowledge for Better Care</h2>
               <p className="mt-4 text-sm leading-relaxed text-ink-muted">

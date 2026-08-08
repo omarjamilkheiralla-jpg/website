@@ -60,7 +60,7 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
             key={ingredient.name}
             className="group w-[62%] shrink-0 snap-start sm:w-[38%] lg:w-[calc((100%-4.5rem)/4)]"
           >
-            <article className="card-lift flex h-full flex-col border border-gold/20 bg-cream p-4 hover:border-gold/60">
+            <article className="card-lift flex h-full flex-col rounded-md border border-gold/20 bg-cream p-4 hover:border-gold/60">
               <Media
                 src={ingredient.image}
                 alt={ingredient.alt}

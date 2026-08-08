@@ -9,7 +9,7 @@ type Size = "sm" | "md";
  * designs. Deliberately not a pill.
  */
 const base =
-  "inline-flex items-center justify-center gap-2.5 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-[background-color,color,border-color] duration-300 ease-out";
+  "inline-flex items-center justify-center gap-2.5 rounded-md font-sans text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-[background-color,color,border-color] duration-300 ease-out";
 
 const variants: Record<Variant, string> = {
   // Botanical Green fill — the primary action.

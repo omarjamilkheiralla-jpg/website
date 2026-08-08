@@ -73,7 +73,7 @@ export default function Media({
     <div
       className={`relative w-full overflow-hidden ${bordered ? "border border-gold/25" : ""} ${
         fill ? "h-full" : ratios[ratio]
-      } ${rounded ? "rounded-sm" : ""} ${className}`}
+      } ${rounded ? "rounded-md" : ""} ${className}`}
     >
       <Image
         src={src}

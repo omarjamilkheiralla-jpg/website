@@ -36,7 +36,7 @@ export default function Card({
 
   return (
     <article
-      className={`card-lift group flex h-full flex-col rounded-sm p-8 hover:border-gold/60 ${
+      className={`card-lift group flex h-full flex-col rounded-md p-8 hover:border-gold/60 ${
         tones[tone]
       } ${align === "center" ? "text-center items-center" : "text-left"} ${className}`}
     >

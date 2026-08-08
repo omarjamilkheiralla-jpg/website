@@ -49,7 +49,7 @@ export default function ImagePlaceholder({
       title={label}
       className={`relative w-full overflow-hidden ${bordered ? "border border-gold/25" : ""} ${
         fill ? "" : ratios[ratio]
-      } ${rounded ? "rounded-sm" : ""} ${className}`}
+      } ${rounded ? "rounded-md" : ""} ${className}`}
     >
       <div
         className={`flex h-full w-full items-center justify-center transition-transform duration-500 ease-out ${

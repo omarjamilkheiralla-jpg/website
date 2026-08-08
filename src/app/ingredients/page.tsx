@@ -79,7 +79,7 @@ export default function IngredientsPage() {
         >
           {ingredients.map((ingredient) => (
             <RevealItem as="li" key={ingredient.name} className="h-full">
-              <article className="card-lift group flex h-full flex-col border border-gold/20 bg-shell p-5 hover:border-gold/60">
+              <article className="card-lift group flex h-full flex-col rounded-md border border-gold/20 bg-shell p-5 hover:border-gold/60">
                 <Media
                   src={ingredient.image}
                   alt={ingredient.alt}

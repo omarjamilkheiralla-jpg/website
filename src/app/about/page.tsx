@@ -233,7 +233,7 @@ export default function AboutPage() {
           <RevealGroup className="grid gap-6 sm:grid-cols-2" stagger={0.12}>
             {collectionCards.map((collection) => (
               <RevealItem key={collection.name} className="h-full">
-                <article className="card-lift group flex h-full flex-col border border-gold/20 bg-linen p-8 hover:border-gold/60">
+                <article className="card-lift group flex h-full flex-col rounded-md border border-gold/20 bg-linen p-8 hover:border-gold/60">
                   <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
                     {collection.name}
                   </h3>

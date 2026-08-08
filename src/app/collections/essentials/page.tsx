@@ -114,7 +114,7 @@ export default function EssentialsPage() {
         <RevealGroup className="grid gap-8 md:grid-cols-3" stagger={0.11}>
           {products.map((item) => (
             <RevealItem key={item.name} className="h-full">
-              <article className="card-lift group flex h-full flex-col items-center border border-gold/20 bg-shell p-8 text-center hover:border-gold/60">
+              <article className="card-lift group flex h-full flex-col items-center rounded-md border border-gold/20 bg-shell p-8 text-center hover:border-gold/60">
                 <Media
                   src={item.image}
                   alt={item.alt}

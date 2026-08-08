@@ -110,7 +110,7 @@ export default function CollectionsPage() {
         <RevealGroup className="grid grid-cols-1 gap-8 lg:grid-cols-2" stagger={0.12}>
           {collections.map((collection) => (
             <RevealItem key={collection.name} className="h-full">
-              <article className="card-lift group flex h-full flex-col border border-gold/25 bg-linen p-8 hover:border-gold/60 sm:p-10">
+              <article className="card-lift group flex h-full flex-col rounded-md border border-gold/25 bg-linen p-8 hover:border-gold/60 sm:p-10">
                 <p className="eyebrow text-gold-deep">Rosica</p>
                 <h3 className="mt-3 text-4xl uppercase tracking-[0.06em] sm:text-[2.5rem]">
                   {collection.name}

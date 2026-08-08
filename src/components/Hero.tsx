@@ -66,7 +66,7 @@ function HeroMedia({
           fill
           priority={priority}
           quality={92}
-          sizes="(max-width: 1024px) 100vw, 52vw"
+          sizes="100vw"
           style={{ objectPosition: position }}
           className="object-cover"
         />
@@ -145,8 +145,8 @@ export default function Hero({
         variants={item}
         className={
           height === "tall"
-            ? "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
-            : "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.25rem]"
+            ? "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.1rem]"
+            : "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3rem]"
         }
       >
         {title}
@@ -221,8 +221,13 @@ export default function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-shell">
-      {/* Product photography when supplied; botanical wash until then. */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block">
+      {/*
+        In the approved designs the photography runs the full width of the hero
+        and the copy sits over it, rather than occupying a panel with a visible
+        edge. A wash keeps the copy legible: horizontal on wide screens,
+        vertical once the layout stacks.
+      */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
         <HeroMedia
           label={imageLabel}
           src={image}
@@ -230,34 +235,50 @@ export default function Hero({
           position={imagePosition}
           className="h-full w-full"
         />
-        {/* Soft wash so the copy column blends into the photography. */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-y-0 left-0 w-40 bg-[linear-gradient(90deg,var(--color-shell)_0%,transparent_100%)]"
-        />
+        <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,246,238,0.94)_0%,rgba(250,246,238,0.72)_45%,rgba(250,246,238,0.55)_100%)] lg:hidden" />
+        <span className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.93)_30%,rgba(250,246,238,0.55)_52%,rgba(250,246,238,0)_72%)]" />
       </div>
+      {/* The photo is decorative here; the alt text lives on this label. */}
+      <span className="sr-only">{imageLabel}</span>
 
       <div className="relative mx-auto w-full max-w-7xl px-6 sm:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-12">
-          <div
-            className={
-              height === "tall"
-                ? "pb-16 pt-32 sm:pt-40 lg:flex lg:min-h-[42rem] lg:flex-col lg:justify-center lg:py-28"
-                : "pb-16 pt-32 sm:pt-40 lg:flex lg:min-h-[34rem] lg:flex-col lg:justify-center lg:py-24"
-            }
-          >
-            {content}
-          </div>
+        <div
+          className={
+            height === "tall"
+              ? "flex min-h-[34rem] flex-col justify-center pb-20 pt-36 sm:min-h-[34rem] lg:min-h-[31rem] lg:pb-20 lg:pt-40"
+              : "flex min-h-[30rem] flex-col justify-center pb-20 pt-36 sm:min-h-[30rem] lg:min-h-[29rem] lg:pb-20 lg:pt-40"
+          }
+        >
+          <div className="max-w-xl">{content}</div>
         </div>
       </div>
 
-      {/* Stacked media for narrow screens. */}
-      <HeroMedia
-        label={imageLabel}
-        src={image}
-        position={imagePosition}
-        className="aspect-[4/3] w-full lg:hidden"
-      />
+      {/* Scroll cue, as in the approved homepage */}
+      {height === "tall" ? (
+        <motion.a
+          href="#main-content"
+          aria-label="Scroll to content"
+          className="absolute bottom-8 left-6 hidden h-10 w-10 items-center justify-center rounded-full border border-green/30 text-green transition-colors duration-300 hover:border-gold hover:text-gold sm:left-8 lg:flex"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: reduceMotion ? 0 : 1, duration: 0.6 }}
+        >
+          <motion.svg
+            viewBox="0 0 16 10"
+            className="h-2.5 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <path d="M1 1l7 7 7-7" />
+          </motion.svg>
+        </motion.a>
+      ) : null}
     </section>
   );
 }
