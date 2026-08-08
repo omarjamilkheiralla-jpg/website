@@ -65,6 +65,7 @@ function HeroMedia({
           alt={label}
           fill
           priority={priority}
+          quality={92}
           sizes="(max-width: 1024px) 100vw, 52vw"
           style={{ objectPosition: position }}
           className="object-cover"

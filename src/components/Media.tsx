@@ -81,6 +81,7 @@ export default function Media({
         fill
         sizes={sizes}
         priority={priority}
+        quality={90}
         style={{ objectPosition: position }}
         className={`object-cover transition-transform duration-500 ease-out ${
           zoom ? "group-hover:scale-105 motion-reduce:group-hover:scale-100" : ""

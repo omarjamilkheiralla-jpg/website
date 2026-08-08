@@ -1,27 +1,45 @@
 import Link from "next/link";
 
+/** Petal angles for the daisy head, evenly spaced around the centre. */
+const PETALS = Array.from({ length: 12 }, (_, i) => i * 30);
+
 /**
- * The small botanical sprig that sits in place of the dot on the "i" in the
- * Rosica wordmark.
+ * The Rosica botanical mark: a daisy head over a pair of leaves and a braided
+ * caduceus stem. It stands in for the "i" in the wordmark, exactly as the
+ * brand logo does.
+ *
+ * Drawn as vector rather than placed as a bitmap so it stays crisp at every
+ * size — the supplied logo file is a 219px screenshot and cannot be enlarged.
  */
-function Sprig({ className = "" }: { className?: string }) {
+function BotanicalMark({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 24 30"
+      viewBox="0 0 40 80"
       className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill="currentColor"
       aria-hidden="true"
       focusable="false"
     >
-      <path d="M12 29V9" />
-      <path d="M12 15c0-3.4 2.6-5.8 6.6-6.4C18.2 12 15.6 14.6 12 15Z" />
-      <path d="M12 21c0-3.4-2.6-5.8-6.6-6.4C5.8 18 8.4 20.6 12 21Z" />
-      <circle cx="12" cy="5" r="3.4" />
-      <path d="M12 1.6v6.8M8.6 5h6.8" />
+      {/* Daisy head — roughly the top third of the mark, as in the logo */}
+      <g>
+        {PETALS.map((angle) => (
+          <ellipse key={angle} cx="20" cy="7" rx="2.0" ry="6.6" transform={`rotate(${angle} 20 15)`} />
+        ))}
+        <circle cx="20" cy="15" r="3.2" />
+      </g>
+
+      {/* Leaf pair, sweeping outward beneath the head */}
+      <path d="M19.1 49.5c-1.9-4.8-6.2-8.3-12.9-9.4 1.4 6 5.8 9.9 12.9 9.4Z" />
+      <path d="M20.9 49.5c1.9-4.8 6.2-8.3 12.9-9.4-1.4 6-5.8 9.9-12.9 9.4Z" />
+
+      {/* Braided stem: mirrored strands crossing a central axis, tapering to a point */}
+      <path d="M20 30c-3.8 3.5-3.8 7 0 10.5 3.8-3.5 3.8-7 0-10.5Z" />
+      <path d="M20 41c-3.2 3.1-3.2 6.2 0 9.3 3.2-3.1 3.2-6.2 0-9.3Z" />
+      <path d="M20 50.6c-2.7 2.7-2.7 5.4 0 8.1 2.7-2.7 2.7-5.4 0-8.1Z" />
+      <path d="M20 59c-2.1 2.2-2.1 4.4 0 6.6 2.1-2.2 2.1-4.4 0-6.6Z" />
+      <path d="M20 66c-1.6 1.7-1.6 3.4 0 5.1 1.6-1.7 1.6-3.4 0-5.1Z" />
+      <path d="M20 71.6c-.9 1.15-.9 2.3 0 3.45.9-1.15.9-2.3 0-3.45Z" />
+      <path d="M19.55 75.6h.9L20 79.6Z" />
     </svg>
   );
 }
@@ -29,19 +47,16 @@ function Sprig({ className = "" }: { className?: string }) {
 const sizes = {
   sm: {
     word: "text-2xl",
-    sprig: "h-3.5 w-3 -top-[0.62em]",
     tagline: "text-[0.5rem] tracking-[0.22em]",
     arabic: "text-[0.6rem]",
   },
   md: {
     word: "text-3xl sm:text-[2rem]",
-    sprig: "h-4 w-3.5 -top-[0.6em]",
     tagline: "text-[0.5625rem] tracking-[0.24em]",
     arabic: "text-xs",
   },
   lg: {
     word: "text-4xl sm:text-5xl",
-    sprig: "h-6 w-5 -top-[0.58em]",
     tagline: "text-[0.6875rem] tracking-[0.26em]",
     arabic: "text-sm",
   },
@@ -78,9 +93,11 @@ export default function BrandMark({
         className={`font-serif font-medium leading-none tracking-[0.02em] text-gold ${s.word}`}
       >
         Ros
-        <span className="relative inline-block">
-          i
-          <Sprig className={`absolute left-1/2 -translate-x-1/2 text-gold ${s.sprig}`} />
+        {/* The mark replaces the letter, as it does in the brand logo. The
+            letter itself stays for screen readers and for copied text. */}
+        <span className="relative inline-block h-[1em] w-[0.30em] align-baseline">
+          <span className="sr-only">i</span>
+          <BotanicalMark className="absolute bottom-[-0.05em] left-1/2 h-[0.88em] w-auto -translate-x-1/2 text-gold" />
         </span>
         ca
       </span>
