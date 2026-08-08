@@ -10,7 +10,7 @@ import IngredientCarousel from "@/components/IngredientCarousel";
 import NewsletterForm from "@/components/NewsletterForm";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt, product, productAlt } from "@/lib/media";
+import { generic, genericAlt, ingredientCopy, product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica | Inspired by Nature. Refined Through Science.",
@@ -40,10 +40,25 @@ const values: { icon: IconName; title: string; body: string; href: string }[] = 
 ];
 
 const ingredients = [
-  { name: "Honey", image: generic.honey, alt: genericAlt.honey },
-  { name: "Propolis", image: generic.propolis, alt: genericAlt.propolis },
-  { name: "Aloe Vera", image: generic.aloeVera, alt: genericAlt.aloeVera },
-  { name: "Rosemary", image: generic.rosemary, alt: genericAlt.rosemary },
+  { name: "Honey", image: generic.honey, alt: genericAlt.honey, body: ingredientCopy.Honey },
+  {
+    name: "Propolis",
+    image: generic.propolis,
+    alt: genericAlt.propolis,
+    body: ingredientCopy.Propolis,
+  },
+  {
+    name: "Aloe Vera",
+    image: generic.aloeVera,
+    alt: genericAlt.aloeVera,
+    body: ingredientCopy["Aloe Vera"],
+  },
+  {
+    name: "Rosemary",
+    image: generic.rosemary,
+    alt: genericAlt.rosemary,
+    body: ingredientCopy.Rosemary,
+  },
 ];
 
 const collections = [

@@ -91,3 +91,14 @@ export const productAlt = {
   botanicalRestoreShampoo:
     "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
 } as const;
+
+/**
+ * Ingredient copy transcribed from the approved homepage artwork. Not written
+ * here — these are the client's own approved lines.
+ */
+export const ingredientCopy = {
+  Honey: "A natural humectant rich in sugars that helps retain moisture.",
+  Propolis: "Known for its protective and soothing properties.",
+  "Aloe Vera": "Helps hydrate, soothe and support scalp comfort.",
+  Rosemary: "Traditionally used to help revitalize and strengthen hair.",
+} as const;

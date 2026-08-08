@@ -6,7 +6,7 @@ import Icon from "@/components/Icon";
 import Media from "@/components/Media";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt } from "@/lib/media";
+import { generic, genericAlt, ingredientCopy } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Ingredient Library | The Power of Botanical Ingredients",
@@ -14,15 +14,27 @@ export const metadata: Metadata = {
     "Nature is at the heart of every Rosica formulation. Our Ingredient Library introduces the carefully selected botanicals behind our products.",
 };
 
-/**
- * The four featured botanicals. Names only — the brief supplies no descriptive
- * copy for them, and product-adjacent claims are not ours to invent.
- */
+/** The four featured botanicals, with the approved copy from the artwork. */
 const ingredients = [
-  { name: "Honey", image: generic.honey, alt: genericAlt.honey },
-  { name: "Propolis", image: generic.propolis, alt: genericAlt.propolis },
-  { name: "Aloe Vera", image: generic.aloeVera, alt: genericAlt.aloeVera },
-  { name: "Rosemary", image: generic.rosemary, alt: genericAlt.rosemary },
+  { name: "Honey", image: generic.honey, alt: genericAlt.honey, body: ingredientCopy.Honey },
+  {
+    name: "Propolis",
+    image: generic.propolis,
+    alt: genericAlt.propolis,
+    body: ingredientCopy.Propolis,
+  },
+  {
+    name: "Aloe Vera",
+    image: generic.aloeVera,
+    alt: genericAlt.aloeVera,
+    body: ingredientCopy["Aloe Vera"],
+  },
+  {
+    name: "Rosemary",
+    image: generic.rosemary,
+    alt: genericAlt.rosemary,
+    body: ingredientCopy.Rosemary,
+  },
 ];
 
 export default function IngredientsPage() {
@@ -74,9 +86,12 @@ export default function IngredientsPage() {
                   ratio="square"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
                 />
-                <h3 className="mt-6 pb-1 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">
+                <h3 className="mt-6 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">
                   {ingredient.name}
                 </h3>
+                <p className="mt-3 pb-1 text-center text-sm leading-relaxed text-ink-muted">
+                  {ingredient.body}
+                </p>
               </article>
             </RevealItem>
           ))}

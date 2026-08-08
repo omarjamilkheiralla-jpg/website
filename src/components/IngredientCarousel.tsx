@@ -10,7 +10,7 @@ import Media from "./Media";
  * ingredients still read as a calm row on a wide screen while the component
  * keeps working as the Ingredient Library grows.
  */
-export type Ingredient = { name: string; image: string; alt: string };
+export type Ingredient = { name: string; image: string; alt: string; body: string };
 
 export default function IngredientCarousel({ ingredients }: { ingredients: Ingredient[] }) {
   const track = useRef<HTMLUListElement | null>(null);
@@ -70,7 +70,10 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
               <h3 className="mt-5 text-center text-[0.6875rem] uppercase tracking-[0.18em] text-green">
                 {ingredient.name}
               </h3>
-              <div className="mt-4 flex justify-center">
+              <p className="mt-3 text-center text-sm leading-relaxed text-ink-muted">
+                {ingredient.body}
+              </p>
+              <div className="mt-auto flex justify-center pt-5">
                 <ArrowLink href="/ingredients" label={`Explore ${ingredient.name}`}>
                   Explore
                 </ArrowLink>

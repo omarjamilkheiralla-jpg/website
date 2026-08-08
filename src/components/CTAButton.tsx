@@ -4,30 +4,52 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 type Variant = "primary" | "secondary" | "light" | "gold";
 type Size = "sm" | "md";
 
+/**
+ * Squared, uppercase and letterspaced — the button treatment in the approved
+ * designs. Deliberately not a pill.
+ */
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium tracking-wide transition-[background-color,color,border-color,transform] duration-300 ease-out hover:scale-[1.03] motion-reduce:hover:scale-100";
+  "inline-flex items-center justify-center gap-2.5 font-sans text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-[background-color,color,border-color] duration-300 ease-out";
 
 const variants: Record<Variant, string> = {
-  // Botanical Green fill, gold on hover.
-  primary: "bg-green text-cream hover:bg-gold hover:text-ink",
-  // Outlined, for the lower-priority action beside a primary CTA.
-  secondary:
-    "border border-green/40 text-green hover:border-gold hover:text-ink hover:bg-gold/15",
-  // For use on the dark (Botanical Black / Green) bands.
+  // Botanical Green fill — the primary action.
+  primary: "bg-green text-cream hover:bg-green-deep",
+  // Hairline outline on the page ground, for the action beside a primary.
+  secondary: "border border-ink/40 text-ink hover:border-green hover:text-green",
+  // For use on the dark bands.
   light: "bg-cream text-ink hover:bg-gold hover:text-ink",
   gold: "bg-gold text-ink hover:bg-green hover:text-cream",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "px-5 py-2.5 text-xs",
-  md: "px-7 py-3.5 text-sm",
+  sm: "px-5 py-2.5",
+  md: "px-7 py-3.5",
 };
+
+function Arrow() {
+  return (
+    <svg
+      viewBox="0 0 24 12"
+      className="h-2 w-5 shrink-0 transition-transform duration-300 ease-out group-hover/cta:translate-x-1 motion-reduce:group-hover/cta:translate-x-0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M0 6h22M17 1l5 5-5 5" />
+    </svg>
+  );
+}
 
 type CTAButtonProps = {
   children: ReactNode;
   href?: string;
   variant?: Variant;
   size?: Size;
+  /** Primary actions carry an arrow in the designs; others do not. */
+  arrow?: boolean;
   className?: string;
 } & Omit<ComponentPropsWithoutRef<"button">, "children" | "className">;
 
@@ -36,22 +58,31 @@ export default function CTAButton({
   href,
   variant = "primary",
   size = "md",
+  arrow,
   className = "",
   ...buttonProps
 }: CTAButtonProps) {
-  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+  const showArrow = arrow ?? variant !== "secondary";
+  const classes = `group/cta ${base} ${variants[variant]} ${sizes[size]} ${className}`;
+
+  const content = (
+    <>
+      {children}
+      {showArrow ? <Arrow /> : null}
+    </>
+  );
 
   if (href) {
     return (
       <Link href={href} className={classes}>
-        {children}
+        {content}
       </Link>
     );
   }
 
   return (
     <button className={classes} {...buttonProps}>
-      {children}
+      {content}
     </button>
   );
 }
