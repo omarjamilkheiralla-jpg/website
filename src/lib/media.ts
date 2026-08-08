@@ -64,8 +64,12 @@ export const product = {
   rangeGroupHero: "/images/product-range-group-hero.jpg",
   /** The three Essentials bottles — cropped from the range shot. */
   essentialsGroup: "/images/product-essentials-group.jpg",
-  /** Botanical Restore Shampoo styled with olive and aloe — the PURE hero. */
+  /** Essentials group with the backdrop extended for the wide hero band. */
+  essentialsGroupHero: "/images/product-essentials-group-hero.jpg",
+  /** Botanical Restore Shampoo styled with olive and aloe. */
   pureBottle: "/images/product-botanical-restore-shampoo.jpg",
+  /** The same shot, backdrop extended for the wide hero band. */
+  pureBottleHero: "/images/product-pure-bottle-hero.jpg",
   honeyPropolisRepairShampoo: "/images/product-honey-propolis-repair-shampoo.jpg",
   purifyingFreshCleanseShampoo: "/images/product-purifying-fresh-cleanse-shampoo.jpg",
   deepRepairConditioner: "/images/product-deep-repair-conditioner.jpg",
@@ -80,8 +84,12 @@ export const productAlt = {
     "The four Rosica products on travertine with rosemary, olive leaves and blossom",
   essentialsGroup:
     "The three Rosica Essentials products on travertine with rosemary and blossom",
+  essentialsGroupHero:
+    "The three Rosica Essentials products on travertine with rosemary and blossom",
   pureBottle:
-    "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+    "Rosica Pure Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+  pureBottleHero:
+    "Rosica Pure Botanical Restore Shampoo on travertine with olive branches and aloe vera",
   honeyPropolisRepairShampoo:
     "Rosica Essentials Honey & Propolis Repair Shampoo with yellow blossom and green leaves",
   purifyingFreshCleanseShampoo:

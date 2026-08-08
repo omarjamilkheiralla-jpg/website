@@ -7,7 +7,6 @@ import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
 import IngredientCarousel from "@/components/IngredientCarousel";
-import NewsletterForm from "@/components/NewsletterForm";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { generic, genericAlt, ingredientCopy, product, productAlt } from "@/lib/media";
@@ -230,92 +229,91 @@ export default function HomePage() {
         </Reveal>
       </Section>
 
-      {/* Ritual + Journal + Community, sharing one closing band */}
-      <Section tone="cream" divider>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <Reveal>
-              <SectionHeading
-                eyebrow="Rosica Ritual"
-                title="A Simple Ritual. Beautiful Results."
-                align="left"
-              >
-                <ArrowLink href="/journal">Learn How</ArrowLink>
-              </SectionHeading>
-            </Reveal>
-
-            <div className="relative mt-12">
-              {/* Connecting rule between the three steps (desktop only). */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-5 hidden h-px bg-gold/35 sm:block"
-              />
-              <RevealGroup as="ol" className="relative grid gap-10 sm:grid-cols-3 sm:gap-8">
-                {ritual.map((step) => (
-                  <RevealItem as="li" key={step.index}>
-                    <div className="flex items-center gap-4 sm:block">
-                      <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/50 bg-cream font-serif text-base text-gold-deep">
-                        {step.index}
-                      </span>
-                      <span className="mt-6 block text-gold sm:mt-7">
-                        <Icon name={step.icon} className="h-8 w-8" />
-                      </span>
-                    </div>
-                    <h3 className="mt-5 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-muted">{step.body}</p>
-                  </RevealItem>
-                ))}
-              </RevealGroup>
+      {/*
+        One horizontal band closing the page — ritual, journal and community
+        side by side, as in the approved homepage. Cells are split by hairline
+        gold rules and the band runs full width, so it stays square-edged.
+      */}
+      <section className="border-t border-gold/20 bg-cream">
+        <h2 className="sr-only">The Rosica ritual, journal and community</h2>
+        <RevealGroup
+          className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-px bg-gold/20 md:grid-cols-2 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.7fr)_minmax(0,1.05fr)_minmax(0,1.15fr)]"
+          stagger={0.09}
+        >
+          {/* Ritual intro */}
+          <RevealItem className="bg-cream px-7 py-10">
+            <p className="eyebrow text-gold-deep">Rosica Ritual</p>
+            <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+              A simple routine for healthier, stronger hair.
+            </p>
+            <div className="mt-6">
+              <ArrowLink href="/journal">Learn How</ArrowLink>
             </div>
-          </div>
+          </RevealItem>
+
+          {/* The three steps, connected */}
+          <RevealItem className="bg-cream px-7 py-10">
+            <h3 className="sr-only">The three-step ritual</h3>
+            <ol className="grid grid-cols-3 gap-4">
+              {ritual.map((step, i) => (
+                <li key={step.index} className="relative">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/50 text-[0.6875rem] text-gold-deep">
+                      {step.index}
+                    </span>
+                    <span className="text-gold">
+                      <Icon name={step.icon} className="h-5 w-5" />
+                    </span>
+                    {i < ritual.length - 1 ? (
+                      <span aria-hidden="true" className="ml-1 hidden h-px flex-1 bg-gold/35 sm:block" />
+                    ) : null}
+                  </div>
+                  <h4 className="mt-4 text-[0.625rem] font-medium uppercase tracking-[0.16em] text-green">
+                    {step.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </RevealItem>
 
           {/* Journal */}
-          <Reveal delay={0.12} className="group">
-            <article className="card-lift flex h-full flex-col rounded-md border border-gold/20 bg-shell p-8 hover:border-gold/60">
-              <p className="eyebrow text-gold-deep">From Our Journal</p>
-              <h2 className="mt-4 text-2xl sm:text-[1.75rem]">Knowledge for Better Care</h2>
-              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-                Explore expert articles covering botanical ingredients, everyday beauty rituals,
-                ingredient education, and practical care guides designed to help you get the most
-                from every Rosica product.
-              </p>
+          <RevealItem className="bg-cream px-7 py-10">
+            <p className="eyebrow text-gold-deep">From Our Journal</p>
+            <h3 className="mt-3 text-2xl">Knowledge for Better Care</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+              Expert insights, ingredient science and hair care guidance for everyday life.
+            </p>
+            <div className="mt-5">
+              <ArrowLink href="/journal">Explore Articles</ArrowLink>
+            </div>
+          </RevealItem>
 
+          {/* Community */}
+          <RevealItem className="group relative flex items-stretch gap-4 overflow-hidden bg-cream">
+            <div className="min-w-0 flex-1 py-10 pl-7">
+              <p className="eyebrow text-gold-deep">Join the Rosica Community</p>
+              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                Be the first to know about new launches, education and exclusive offers.
+              </p>
+              <div className="mt-5">
+                <ArrowLink href="/journal">Explore Articles</ArrowLink>
+              </div>
+            </div>
+            <div className="w-[42%] shrink-0 self-stretch">
               <Media
                 src={generic.journal}
                 alt={genericAlt.journal}
-                ratio="wide"
-                sizes="(max-width: 1024px) 100vw, 30vw"
-                className="mt-8"
+                fill
+                bordered={false}
+                sizes="(max-width: 768px) 40vw, 160px"
+                className="h-full min-h-44"
               />
+            </div>
+          </RevealItem>
+        </RevealGroup>
+      </section>
 
-              <div className="mt-8">
-                <ArrowLink href="/journal">Explore Articles</ArrowLink>
-              </div>
-            </article>
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* Community / newsletter */}
-      <Section tone="green">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-16">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Community"
-              title="Join the Rosica Community"
-              align="left"
-              tone="light"
-              body="Be among the first to discover new product launches, educational articles, seasonal inspiration, exclusive updates, and future Rosica collections. Join our community and stay connected to the latest in natural beauty."
-            />
-          </Reveal>
-
-          <Reveal delay={0.12} className="w-full">
-            <NewsletterForm tone="light" />
-          </Reveal>
-        </div>
-      </Section>
     </>
   );
 }

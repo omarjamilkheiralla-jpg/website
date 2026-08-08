@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
-import Section from "@/components/Section";
-import SectionHeading from "@/components/SectionHeading";
 import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
-import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt, product, productAlt } from "@/lib/media";
+import { product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Collections | Two Collections. Complete Botanical Care.",
   description:
-    "Rosica collections are thoughtfully created to meet different beauty needs while sharing one philosophy: premium botanical care inspired by nature and refined through modern cosmetic science.",
+    "Thoughtfully crafted formulations, inspired by nature, refined through science, and made to elevate your natural beauty.",
 };
 
 /**
@@ -21,13 +18,8 @@ export const metadata: Metadata = {
  * Future categories (Skin Care, Body Care) can simply be appended here.
  */
 const collections: {
-  eyebrow: string;
   name: string;
-  title: string;
-  intro: string;
-  listLabel: string | null;
-  products: string[];
-  outro: string;
+  body: string;
   features: { icon: IconName; label: string }[];
   cta: string;
   href: string;
@@ -35,19 +27,8 @@ const collections: {
   imageAlt: string;
 }[] = [
   {
-    eyebrow: "Collection 01",
     name: "Essentials",
-    title: "Daily Botanical Care",
-    intro:
-      "Rosica Essentials is designed for everyday nourishment, repair, protection, and balance.",
-    listLabel: "The collection includes:",
-    products: [
-      "Honey & Propolis Repair Shampoo",
-      "Purifying & Fresh Cleanse Shampoo",
-      "Deep Repair Conditioner",
-    ],
-    outro:
-      "Together they help cleanse, strengthen, nourish, and protect healthy-looking hair while providing a luxurious daily care experience.",
+    body: "Daily care essentials powered by nature. Gentle, effective formulations that cleanse, nourish, and protect.",
     features: [
       { icon: "droplet", label: "Nourish" },
       { icon: "waves", label: "Strengthen" },
@@ -60,33 +41,42 @@ const collections: {
     imageAlt: productAlt.essentialsGroup,
   },
   {
-    eyebrow: "Collection 02",
-    name: "PURE",
-    title: "Advanced Botanical Care",
-    intro:
-      "Rosica PURE represents our premium botanical collection created for those seeking gentle yet advanced daily care.",
-    listLabel: null,
-    products: [],
-    outro:
-      "The Botanical Restore Shampoo combines carefully selected botanical ingredients with sulfate-free cleansing technology to revitalize, strengthen, and restore healthy-looking hair while respecting its natural balance.",
+    name: "Pure",
+    body: "Pure, minimal, and effective. Sulfate-free care with advanced botanical ingredients for a healthier beauty experience.",
     features: [
       { icon: "leaf", label: "Pure" },
       { icon: "droplet", label: "Clean" },
       { icon: "lotus", label: "Restore" },
       { icon: "sparkle", label: "Revitalize" },
     ],
-    cta: "Explore PURE",
+    cta: "Explore Pure",
     href: "/collections/pure",
     image: product.pureBottle,
     imageAlt: productAlt.pureBottle,
   },
 ];
 
-const philosophyPillars: { icon: IconName; label: string; }[] = [
-  { icon: "seedling", label: "Botanical Expertise" },
-  { icon: "flask", label: "Scientific Innovation" },
-  { icon: "mortar", label: "Thoughtful Formulation" },
-  { icon: "globe", label: "Responsible Beauty" },
+const philosophyPillars: { icon: IconName; title: string; body: string }[] = [
+  {
+    icon: "seedling",
+    title: "Botanical Expertise",
+    body: "Carefully selected natural ingredients you can trust.",
+  },
+  {
+    icon: "flask",
+    title: "Scientific Innovation",
+    body: "Advanced research and modern formulation.",
+  },
+  {
+    icon: "mortar",
+    title: "Thoughtful Formulation",
+    body: "Every product created with purpose and care.",
+  },
+  {
+    icon: "globe",
+    title: "Responsible Beauty",
+    body: "We care for you and the planet every step of the way.",
+  },
 ];
 
 export default function CollectionsPage() {
@@ -95,154 +85,99 @@ export default function CollectionsPage() {
       <Hero
         eyebrow="Our Collections"
         title="Two Collections. Complete Botanical Care."
-        body={[
-          "Rosica collections are thoughtfully created to meet different beauty needs while sharing one philosophy: premium botanical care inspired by nature and refined through modern cosmetic science.",
-          "Every collection is developed with carefully selected ingredients, elegant formulations, and a commitment to exceptional everyday care.",
-        ]}
+        body="Thoughtfully crafted formulations, inspired by nature, refined through science, and made to elevate your natural beauty."
         image={product.rangeGroupHero}
         imageLabel={productAlt.rangeGroupHero}
         actions={<CTAButton href="#collections">Explore Our Collections</CTAButton>}
       />
 
-      {/* Essentials + PURE, presented with equal visual weight */}
-      <Section tone="shell" id="collections">
+      {/* Essentials and Pure, given identical visual weight */}
+      <section id="collections" className="bg-shell">
         <h2 className="sr-only">The Rosica collections</h2>
-        <RevealGroup className="grid grid-cols-1 gap-8 lg:grid-cols-2" stagger={0.12}>
+        <RevealGroup
+          className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-6 py-14 sm:px-8 lg:grid-cols-2"
+          stagger={0.12}
+        >
           {collections.map((collection) => (
             <RevealItem key={collection.name} className="h-full">
-              <article className="card-lift group flex h-full flex-col rounded-md border border-gold/25 bg-linen p-8 hover:border-gold/60 sm:p-10">
-                <p className="eyebrow text-gold-deep">Rosica</p>
-                <h3 className="mt-3 text-4xl uppercase tracking-[0.06em] sm:text-[2.5rem]">
-                  {collection.name}
-                </h3>
+              <article className="card-lift group flex h-full items-stretch overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
+                <div className="flex min-w-0 flex-1 flex-col p-8 sm:p-9">
+                  <p className="eyebrow text-gold-deep">Rosica</p>
+                  <h3 className="mt-3 font-serif text-4xl uppercase tracking-[0.06em] text-green">
+                    {collection.name}
+                  </h3>
 
-                <span aria-hidden="true" className="ornament-rule mt-6 max-w-48">
-                  <Icon name="sparkle" className="h-3 w-3" />
-                </span>
+                  <span aria-hidden="true" className="ornament-rule mt-5 max-w-44">
+                    <Icon name="sparkle" className="h-3 w-3" />
+                  </span>
 
-                <p className="mt-6 font-serif text-xl text-green">{collection.title}</p>
-                <p className="mt-4 text-base leading-relaxed text-ink-muted">{collection.intro}</p>
+                  <p className="mt-6 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
 
-                {collection.products.length > 0 ? (
-                  <div className="mt-6">
-                    {collection.listLabel ? (
-                      <p className="text-sm text-ink-muted">{collection.listLabel}</p>
-                    ) : null}
-                    <ul className="mt-4 space-y-2.5 border-l border-gold/40 pl-5">
-                      {collection.products.map((product) => (
-                        <li key={product} className="font-serif text-lg text-green">
-                          {product}
-                        </li>
-                      ))}
-                    </ul>
+                  <ul className="mt-8 grid grid-cols-4 gap-3">
+                    {collection.features.map((feature) => (
+                      <li
+                        key={feature.label}
+                        className="flex flex-col items-center gap-2 text-center"
+                      >
+                        <span className="text-gold">
+                          <Icon name={feature.icon} className="h-6 w-6" />
+                        </span>
+                        <span className="text-[0.625rem] uppercase tracking-[0.14em] text-ink-muted">
+                          {feature.label}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto pt-9">
+                    <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
                   </div>
-                ) : null}
+                </div>
 
-                <p className="mt-6 text-base leading-relaxed text-ink-muted">{collection.outro}</p>
-
-                <ul className="mt-9 flex flex-wrap gap-x-8 gap-y-5">
-                  {collection.features.map((feature) => (
-                    <li
-                      key={feature.label}
-                      className="flex min-w-[4rem] flex-col items-center gap-2 text-center"
-                    >
-                      <span className="text-gold">
-                        <Icon name={feature.icon} className="h-7 w-7" />
-                      </span>
-                      <span className="text-[0.625rem] uppercase tracking-[0.14em] text-ink-muted">
-                        {feature.label}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Media
-                  src={collection.image}
-                  alt={collection.imageAlt}
-                  ratio="landscape"
-                  position="center bottom"
-                  placeholderTone="cream"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="mt-9"
-                />
-
-                <div className="mt-auto pt-9">
-                  <ArrowLink href={collection.href}>{collection.cta}</ArrowLink>
+                {/* Product photography runs to the panel edge, as in the artwork */}
+                <div className="w-[42%] shrink-0 self-stretch">
+                  <Media
+                    src={collection.image}
+                    alt={collection.imageAlt}
+                    fill
+                    bordered={false}
+                    position="center bottom"
+                    placeholderTone="cream"
+                    sizes="(max-width: 1024px) 42vw, 22vw"
+                    className="h-full min-h-72"
+                  />
                 </div>
               </article>
             </RevealItem>
           ))}
         </RevealGroup>
-      </Section>
+      </section>
 
-      {/* Collection philosophy */}
-      <section className="border-y border-gold/20 bg-cream">
-        <div className="mx-auto w-full max-w-7xl px-6 pt-20 sm:px-8 sm:pt-24">
-          <Reveal className="flex justify-center">
-            <SectionHeading
-              eyebrow="Collection Philosophy"
-              title="One Philosophy. Two Expressions."
-              body="Although each collection serves different needs, they are united by the same Rosica philosophy:"
-            />
-          </Reveal>
-        </div>
-
+      {/* Shared philosophy — full-width strip, so square-edged */}
+      <section className="border-t border-gold/20 bg-cream">
+        <h2 className="sr-only">The Rosica philosophy</h2>
         <RevealGroup
           as="ul"
-          className="mx-auto mt-14 grid w-full max-w-7xl grid-cols-1 gap-px bg-gold/20 sm:grid-cols-2 lg:grid-cols-4"
+          className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-px bg-gold/20 sm:grid-cols-2 lg:grid-cols-4"
           stagger={0.09}
         >
           {philosophyPillars.map((pillar) => (
             <RevealItem
               as="li"
-              key={pillar.label}
-              className="flex items-center gap-5 bg-cream px-6 py-10 sm:px-8"
+              key={pillar.title}
+              className="flex items-start gap-5 bg-cream px-7 py-10"
             >
               <span className="shrink-0 text-gold">
                 <Icon name={pillar.icon} className="h-10 w-10" />
               </span>
-              <h3 className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-green">
-                {pillar.label}
-              </h3>
+              <div>
+                <h3 className="text-lg">{pillar.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">{pillar.body}</p>
+              </div>
             </RevealItem>
           ))}
         </RevealGroup>
-
-        <div className="mx-auto w-full max-w-7xl px-6 pb-20 sm:px-8 sm:pb-24">
-          <Reveal delay={0.1}>
-            <p className="mx-auto mt-14 max-w-2xl text-center text-base leading-relaxed text-ink-muted">
-              Every Rosica product reflects our commitment to premium quality, refined formulation,
-              and respect for nature.
-            </p>
-          </Reveal>
-        </div>
       </section>
-
-      {/* Future vision */}
-      <Section tone="shell">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Future Vision"
-              title="Growing Naturally"
-              align="left"
-              body={[
-                "Rosica's collections represent the beginning of a much larger vision.",
-                "Following our Hair Care collections, Rosica will continue expanding into premium Skin Care and Body Care while maintaining the same commitment to botanical excellence, cosmetic science, and elegant everyday beauty.",
-              ]}
-            />
-          </Reveal>
-
-          <Reveal delay={0.12} className="group">
-            <Media
-              src={generic.labFlowerTube}
-              alt={genericAlt.labFlowerTube}
-              ratio="landscape"
-              sizes="(max-width: 1024px) 100vw, 45vw"
-            />
-          </Reveal>
-        </div>
-      </Section>
     </>
   );
 }

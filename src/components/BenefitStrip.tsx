@@ -13,8 +13,9 @@ export type Benefit = {
 };
 
 /**
- * Full-width band of four benefits, each pairing a gold line icon and copy with
- * a small square image tile — the benefit row used on the collection pages.
+ * Four-cell benefit band. Each cell pairs a gold line icon and copy with
+ * imagery alongside it, bleeding to the cell edge — the treatment used on the
+ * collection pages in the approved designs.
  */
 export default function BenefitStrip({
   benefits,
@@ -26,8 +27,10 @@ export default function BenefitStrip({
   heading: string;
   tone?: "shell" | "linen";
 }) {
+  const bg = tone === "shell" ? "bg-shell" : "bg-linen";
+
   return (
-    <section className={tone === "shell" ? "bg-shell" : "bg-linen"}>
+    <section className={bg}>
       <h2 className="sr-only">{heading}</h2>
       <RevealGroup
         as="ul"
@@ -38,24 +41,26 @@ export default function BenefitStrip({
           <RevealItem
             as="li"
             key={benefit.title}
-            className={`group flex flex-col p-8 sm:p-9 ${
-              tone === "shell" ? "bg-shell" : "bg-linen"
-            }`}
+            className={`group flex items-stretch gap-4 ${bg}`}
           >
-            <span className="text-gold">
-              <Icon name={benefit.icon} className="h-8 w-8" />
-            </span>
-            <h3 className="mt-5 text-xl">{benefit.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-muted">{benefit.body}</p>
+            <div className="flex min-w-0 flex-1 flex-col py-9 pl-7 sm:pl-8">
+              <span className="text-gold">
+                <Icon name={benefit.icon} className="h-7 w-7" />
+              </span>
+              <h3 className="mt-5 text-xl">{benefit.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{benefit.body}</p>
+            </div>
 
-            {/* Pushed to the bottom so the tiles align across uneven copy. */}
-            <div className="mt-auto pt-7">
+            {/* Imagery runs to the cell edge alongside the copy */}
+            <div className="w-[38%] shrink-0 self-stretch">
               <Media
                 src={benefit.image}
                 alt={benefit.imageAlt}
-                ratio="landscape"
+                fill
+                bordered={false}
                 placeholderTone="cream"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
+                sizes="(max-width: 640px) 40vw, (max-width: 1024px) 20vw, 130px"
+                className="h-full min-h-44"
               />
             </div>
           </RevealItem>
