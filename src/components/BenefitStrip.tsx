@@ -53,7 +53,7 @@ export default function BenefitStrip({
               <Media
                 src={benefit.image}
                 alt={benefit.imageAlt}
-                ratio="wide"
+                ratio="landscape"
                 placeholderTone="cream"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
               />

@@ -7,7 +7,7 @@ import Media from "@/components/Media";
 import BenefitStrip, { type Benefit } from "@/components/BenefitStrip";
 import PromiseBand, { type Standard } from "@/components/PromiseBand";
 import Reveal from "@/components/motion/Reveal";
-import { generic, genericAlt, product } from "@/lib/media";
+import { generic, genericAlt, product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica PURE | Advanced Botanical Care",
@@ -81,7 +81,8 @@ export default function PurePage() {
         bullets={["Botanical Restore Shampoo"]}
         features={heroFeatures}
         image={product.pureBottle}
-        imageLabel="Botanical Restore Shampoo with aloe vera on a stone plinth"
+        imageLabel={productAlt.pureBottle}
+        imagePosition="center bottom"
         actions={<CTAButton href="#product">View All PURE Products</CTAButton>}
       />
 
@@ -94,7 +95,7 @@ export default function PurePage() {
           <Reveal>
             <Media
               src={product.botanicalRestoreShampoo}
-              alt="Rosica PURE Botanical Restore Shampoo"
+              alt={productAlt.botanicalRestoreShampoo}
               ratio="portrait"
               placeholderTone="shell"
               sizes="(max-width: 1024px) 100vw, 40vw"

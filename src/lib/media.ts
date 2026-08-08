@@ -7,11 +7,8 @@
  * match the art direction of the real Rosica product photography: cream and
  * travertine backdrops, olive and aloe botanicals, soft directional shadows.
  *
- * `product` entries are deliberately `undefined`. Rosica product photography is
- * brand-owned and cannot be substituted or recreated, so every product slot
- * renders the botanical placeholder until the real files are in `public/images/`.
- * Fill a value in here and it appears everywhere that slot is used — no
- * component changes needed.
+ * `product` entries are the real Rosica photographs. They are brand-owned and
+ * must never be substituted or recreated.
  */
 
 export const generic = {
@@ -36,12 +33,12 @@ export const generic = {
 /** Alt text for the stock imagery, kept beside the paths so it stays in sync. */
 export const genericAlt = {
   honey: "A glass jar of honey with a wooden dipper on a pale background",
-  propolis: "Bees working across a golden honeycomb",
-  aloeVera: "A fresh aloe vera plant against a plain, light background",
+  propolis: "A golden honeycomb filled with honey, seen close up",
+  aloeVera: "Close-up of aloe vera leaves against a plain white background",
   rosemary: "A sprig of fresh rosemary on pale marble in soft light",
   chamomile: "Chamomile flowers in bloom",
-  leaves: "Fresh green leaves arranged on a pale surface",
-  foliage: "Soft green botanical foliage",
+  leaves: "A single green palm leaf resting on soft beige fabric",
+  foliage: "A green leaf branch resting on a pale linen surface",
   oliveShadow: "Olive branch shadows falling across a warm neutral wall",
   oliveVase: "Olive branches arranged in a vase against a pale wall",
   shadowWall: "Soft botanical shadows cast on a pale wall",
@@ -54,37 +51,43 @@ export const genericAlt = {
 } as const;
 
 /**
- * Rosica product photography.
+ * Rosica product photography — the real brand shots, resized from the supplied
+ * masters (up to 11796px square) down to web sizes.
  *
- * TO ENABLE: drop the files into `public/images/` using exactly the filenames
- * commented beside each entry, then replace `undefined` with the path string.
- * Nothing else needs to change — the heroes, collection cards and product grids
- * all read from here.
- *
- * These must be the real brand photographs. Do not substitute stock imagery or
- * generate a stand-in: the packaging, label copy and finish are specific to the
- * product and cannot be approximated.
+ * Never substitute stock imagery or a generated stand-in here: the packaging,
+ * label copy and finish are specific to the product.
  */
-export const product: Record<string, string | undefined> = {
-  /** "product-range-group.jpg" — all four bottles together, landscape.
-   *  Used by the homepage, About and Collections heroes. */
-  rangeGroup: undefined,
+export const product = {
+  /** All four bottles. Homepage, About and Collections heroes. */
+  rangeGroup: "/images/product-range-group.jpg",
+  /** Range shot with its backdrop extended upward, framed for the tall hero panel. */
+  rangeGroupHero: "/images/product-range-group-hero.jpg",
+  /** The three Essentials bottles — cropped from the range shot. */
+  essentialsGroup: "/images/product-essentials-group.jpg",
+  /** Botanical Restore Shampoo styled with olive and aloe — the PURE hero. */
+  pureBottle: "/images/product-botanical-restore-shampoo.jpg",
+  honeyPropolisRepairShampoo: "/images/product-honey-propolis-repair-shampoo.jpg",
+  purifyingFreshCleanseShampoo: "/images/product-purifying-fresh-cleanse-shampoo.jpg",
+  deepRepairConditioner: "/images/product-deep-repair-conditioner.jpg",
+  botanicalRestoreShampoo: "/images/product-botanical-restore-shampoo.jpg",
+} as const;
 
-  /** "product-essentials-group.jpg" — the three Essentials bottles together. */
-  essentialsGroup: undefined,
-
-  /** "product-pure-bottle.jpg" — Botanical Restore Shampoo, styled shot. */
-  pureBottle: undefined,
-
-  /** "product-honey-propolis-repair-shampoo.jpg" */
-  honeyPropolisRepairShampoo: undefined,
-
-  /** "product-purifying-fresh-cleanse-shampoo.jpg" */
-  purifyingFreshCleanseShampoo: undefined,
-
-  /** "product-deep-repair-conditioner.jpg" */
-  deepRepairConditioner: undefined,
-
-  /** "product-botanical-restore-shampoo.jpg" — the PURE single-product feature. */
-  botanicalRestoreShampoo: undefined,
-};
+/** Alt text for the product photography. */
+export const productAlt = {
+  rangeGroup:
+    "The four Rosica products on travertine with rosemary, olive leaves and blossom",
+  rangeGroupHero:
+    "The four Rosica products on travertine with rosemary, olive leaves and blossom",
+  essentialsGroup:
+    "The three Rosica Essentials products on travertine with rosemary and blossom",
+  pureBottle:
+    "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+  honeyPropolisRepairShampoo:
+    "Rosica Essentials Honey & Propolis Repair Shampoo with yellow blossom and green leaves",
+  purifyingFreshCleanseShampoo:
+    "Rosica Essentials Purifying & Fresh Cleanse Shampoo with aloe vera, rosemary and a honey dipper",
+  deepRepairConditioner:
+    "Rosica Essentials Deep Repair Conditioner with dried blooms and olive branches",
+  botanicalRestoreShampoo:
+    "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+} as const;

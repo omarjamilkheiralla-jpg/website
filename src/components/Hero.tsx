@@ -27,6 +27,8 @@ type HeroProps = {
   image?: string;
   /** Describes the photography that belongs in the hero. */
   imageLabel?: string;
+  /** object-position for the hero photo; "center bottom" keeps bottles whole. */
+  imagePosition?: string;
   /** "tall" is the homepage; "short" suits the inner pages. */
   height?: "tall" | "short";
 };
@@ -44,11 +46,13 @@ function HeroMedia({
   label,
   src,
   priority = false,
+  position = "center",
   className = "",
 }: {
   label: string;
   src?: string;
   priority?: boolean;
+  position?: string;
   className?: string;
 }) {
   const reduceMotion = useReducedMotion();
@@ -62,6 +66,7 @@ function HeroMedia({
           fill
           priority={priority}
           sizes="(max-width: 1024px) 100vw, 52vw"
+          style={{ objectPosition: position }}
           className="object-cover"
         />
       </div>
@@ -110,6 +115,7 @@ export default function Hero({
   ornament = false,
   image,
   imageLabel = "Rosica botanical product photography",
+  imagePosition = "center",
   height = "short",
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
@@ -216,7 +222,13 @@ export default function Hero({
     <section className="relative isolate overflow-hidden bg-shell">
       {/* Product photography when supplied; botanical wash until then. */}
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block">
-        <HeroMedia label={imageLabel} src={image} priority className="h-full w-full" />
+        <HeroMedia
+          label={imageLabel}
+          src={image}
+          priority
+          position={imagePosition}
+          className="h-full w-full"
+        />
         {/* Soft wash so the copy column blends into the photography. */}
         <span
           aria-hidden="true"
@@ -239,7 +251,12 @@ export default function Hero({
       </div>
 
       {/* Stacked media for narrow screens. */}
-      <HeroMedia label={imageLabel} src={image} className="aspect-[4/3] w-full lg:hidden" />
+      <HeroMedia
+        label={imageLabel}
+        src={image}
+        position={imagePosition}
+        className="aspect-[4/3] w-full lg:hidden"
+      />
     </section>
   );
 }

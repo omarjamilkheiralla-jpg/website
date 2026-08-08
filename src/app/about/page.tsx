@@ -8,7 +8,7 @@ import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt, product } from "@/lib/media";
+import { generic, genericAlt, product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "About Rosica | Rooted in Nature. Driven by Science.",
@@ -61,7 +61,7 @@ const collectionCards = [
     cta: "Discover Essentials",
     href: "/collections/essentials",
     image: product.essentialsGroup,
-    imageAlt: "The three Rosica Essentials products with honeycomb and botanicals",
+    imageAlt: productAlt.essentialsGroup,
   },
   {
     name: "Rosica PURE",
@@ -70,7 +70,7 @@ const collectionCards = [
     cta: "Discover PURE",
     href: "/collections/pure",
     image: product.pureBottle,
-    imageAlt: "Rosica PURE Botanical Restore Shampoo with aloe vera and rosemary",
+    imageAlt: productAlt.pureBottle,
   },
 ];
 
@@ -107,8 +107,8 @@ export default function AboutPage() {
           "Rosica was founded on a simple belief: nature possesses extraordinary power to nurture, restore, and inspire confidence. By combining carefully selected botanical ingredients with modern cosmetic science, we create premium beauty products that are effective, refined, and designed for everyday rituals.",
           "Our journey begins with botanical hair care and continues toward a complete natural beauty portfolio including skin care and body care—always guided by the same commitment to quality, integrity, and innovation.",
         ]}
-        image={product.rangeGroup}
-        imageLabel="The full Rosica range with honey, aloe vera and botanical stems"
+        image={product.rangeGroupHero}
+        imageLabel={productAlt.rangeGroupHero}
         actions={<CTAButton href="#our-story">Discover Our Journey</CTAButton>}
       />
 
@@ -243,7 +243,8 @@ export default function AboutPage() {
                   <Media
                     src={collection.image}
                     alt={collection.imageAlt}
-                    ratio="wide"
+                    ratio="landscape"
+                    position="center bottom"
                     placeholderTone="cream"
                     sizes="(max-width: 1024px) 100vw, 35vw"
                     className="mt-8"

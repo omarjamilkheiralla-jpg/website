@@ -8,7 +8,7 @@ import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt, product } from "@/lib/media";
+import { generic, genericAlt, product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Collections | Two Collections. Complete Botanical Care.",
@@ -57,7 +57,7 @@ const collections: {
     cta: "Explore Essentials",
     href: "/collections/essentials",
     image: product.essentialsGroup,
-    imageAlt: "The three Rosica Essentials products with honeycomb and botanicals",
+    imageAlt: productAlt.essentialsGroup,
   },
   {
     eyebrow: "Collection 02",
@@ -78,7 +78,7 @@ const collections: {
     cta: "Explore PURE",
     href: "/collections/pure",
     image: product.pureBottle,
-    imageAlt: "Rosica PURE Botanical Restore Shampoo with aloe vera and rosemary",
+    imageAlt: productAlt.pureBottle,
   },
 ];
 
@@ -99,8 +99,8 @@ export default function CollectionsPage() {
           "Rosica collections are thoughtfully created to meet different beauty needs while sharing one philosophy: premium botanical care inspired by nature and refined through modern cosmetic science.",
           "Every collection is developed with carefully selected ingredients, elegant formulations, and a commitment to exceptional everyday care.",
         ]}
-        image={product.rangeGroup}
-        imageLabel="The full Rosica range arranged on stone with honeycomb, aloe and rosemary"
+        image={product.rangeGroupHero}
+        imageLabel={productAlt.rangeGroupHero}
         actions={<CTAButton href="#collections">Explore Our Collections</CTAButton>}
       />
 
@@ -159,7 +159,8 @@ export default function CollectionsPage() {
                 <Media
                   src={collection.image}
                   alt={collection.imageAlt}
-                  ratio="wide"
+                  ratio="landscape"
+                  position="center bottom"
                   placeholderTone="cream"
                   sizes="(max-width: 1024px) 100vw, 45vw"
                   className="mt-9"

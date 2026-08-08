@@ -90,6 +90,17 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
+      {/*
+        Over the hero the nav sits on product photography, which is light but
+        not uniform — foliage behind a link can drop contrast below AA. A soft
+        cream scrim keeps the links legible without hiding the image.
+      */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,var(--color-cream)_0%,rgba(250,246,238,0.72)_55%,transparent_100%)] transition-opacity duration-300 ${
+          solid ? "opacity-0" : "opacity-100"
+        }`}
+      />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-green focus:px-4 focus:py-2 focus:text-sm focus:text-cream"
@@ -97,7 +108,7 @@ export default function Navbar() {
         Skip to content
       </a>
 
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
         <BrandMark size="sm" />
 
         {/* Desktop navigation */}

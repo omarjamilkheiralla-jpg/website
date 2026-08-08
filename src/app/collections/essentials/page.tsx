@@ -6,7 +6,7 @@ import Media from "@/components/Media";
 import BenefitStrip, { type Benefit } from "@/components/BenefitStrip";
 import PromiseBand, { type Standard } from "@/components/PromiseBand";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
-import { generic, genericAlt, product } from "@/lib/media";
+import { generic, genericAlt, product, productAlt } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Rosica Essentials | Everyday Botanical Care",
@@ -20,13 +20,20 @@ const products = [
     name: "Honey & Propolis Repair Shampoo",
     tag: "Repair",
     image: product.honeyPropolisRepairShampoo,
+    alt: productAlt.honeyPropolisRepairShampoo,
   },
   {
     name: "Purifying & Fresh Cleanse Shampoo",
     tag: "Cleanse",
     image: product.purifyingFreshCleanseShampoo,
+    alt: productAlt.purifyingFreshCleanseShampoo,
   },
-  { name: "Deep Repair Conditioner", tag: "Condition", image: product.deepRepairConditioner },
+  {
+    name: "Deep Repair Conditioner",
+    tag: "Condition",
+    image: product.deepRepairConditioner,
+    alt: productAlt.deepRepairConditioner,
+  },
 ];
 
 const heroFeatures: HeroFeature[] = [
@@ -94,7 +101,8 @@ export default function EssentialsPage() {
         bullets={products.map((item) => item.name)}
         features={heroFeatures}
         image={product.essentialsGroup}
-        imageLabel="The three Rosica Essentials products with honeycomb and botanicals"
+        imageLabel={productAlt.essentialsGroup}
+        imagePosition="center bottom"
         actions={<CTAButton href="#products">View All Essentials</CTAButton>}
       />
 
@@ -109,7 +117,7 @@ export default function EssentialsPage() {
               <article className="card-lift group flex h-full flex-col items-center border border-gold/20 bg-shell p-8 text-center hover:border-gold/60">
                 <Media
                   src={item.image}
-                  alt={`Rosica ${item.name}`}
+                  alt={item.alt}
                   ratio="portrait"
                   placeholderTone="cream"
                   sizes="(max-width: 768px) 100vw, 30vw"
