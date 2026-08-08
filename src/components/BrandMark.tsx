@@ -1,45 +1,51 @@
 import Link from "next/link";
 
-/** Petal angles for the daisy head, evenly spaced around the centre. */
-const PETALS = Array.from({ length: 12 }, (_, i) => i * 30);
+/** Eight broad petals, evenly spaced — the arrangement in the brand mark. */
+const PETALS = Array.from({ length: 8 }, (_, i) => i * 45);
 
 /**
- * The Rosica botanical mark: a daisy head over a pair of leaves and a braided
- * caduceus stem. It stands in for the "i" in the wordmark, exactly as the
- * brand logo does.
+ * The Rosica botanical mark: an eight-petal flower over a pair of upswept
+ * leaves and a caduceus stem of stacked beads. It stands in for the "i" in the
+ * wordmark, exactly as the brand logo does.
  *
- * Drawn as vector rather than placed as a bitmap so it stays crisp at every
- * size — the supplied logo file is a 219px screenshot and cannot be enlarged.
+ * Traced from the logo in the approved About page artwork. Drawn as vector so
+ * it stays crisp at every size — the supplied logo file is a 219px screenshot
+ * and cannot be enlarged.
  */
 function BotanicalMark({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 40 80"
+      viewBox="0 0 42 100"
       className={className}
       fill="currentColor"
       aria-hidden="true"
       focusable="false"
     >
-      {/* Daisy head — roughly the top third of the mark, as in the logo */}
+      {/* Flower head: eight pointed, leaf-shaped petals around a small centre */}
       <g>
         {PETALS.map((angle) => (
-          <ellipse key={angle} cx="20" cy="7" rx="2.0" ry="6.6" transform={`rotate(${angle} 20 15)`} />
+          <path
+            key={angle}
+            d="M21 1c4.5 7 5.7 13.2 0 20.5-5.7-7.3-4.5-13.5 0-20.5Z"
+            transform={`rotate(${angle} 21 21.5)`}
+          />
         ))}
-        <circle cx="20" cy="15" r="3.2" />
+        <circle cx="21" cy="21.5" r="3.1" />
       </g>
 
-      {/* Leaf pair, sweeping outward beneath the head */}
-      <path d="M19.1 49.5c-1.9-4.8-6.2-8.3-12.9-9.4 1.4 6 5.8 9.9 12.9 9.4Z" />
-      <path d="M20.9 49.5c1.9-4.8 6.2-8.3 12.9-9.4-1.4 6-5.8 9.9-12.9 9.4Z" />
+      {/* Leaf pair, sweeping upward and outward from the stem */}
+      <path d="M21 55.5c-7.8-1.2-14-6.2-15.8-15 7.4.7 13.6 6 15.8 15Z" />
+      <path d="M21 55.5c7.8-1.2 14-6.2 15.8-15-7.4.7-13.6 6-15.8 15Z" />
 
-      {/* Braided stem: mirrored strands crossing a central axis, tapering to a point */}
-      <path d="M20 30c-3.8 3.5-3.8 7 0 10.5 3.8-3.5 3.8-7 0-10.5Z" />
-      <path d="M20 41c-3.2 3.1-3.2 6.2 0 9.3 3.2-3.1 3.2-6.2 0-9.3Z" />
-      <path d="M20 50.6c-2.7 2.7-2.7 5.4 0 8.1 2.7-2.7 2.7-5.4 0-8.1Z" />
-      <path d="M20 59c-2.1 2.2-2.1 4.4 0 6.6 2.1-2.2 2.1-4.4 0-6.6Z" />
-      <path d="M20 66c-1.6 1.7-1.6 3.4 0 5.1 1.6-1.7 1.6-3.4 0-5.1Z" />
-      <path d="M20 71.6c-.9 1.15-.9 2.3 0 3.45.9-1.15.9-2.3 0-3.45Z" />
-      <path d="M19.55 75.6h.9L20 79.6Z" />
+      {/* Caduceus stem: stacked beads tapering to a fine tail */}
+      <ellipse cx="21" cy="60.5" rx="4.3" ry="3.5" />
+      <ellipse cx="21" cy="68.5" rx="3.7" ry="3.1" />
+      <ellipse cx="21" cy="76" rx="3.1" ry="2.7" />
+      <ellipse cx="21" cy="82.6" rx="2.5" ry="2.2" />
+      <ellipse cx="21" cy="88" rx="1.8" ry="1.7" />
+      {/* Fine strands crossing the beads, giving the braided read */}
+      <path d="M15.6 64.2h10.8v1H15.6ZM16.4 72h9.2v1h-9.2ZM17.2 79.2h7.6v.9h-7.6ZM18 85.2h6v.8h-6Z" />
+      <path d="M20.3 90.6h1.4L21 100Z" />
     </svg>
   );
 }
@@ -47,17 +53,17 @@ function BotanicalMark({ className = "" }: { className?: string }) {
 const sizes = {
   sm: {
     word: "text-2xl",
-    tagline: "text-[0.5rem] tracking-[0.22em]",
+    tagline: "text-[0.5625rem] tracking-[0.06em]",
     arabic: "text-[0.6rem]",
   },
   md: {
     word: "text-3xl sm:text-[2rem]",
-    tagline: "text-[0.5625rem] tracking-[0.24em]",
+    tagline: "text-[0.6875rem] tracking-[0.07em]",
     arabic: "text-xs",
   },
   lg: {
     word: "text-4xl sm:text-5xl",
-    tagline: "text-[0.6875rem] tracking-[0.26em]",
+    tagline: "text-[0.875rem] tracking-[0.08em]",
     arabic: "text-sm",
   },
 } as const;
@@ -95,9 +101,9 @@ export default function BrandMark({
         Ros
         {/* The mark replaces the letter, as it does in the brand logo. The
             letter itself stays for screen readers and for copied text. */}
-        <span className="relative inline-block h-[1em] w-[0.30em] align-baseline">
+        <span className="relative inline-block h-[1em] w-[0.38em] align-baseline">
           <span className="sr-only">i</span>
-          <BotanicalMark className="absolute bottom-[-0.05em] left-1/2 h-[0.88em] w-auto -translate-x-1/2 text-gold" />
+          <BotanicalMark className="absolute bottom-[-0.12em] left-1/2 h-[1.10em] w-auto -translate-x-1/2 text-gold" />
         </span>
         ca
       </span>
@@ -107,11 +113,11 @@ export default function BrandMark({
           {/* Fixed-width rules rather than .ornament-rule: the lockup is a
               shrink-to-fit column, so flexible rules would collapse to zero. */}
           <span
-            className={`mt-1.5 flex items-center justify-center gap-2 whitespace-nowrap uppercase ${s.tagline} ${taglineColor}`}
+            className={`mt-1.5 flex items-center justify-center gap-2.5 whitespace-nowrap font-serif ${s.tagline} ${taglineColor}`}
           >
-            <span aria-hidden="true" className="h-px w-4 bg-gold/70" />
+            <span aria-hidden="true" className="h-px w-5 bg-gold/80" />
             Your Gateway To Nature
-            <span aria-hidden="true" className="h-px w-4 bg-gold/70" />
+            <span aria-hidden="true" className="h-px w-5 bg-gold/80" />
           </span>
           {/* dir="rtl" so the Arabic shapes and orders correctly. */}
           <span
