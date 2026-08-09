@@ -18,6 +18,16 @@ export type CollectionsCopy = {
   }[];
   philosophyHeading: string;
   pillars: { title: string; body: string }[];
+
+  productsEyebrow: string;
+  productsTitle: string;
+  productsBody: string;
+  /**
+   * Product names and sub-lines are transcribed from the packaging in the
+   * photography — nothing here is written for them. The names stay in Latin in
+   * both languages, as they are printed on the bottle.
+   */
+  products: { sub: string; collection: string; cta: string }[];
 };
 
 export const collectionsCopy: Localised<CollectionsCopy> = {
@@ -60,6 +70,21 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
         body: "We care for you and the planet every step of the way.",
       },
     ],
+
+    productsEyebrow: "All Products",
+    productsTitle: "The Full Rosica Range",
+    productsBody:
+      "Every product across both collections, from daily cleansing to deep repair.",
+    products: [
+      { sub: "Repair Shampoo", collection: "Essentials", cta: "View in Essentials" },
+      { sub: "Cleanse Shampoo", collection: "Essentials", cta: "View in Essentials" },
+      {
+        sub: "Intense Nourishment for All Hair Types",
+        collection: "Essentials",
+        cta: "View in Essentials",
+      },
+      { sub: "Sulfate-Free", collection: "PURE", cta: "View in Pure" },
+    ],
   },
   ar: {
     metaTitle: "المجموعات | مجموعتان. عناية نباتية متكاملة.",
@@ -92,6 +117,21 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
       { title: "ابتكار علمي", body: "أبحاث متقدّمة وتركيبات حديثة." },
       { title: "تركيب مدروس", body: "كل منتج صُنع بهدف واضح وعناية فائقة." },
       { title: "جمال مسؤول", body: "نهتم بكِ وبالكوكب في كل خطوة." },
+    ],
+
+    productsEyebrow: "جميع المنتجات",
+    productsTitle: "تشكيلة روزيكا الكاملة",
+    productsBody:
+      "كل منتجات المجموعتين، من التنظيف اليومي حتى الإصلاح العميق.",
+    products: [
+      { sub: "شامبو الإصلاح", collection: "إسينشالز", cta: "اعرضيه في إسينشالز" },
+      { sub: "شامبو التنظيف", collection: "إسينشالز", cta: "اعرضيه في إسينشالز" },
+      {
+        sub: "تغذية مكثفة لجميع أنواع الشعر",
+        collection: "إسينشالز",
+        cta: "اعرضيه في إسينشالز",
+      },
+      { sub: "خالٍ من السلفات", collection: "بيور", cta: "اعرضيه في بيور" },
     ],
   },
 };

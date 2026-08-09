@@ -3,6 +3,8 @@ import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
+import ProductSlider, { type SliderProduct } from "@/components/ProductSlider";
+import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { product, productAlt } from "@/lib/media";
 import { localePath, type Locale } from "@/lib/i18n";
@@ -29,8 +31,49 @@ const art = [
 
 const pillarIcons: IconName[] = ["seedling", "flask", "mortar", "globe"];
 
+/**
+ * The four products, in the order they are listed in the content file. Names
+ * are the ones printed on the bottles and stay in Latin in both languages.
+ */
+const productArt = [
+  {
+    name: "Honey & Propolis",
+    image: product.honeyPropolisRepairShampoo,
+    imageAlt: productAlt.honeyPropolisRepairShampoo,
+    href: "/collections/essentials",
+  },
+  {
+    name: "Purifying & Fresh",
+    image: product.purifyingFreshCleanseShampoo,
+    imageAlt: productAlt.purifyingFreshCleanseShampoo,
+    href: "/collections/essentials",
+  },
+  {
+    name: "Deep Repair Conditioner",
+    image: product.deepRepairConditioner,
+    imageAlt: productAlt.deepRepairConditioner,
+    href: "/collections/essentials",
+  },
+  {
+    name: "Botanical Restore Shampoo",
+    image: product.botanicalRestoreShampoo,
+    imageAlt: productAlt.botanicalRestoreShampoo,
+    href: "/collections/pure",
+  },
+];
+
 export default function CollectionsView({ locale }: { locale: Locale }) {
   const copy = collectionsCopy[locale];
+
+  const sliderProducts: SliderProduct[] = copy.products.map((item, i) => ({
+    name: productArt[i].name,
+    sub: item.sub,
+    collection: item.collection,
+    cta: item.cta,
+    image: productArt[i].image,
+    imageAlt: productArt[i].imageAlt,
+    href: localePath(locale, productArt[i].href),
+  }));
 
   return (
     <>
@@ -107,6 +150,25 @@ export default function CollectionsView({ locale }: { locale: Locale }) {
             </RevealItem>
           ))}
         </RevealGroup>
+      </section>
+
+      {/*
+        Every product in one rail. Full-bleed rather than inside the container,
+        so the peeking cards run off the edges of the screen rather than
+        stopping short of them.
+      */}
+      <section id="products" className="border-t border-gold/20 bg-cream py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
+          <Reveal className="max-w-2xl">
+            <p className="eyebrow text-gold-deep">{copy.productsEyebrow}</p>
+            <h2 className="mt-3 text-[2rem] leading-tight sm:text-4xl">{copy.productsTitle}</h2>
+            <p className="mt-5 text-base leading-relaxed text-ink-muted">{copy.productsBody}</p>
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-12" delay={0.1}>
+          <ProductSlider products={sliderProducts} locale={locale} />
+        </Reveal>
       </section>
 
       {/* Shared philosophy — full-width strip, so square-edged */}

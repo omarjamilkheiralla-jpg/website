@@ -11,17 +11,21 @@ export default function ArrowLink({
   /** Overrides the accessible name where the visible text repeats on a page. */
   label,
   className = "",
+  tabIndex,
 }: {
   href: string;
   children: React.ReactNode;
   tone?: "dark" | "light";
   label?: string;
   className?: string;
+  /** -1 takes the link out of the tab order, for duplicated carousel cards. */
+  tabIndex?: number;
 }) {
   return (
     <Link
       href={href}
       aria-label={label}
+      tabIndex={tabIndex}
       className={`group/arrow inline-flex items-center gap-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.16em] transition-colors duration-300 ${
         tone === "light" ? "text-linen hover:text-gold" : "text-green hover:text-gold-deep"
       } ${className}`}
