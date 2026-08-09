@@ -22,8 +22,12 @@ const t = {
 type NewsletterFormProps = {
   /** "light" sits on dark bands (footer, community section). */
   tone?: "light" | "dark";
-  /** "compact" stays on one row inside the narrow footer column. */
-  layout?: "inline" | "compact";
+  /**
+   * "compact" stays on one row inside the narrow footer column. "pill" puts
+   * the submit inside the field as a single rounded control, as the contact
+   * page artwork draws it.
+   */
+  layout?: "inline" | "compact" | "pill";
   buttonLabel?: string;
   className?: string;
   locale?: Locale;
@@ -51,6 +55,51 @@ export default function NewsletterForm({
 
   const light = tone === "light";
   const compact = layout === "compact";
+  const pill = layout === "pill";
+
+  if (pill) {
+    return (
+      <form onSubmit={handleSubmit} className={`w-full ${className}`}>
+        <label htmlFor={inputId} className="sr-only">
+          {copy.label}
+        </label>
+        <div className="flex items-center gap-2 rounded-full border border-gold/45 bg-cream ps-6 pe-2 py-1.5 transition-colors focus-within:border-gold">
+          <input
+            id={inputId}
+            type="email"
+            name="email"
+            required
+            autoComplete="email"
+            placeholder={copy.placeholder}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className="w-full min-w-0 bg-transparent py-2.5 text-sm text-ink placeholder:text-ink-muted/70 focus:outline-none"
+          />
+          <button
+            type="submit"
+            aria-label={buttonLabel ?? copy.button}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-green transition-colors duration-300 hover:bg-gold/15 hover:text-gold-deep"
+          >
+            <svg
+              viewBox="0 0 24 12"
+              className="h-2.5 w-6 rtl:-scale-x-100"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M0 6h22M17 1l5 5-5 5" />
+            </svg>
+          </button>
+        </div>
+        <p role="status" aria-live="polite" className="mt-3 min-h-5 text-xs text-green">
+          {submitted ? copy.thanks : ""}
+        </p>
+      </form>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className={`w-full ${className}`}>

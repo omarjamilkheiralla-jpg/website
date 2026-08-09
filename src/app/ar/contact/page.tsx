@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import ContactView from "@/components/pages/ContactView";
+import { contactCopy } from "@/content/contact";
 
 export const metadata: Metadata = {
-  title: "تواصل معنا",
-  description: "تواصلي مع روزيكا لأي استفسار عن منتجات الجمال الطبيعي الفاخرة أو المجموعات أو الشراكات.",
+  title: contactCopy.ar.metaTitle,
+  description: contactCopy.ar.metaDescription,
 };
 
 export default function ArabicContactPage() {
-  return (
-    <ComingSoon
-      locale="ar"
-      eyebrow="تواصل معنا"
-      title="يسعدنا تواصلك"
-      body="يسعدنا أن نسمع منك. تواصلي معنا لأي استفسار عن منتجات روزيكا أو المجموعات أو الشراكات."
-    />
-  );
+  return <ContactView locale="ar" />;
 }

@@ -125,8 +125,12 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
 
 export const footerColumnsFor = (locale: Locale) => footer[locale];
 
+/**
+ * The brand's own profiles. TikTok is deliberately absent: the placeholder
+ * pointed at tiktok.com's front page, which is the same defect as no link at
+ * all. Add it back here the moment there is a real handle to point at.
+ */
 export const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "TikTok", href: "https://tiktok.com" },
+  { label: "Instagram", href: "https://www.instagram.com/rosicanaturalcare/" },
+  { label: "Facebook", href: "https://www.facebook.com/Rosicanaturalcare" },
 ];

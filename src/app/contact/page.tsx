@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import ContactView from "@/components/pages/ContactView";
+import { contactCopy } from "@/content/contact";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact Rosica with questions about our premium natural beauty products, collections, or partnerships.",
+  title: contactCopy.en.metaTitle,
+  description: contactCopy.en.metaDescription,
 };
 
 export default function ContactPage() {
-  return (
-    <ComingSoon
-      eyebrow="CONTACT"
-      title="Get in Touch"
-      body="We would be glad to hear from you. Reach out with questions about Rosica products, collections, or partnerships."
-    />
-  );
+  return <ContactView locale="en" />;
 }

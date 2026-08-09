@@ -22,9 +22,17 @@ export type IconName =
   | "honey"
   | "seedling"
   | "beaker"
-  | "certificate";
+  | "certificate"
+  | "envelope"
+  | "pin"
+  | "clock"
+  | "calendar";
 
 const paths: Record<IconName, string[]> = {
+  envelope: ["M4 8h24v16H4z", "M4 9.5 16 18 28 9.5"],
+  pin: ["M16 29c6-7.2 9-12.1 9-16a9 9 0 1 0-18 0c0 3.9 3 8.8 9 16Z", "M16 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"],
+  clock: ["M16 4a12 12 0 1 0 0 24 12 12 0 0 0 0-24Z", "M16 9v7.5l5 3"],
+  calendar: ["M5 8h22v20H5z", "M5 14h22", "M11 4v6", "M21 4v6"],
   leaf: ["M16 28V13", "M16 18c0-6 4-11 11-12.5C26.5 12 22 17 16 18Z", "M16 23c0-5-3.2-9-8-10 .4 5.4 3.2 9 8 10Z"],
   flask: [
     "M13 4h6",

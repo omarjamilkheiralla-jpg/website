@@ -24,6 +24,8 @@ export const generic = {
   foliage: "/images/botanical-foliage.jpg",
   shadowWall: "/images/botanical-shadow-wall.jpg",
   vaseLinen: "/images/botanical-vase-linen.jpg",
+  blossomWall: "/images/botanical-blossom-wall.jpg",
+  spireaBeige: "/images/botanical-spirea-beige.jpg",
 
   // Laboratory and formulation.
   labGlassware: "/images/lab-glassware.jpg",
@@ -51,6 +53,8 @@ export const genericAlt = {
   foliage: "A green leaf branch resting on a pale linen surface",
   shadowWall: "Soft botanical shadows cast across a warm cream wall",
   vaseLinen: "A slender flowering branch in a pale ceramic vase on draped linen",
+  blossomWall: "A branch of white blossom in front of a warm cream wall",
+  spireaBeige: "White spirea flowers in bloom against a soft beige wall",
 
   labGlassware: "Botanical stems in laboratory glassware in soft daylight",
   labFlowerTube: "A single flower suspended in a glass test tube",
