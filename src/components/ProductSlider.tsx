@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ArrowLink from "./ArrowLink";
 import Media from "./Media";
 import type { Locale } from "@/lib/i18n";
@@ -73,7 +73,7 @@ function SliderCard({
   flat,
   dir,
   hidden,
-  children,
+  item,
 }: {
   x: MotionValue<number>;
   index: number;
@@ -84,7 +84,7 @@ function SliderCard({
   flat: boolean;
   dir: "ltr" | "rtl";
   hidden: boolean;
-  children: ReactNode;
+  item: SliderProduct;
 }) {
   // Distance from the centre of the frame, measured in whole cards.
   const distance = useTransform(x, (offset) => {
@@ -117,6 +117,44 @@ function SliderCard({
   */
   const z = useTransform(distance, (d) => (flat ? 0 : -Math.min(Math.abs(d), FALLOFF) * 45));
   /*
+    Only the photograph in focus is sharp; the rest soften as they turn away,
+    which is what the distortion at the edges needed.
+
+    The filter wraps the image alone rather than the whole card. It keeps the
+    names legible, and it is a third less area to repaint. It also cannot go on
+    the list item itself — a filter flattens that element's 3D rendering, and
+    the turn would collapse back into a squash.
+  */
+  const blur = useTransform(distance, (d) => {
+    const spread = Math.abs(d);
+    // Off-frame cards get no filter at all: nothing there is visible, and a
+    // blur is one of the more expensive things to composite.
+    if (flat || spread > FALLOFF + 0.4) return "none";
+    /*
+      Quantised to half a pixel. A filter that changes every frame forces a
+      repaint every frame on every card in view; in steps it repaints a handful
+      of times per move instead, which is the difference between dropping
+      frames and not. Half a pixel is far below what the eye resolves in a
+      blur.
+    */
+    const px = Math.round(Math.min(spread, FALLOFF) * 6) / 2;
+    return px < 0.25 ? "none" : `blur(${px}px)`;
+  });
+  /*
+    Padding copies that are nowhere near the frame stop being painted. Under
+    preserve-3d the browser keeps every child of the track alive as part of the
+    same 3D scene, so being clipped is not enough to make them free — with all
+    of them live the track dropped frames.
+
+    Only the duplicates are culled. `visibility: hidden` also removes content
+    from the accessibility tree, which would be wrong for the one real copy;
+    those four stay painted wherever they are.
+  */
+  const visibility = useTransform(distance, (d) =>
+    hidden && Math.abs(d) > FALLOFF + 0.6 ? "hidden" : "visible",
+  );
+
+  /*
     The turn lives on the list item itself. CSS perspective only reaches an
     element's *direct* children, so putting it on a wrapper inside the item left
     the rotation flat — an orthographic squash rather than a card turning away.
@@ -126,9 +164,34 @@ function SliderCard({
       dir={dir}
       aria-hidden={hidden || undefined}
       className="group shrink-0"
-      style={{ width: card, rotateY, originX, z }}
+      style={{ width: card, rotateY, originX, z, visibility }}
     >
-      {children}
+      <article className="card-lift flex h-full flex-col overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
+        <motion.div style={{ filter: blur }}>
+          <Media
+            src={item.image}
+            alt={item.imageAlt}
+            ratio="square"
+            bordered={false}
+            placeholderTone="cream"
+            sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 340px"
+          />
+        </motion.div>
+        <div className="flex flex-1 flex-col p-6">
+          <p className="eyebrow text-gold-deep">{item.collection}</p>
+          <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+          <div className="mt-auto pt-6">
+            <ArrowLink
+              href={item.href}
+              label={`${item.cta} — ${item.name}`}
+              tabIndex={hidden ? -1 : undefined}
+            >
+              {item.cta}
+            </ArrowLink>
+          </div>
+        </div>
+      </article>
     </motion.li>
   );
 }
@@ -165,7 +228,12 @@ export default function ProductSlider({
   const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
 
-  // Enough copies that a card is always in view on both sides mid-wrap.
+  /*
+    Five copies. The index roams one whole list either side of its home before
+    wrapping, and two more cards past that fill the peeks, so the strip has to
+    reach start ± (count + 2) without running out — three copies leaves a hole
+    at the far edge, and four does under RTL, where home sits off-centre.
+  */
   const REPEATS = 5;
   const ordered = useMemo(() => (rtl ? [...products].reverse() : products), [products, rtl]);
   const cards = useMemo(() => Array.from({ length: REPEATS }, () => ordered).flat(), [ordered]);
@@ -193,18 +261,33 @@ export default function ProductSlider({
     [viewport, card, step],
   );
 
-  // Settle on the active card whenever it — or the available width — changes.
+  const animationRef = useRef<ReturnType<typeof animate> | null>(null);
+
+  /** Runs the track to the resting place of a given card. */
+  const settle = useCallback(
+    (i: number, immediate = false) => {
+      if (!viewport) return;
+      /*
+        No explicit stop: `animate` already replaces any run in flight, and
+        stopping first was leaving the offset a frame out of step — the source
+        of the snap that survived the earlier fixes.
+      */
+      animationRef.current = animate(
+        x,
+        restFor(i),
+        immediate || reduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 90, damping: 20, mass: 0.9 },
+      );
+    },
+    [viewport, restFor, reduceMotion, x],
+  );
+
+  // Reposition without animating when the available width changes.
   useEffect(() => {
-    if (!viewport) return;
-    const controls = animate(
-      x,
-      restFor(index),
-      reduceMotion
-        ? { duration: 0 }
-        : { type: "spring", stiffness: 90, damping: 20, mass: 0.9 },
-    );
-    return () => controls.stop();
-  }, [index, viewport, restFor, reduceMotion, x]);
+    settle(indexRef.current, true);
+    return () => animationRef.current?.stop();
+  }, [settle]);
 
   /**
    * Steps the carousel.
@@ -220,21 +303,30 @@ export default function ProductSlider({
    * thousands of pixels per second and hurls the track several screens away
    * before hauling it back — which is exactly the rewind this was meant to
    * avoid. `jump` moves the value without writing history.
+   *
+   * The teleport and the new animation are issued in the same synchronous
+   * block, so no frame can tick between them and nothing can overwrite the
+   * re-centre.
+   *
+   * The bounds are loops rather than single checks so a hard fling, which can
+   * land many cards away in one go, is folded back just the same.
    */
   const go = useCallback(
     (delta: number) => {
       let next = indexRef.current + delta;
-      if (next >= start + count) {
+      while (next >= start + count) {
         next -= count;
         x.jump(x.get() + count * step);
-      } else if (next <= start - count) {
+      }
+      while (next <= start - count) {
         next += count;
         x.jump(x.get() - count * step);
       }
       indexRef.current = next;
       setIndex(next);
+      settle(next);
     },
-    [count, start, step, x],
+    [count, start, step, x, settle],
   );
 
   /** Under RTL the running order is reversed, so advancing walks backwards. */
@@ -308,34 +400,8 @@ export default function ProductSlider({
                 flat={Boolean(reduceMotion)}
                 dir={rtl ? "rtl" : "ltr"}
                 hidden={duplicate}
-              >
-                  <article className="card-lift flex h-full flex-col overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
-                    <Media
-                      src={item.image}
-                      alt={item.imageAlt}
-                      ratio="square"
-                      bordered={false}
-                      placeholderTone="cream"
-                      sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 340px"
-                    />
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="eyebrow text-gold-deep">{item.collection}</p>
-                      <h3 className="mt-3 font-serif text-xl leading-snug text-green">
-                        {item.name}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
-                      <div className="mt-auto pt-6">
-                        <ArrowLink
-                          href={item.href}
-                          label={`${item.cta} — ${item.name}`}
-                          tabIndex={duplicate ? -1 : undefined}
-                        >
-                          {item.cta}
-                        </ArrowLink>
-                      </div>
-                    </div>
-                  </article>
-              </SliderCard>
+                item={item}
+              />
             );
           })}
         </motion.ul>
