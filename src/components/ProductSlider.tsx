@@ -1,7 +1,14 @@
 "use client";
 
-import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import ArrowLink from "./ArrowLink";
 import Media from "./Media";
 import type { Locale } from "@/lib/i18n";
@@ -45,9 +52,90 @@ function metricsFor(viewport: number) {
   return { step, gap, card: step - gap };
 }
 
+/** Furthest a card is pushed before its depth effects stop deepening. */
+const FALLOFF = 2.2;
+const clampAbs = (n: number, limit: number) => Math.max(-limit, Math.min(limit, n));
+
 /**
- * Product carousel: three cards visible with the neighbours peeking in, moved
- * by the arrow buttons or by dragging.
+ * One card, turned in 3D by how far it sits from the centre of the frame.
+ *
+ * The maths has to run per card, and hooks cannot be called inside a loop, so
+ * each card owns its own derived motion values. They read straight off the
+ * track offset, which means the turn tracks a drag continuously rather than
+ * stepping between fixed states.
+ */
+function SliderCard({
+  x,
+  index,
+  step,
+  card,
+  viewport,
+  flat,
+  dir,
+  hidden,
+  children,
+}: {
+  x: MotionValue<number>;
+  index: number;
+  step: number;
+  card: number;
+  viewport: number;
+  /** Skips the depth effects for reduced-motion users. */
+  flat: boolean;
+  dir: "ltr" | "rtl";
+  hidden: boolean;
+  children: ReactNode;
+}) {
+  // Distance from the centre of the frame, measured in whole cards.
+  const distance = useTransform(x, (offset) => {
+    if (!viewport) return 0;
+    const centre = index * step + card / 2 + offset;
+    return (centre - viewport / 2) / step;
+  });
+
+  /*
+    Each card hinges on the edge nearest the centre and swings its outer edge
+    away, so the row curves back like the face of a drum. Because the two
+    hinges are mirror images, the same positive rotation sends the outer edge
+    backwards on both sides — following the sign of the distance instead tipped
+    one side towards the viewer, and those cards bloated over their neighbours.
+    The origin slides through the centre rather than flipping, so nothing snaps
+    as a card crosses.
+  */
+  const rotateY = useTransform(distance, (d) => (flat ? 0 : Math.min(Math.abs(d) * 19, 36)));
+  const originX = useTransform(distance, (d) => (flat ? 0.5 : 0.5 - clampAbs(d, 1) * 0.5));
+  /*
+    No opacity falloff. Fading the outer cards looked right but took their text
+    under the contrast floor — at the far end it measured about 2.9:1 against
+    the page. The turn and the depth already read as distance, so the cards stay
+    fully opaque.
+
+    Depth alone shrinks the outer cards — the perspective on the track does the
+    work, so there is no separate scale. Stacking one on top would compound into
+    a shrink far steeper than the turn, and the cards would read as small rather
+    than as far away.
+  */
+  const z = useTransform(distance, (d) => (flat ? 0 : -Math.min(Math.abs(d), FALLOFF) * 45));
+  /*
+    The turn lives on the list item itself. CSS perspective only reaches an
+    element's *direct* children, so putting it on a wrapper inside the item left
+    the rotation flat — an orthographic squash rather than a card turning away.
+  */
+  return (
+    <motion.li
+      dir={dir}
+      aria-hidden={hidden || undefined}
+      className="group shrink-0"
+      style={{ width: card, rotateY, originX, z }}
+    >
+      {children}
+    </motion.li>
+  );
+}
+
+/**
+ * Product carousel: three cards visible with the neighbours turning away into
+ * the distance either side, moved by the arrow buttons or by dragging.
  *
  * The track is transformed rather than scrolled. A scroll container would give
  * native dragging for free but hands the easing to the browser, and it cannot
@@ -80,10 +168,7 @@ export default function ProductSlider({
   // Enough copies that a card is always in view on both sides mid-wrap.
   const REPEATS = 5;
   const ordered = useMemo(() => (rtl ? [...products].reverse() : products), [products, rtl]);
-  const cards = useMemo(
-    () => Array.from({ length: REPEATS }, () => ordered).flat(),
-    [ordered],
-  );
+  const cards = useMemo(() => Array.from({ length: REPEATS }, () => ordered).flat(), [ordered]);
 
   /** The one copy screen readers see; the others are visual padding. */
   const exposedFrom = Math.floor(REPEATS / 2) * count;
@@ -122,19 +207,29 @@ export default function ProductSlider({
   }, [index, viewport, restFor, reduceMotion, x]);
 
   /**
-   * Steps the carousel. When the index leaves the middle copy it is pulled back
-   * by one list length and the offset is moved by the matching distance, so the
-   * card under the cursor does not shift — the wrap is invisible.
+   * Steps the carousel.
+   *
+   * Once the index walks past the middle copy it is pulled back by one list
+   * length. Renumbering alone would send the track flying back to where that
+   * index used to sit, so the offset is moved by exactly the same distance in
+   * the same direction — leaving the cards where they are on screen while the
+   * numbering quietly resets underneath them.
+   *
+   * It has to be `jump`, not `set`. `set` records the teleport as a real
+   * movement, so the spring that follows inherits a velocity of tens of
+   * thousands of pixels per second and hurls the track several screens away
+   * before hauling it back — which is exactly the rewind this was meant to
+   * avoid. `jump` moves the value without writing history.
    */
   const go = useCallback(
     (delta: number) => {
       let next = indexRef.current + delta;
       if (next >= start + count) {
         next -= count;
-        x.set(x.get() - count * step);
+        x.jump(x.get() + count * step);
       } else if (next <= start - count) {
         next += count;
-        x.set(x.get() + count * step);
+        x.jump(x.get() - count * step);
       }
       indexRef.current = next;
       setIndex(next);
@@ -173,10 +268,18 @@ export default function ProductSlider({
             the right edge, which put every card thousands of pixels off screen.
             Reading order is handled by reversing the list instead; each card
             gets the page direction back so its own text still sets correctly.
+
+            The perspective here is what gives the cards their depth; without it
+            the rotation on each one would read as a flat horizontal squash.
           */
           dir="ltr"
           className="flex cursor-grab items-stretch select-none active:cursor-grabbing"
-          style={{ x, gap }}
+          style={{
+            x,
+            gap,
+            perspective: 2000,
+            transformStyle: "preserve-3d",
+          }}
           drag="x"
           dragMomentum={false}
           dragElastic={0.08}
@@ -195,38 +298,44 @@ export default function ProductSlider({
             */
             const duplicate = i < exposedFrom || i >= exposedFrom + count;
             return (
-            <li
-              key={`${item.name}-${i}`}
-              dir={rtl ? "rtl" : "ltr"}
-              style={{ width: card }}
-              className="group shrink-0"
-              aria-hidden={duplicate || undefined}
-            >
-              <article className="card-lift flex h-full flex-col overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
-                <Media
-                  src={item.image}
-                  alt={item.imageAlt}
-                  ratio="square"
-                  bordered={false}
-                  placeholderTone="cream"
-                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 340px"
-                />
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="eyebrow text-gold-deep">{item.collection}</p>
-                  <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
-                  <div className="mt-auto pt-6">
-                    <ArrowLink
-                      href={item.href}
-                      label={`${item.cta} — ${item.name}`}
-                      tabIndex={duplicate ? -1 : undefined}
-                    >
-                      {item.cta}
-                    </ArrowLink>
-                  </div>
-                </div>
-              </article>
-            </li>
+              <SliderCard
+                key={`${item.name}-${i}`}
+                x={x}
+                index={i}
+                step={step}
+                card={card}
+                viewport={viewport}
+                flat={Boolean(reduceMotion)}
+                dir={rtl ? "rtl" : "ltr"}
+                hidden={duplicate}
+              >
+                  <article className="card-lift flex h-full flex-col overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
+                    <Media
+                      src={item.image}
+                      alt={item.imageAlt}
+                      ratio="square"
+                      bordered={false}
+                      placeholderTone="cream"
+                      sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 340px"
+                    />
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="eyebrow text-gold-deep">{item.collection}</p>
+                      <h3 className="mt-3 font-serif text-xl leading-snug text-green">
+                        {item.name}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+                      <div className="mt-auto pt-6">
+                        <ArrowLink
+                          href={item.href}
+                          label={`${item.cta} — ${item.name}`}
+                          tabIndex={duplicate ? -1 : undefined}
+                        >
+                          {item.cta}
+                        </ArrowLink>
+                      </div>
+                    </div>
+                  </article>
+              </SliderCard>
             );
           })}
         </motion.ul>
