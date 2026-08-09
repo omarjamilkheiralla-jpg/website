@@ -28,18 +28,22 @@ const sizes: Record<Size, string> = {
 
 function Arrow() {
   return (
-    <svg
-      viewBox="0 0 24 12"
-      className="h-2 w-5 shrink-0 transition-transform duration-300 ease-out group-hover/cta:translate-x-1 motion-reduce:group-hover/cta:translate-x-0"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.25"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M0 6h22M17 1l5 5-5 5" />
-    </svg>
+    /* Flipping the wrapper rather than the glyph keeps the hover nudge
+       travelling in the reading direction under RTL. */
+    <span className="inline-flex shrink-0 rtl:-scale-x-100">
+      <svg
+        viewBox="0 0 24 12"
+        className="h-2 w-5 transition-transform duration-300 ease-out group-hover/cta:translate-x-1 motion-reduce:group-hover/cta:translate-x-0"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M0 6h22M17 1l5 5-5 5" />
+      </svg>
+    </span>
   );
 }
 

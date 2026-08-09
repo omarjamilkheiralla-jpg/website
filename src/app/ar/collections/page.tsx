@@ -3,10 +3,10 @@ import CollectionsView from "@/components/pages/CollectionsView";
 import { collectionsCopy } from "@/content/collections";
 
 export const metadata: Metadata = {
-  title: collectionsCopy.en.metaTitle,
-  description: collectionsCopy.en.metaDescription,
+  title: collectionsCopy.ar.metaTitle,
+  description: collectionsCopy.ar.metaDescription,
 };
 
-export default function CollectionsPage() {
-  return <CollectionsView locale="en" />;
+export default function ArabicCollectionsPage() {
+  return <CollectionsView locale="ar" />;
 }

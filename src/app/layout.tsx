@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import LocaleShell from "@/components/LocaleShell";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +13,26 @@ const cormorant = Cormorant_Garamond({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+/*
+  Arabic counterparts. Cormorant and Inter carry no Arabic glyphs, so without
+  these the RTL pages fall back to whatever the OS offers and the script comes
+  out uneven. Amiri is a Naskh revival that sits beside Cormorant's classical
+  proportions; IBM Plex Sans Arabic is the body face.
+*/
+const amiri = Amiri({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  variable: "--font-amiri",
+  display: "swap",
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-plex-arabic",
   display: "swap",
 });
 
@@ -49,15 +68,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${inter.variable} ${amiri.variable} ${plexArabic.variable}`}
+    >
       <body>
         {/* Reveal animations start at opacity 0; without JS they must stay visible. */}
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
+        {/* Picks the locale off the route and sets dir/lang around the chrome. */}
+        <LocaleShell>{children}</LocaleShell>
       </body>
     </html>
   );

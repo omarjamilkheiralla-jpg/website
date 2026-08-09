@@ -3,10 +3,10 @@ import CollectionPageView from "@/components/pages/CollectionPageView";
 import { essentialsCopy } from "@/content/collection-pages";
 
 export const metadata: Metadata = {
-  title: essentialsCopy.en.metaTitle,
-  description: essentialsCopy.en.metaDescription,
+  title: essentialsCopy.ar.metaTitle,
+  description: essentialsCopy.ar.metaDescription,
 };
 
-export default function EssentialsPage() {
-  return <CollectionPageView collection="essentials" locale="en" />;
+export default function ArabicEssentialsPage() {
+  return <CollectionPageView collection="essentials" locale="ar" />;
 }

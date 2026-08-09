@@ -3,10 +3,10 @@ import IngredientsView from "@/components/pages/IngredientsView";
 import { ingredientsCopy } from "@/content/ingredients";
 
 export const metadata: Metadata = {
-  title: ingredientsCopy.en.metaTitle,
-  description: ingredientsCopy.en.metaDescription,
+  title: ingredientsCopy.ar.metaTitle,
+  description: ingredientsCopy.ar.metaDescription,
 };
 
-export default function IngredientsPage() {
-  return <IngredientsView locale="en" />;
+export default function ArabicIngredientsPage() {
+  return <IngredientsView locale="ar" />;
 }

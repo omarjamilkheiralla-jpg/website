@@ -75,18 +75,26 @@ export const genericAlt = {
 export const product = {
   /** All four bottles. Homepage, About and Collections heroes. */
   rangeGroup: "/images/product-range-group.jpg",
-  /** Range shot with its backdrop extended upward, framed for the tall hero panel. */
+  /** Range shot with its backdrop extended sideways, framed for the hero band. */
   rangeGroupHero: "/images/product-range-group-hero.jpg",
+  /**
+   * The RTL heroes are separate files, not a CSS flip: mirroring the photograph
+   * would mirror the label text with it. The backdrop is extended to the right
+   * instead of the left so the bottles sit opposite the Arabic copy.
+   */
+  rangeGroupHeroRtl: "/images/product-range-group-hero-rtl.jpg",
   /** The three Essentials bottles — cropped from the range shot. */
   essentialsGroup: "/images/product-essentials-group.jpg",
   /** Essentials group with the backdrop extended for the wide hero band. */
   essentialsGroupHero: "/images/product-essentials-group-hero.jpg",
+  essentialsGroupHeroRtl: "/images/product-essentials-group-hero-rtl.jpg",
   /** Essentials group in a tall frame, for the Collections side panel. */
   essentialsGroupPanel: "/images/product-essentials-group-panel.jpg",
   /** Botanical Restore Shampoo styled with olive and aloe. */
   pureBottle: "/images/product-botanical-restore-shampoo.jpg",
   /** The same shot, backdrop extended for the wide hero band. */
   pureBottleHero: "/images/product-pure-bottle-hero.jpg",
+  pureBottleHeroRtl: "/images/product-pure-bottle-hero-rtl.jpg",
   /** The same shot in a tall frame, for the Collections side panel. */
   pureBottlePanel: "/images/product-pure-bottle-panel.jpg",
   honeyPropolisRepairShampoo: "/images/product-honey-propolis-repair-shampoo.jpg",
@@ -121,15 +129,4 @@ export const productAlt = {
     "Rosica Essentials Deep Repair Conditioner with dried blooms and olive branches",
   botanicalRestoreShampoo:
     "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
-} as const;
-
-/**
- * Ingredient copy transcribed from the approved homepage artwork. Not written
- * here — these are the client's own approved lines.
- */
-export const ingredientCopy = {
-  Honey: "A natural humectant rich in sugars that helps retain moisture.",
-  Propolis: "Known for its protective and soothing properties.",
-  "Aloe Vera": "Helps hydrate, soothe and support scalp comfort.",
-  Rosemary: "Traditionally used to help revitalize and strengthen hair.",
 } as const;

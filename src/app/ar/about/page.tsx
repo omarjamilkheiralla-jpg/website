@@ -3,10 +3,10 @@ import AboutView from "@/components/pages/AboutView";
 import { aboutCopy } from "@/content/about";
 
 export const metadata: Metadata = {
-  title: aboutCopy.en.metaTitle,
-  description: aboutCopy.en.metaDescription,
+  title: aboutCopy.ar.metaTitle,
+  description: aboutCopy.ar.metaDescription,
 };
 
-export default function AboutPage() {
-  return <AboutView locale="en" />;
+export default function ArabicAboutPage() {
+  return <AboutView locale="ar" />;
 }

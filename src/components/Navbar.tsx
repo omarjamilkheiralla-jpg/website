@@ -4,11 +4,37 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import BrandMark from "./BrandMark";
-import { primaryNav } from "@/lib/navigation";
+import { primaryNavFor } from "@/lib/navigation";
+import { alternatePath, localePath, type Locale } from "@/lib/i18n";
 
 function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  return href === "/" || href === "/ar" ? pathname === href : pathname.startsWith(href);
 }
+
+const t = {
+  en: {
+    skip: "Skip to content",
+    search: "Search Rosica",
+    allCollections: "All Collections",
+    buyNow: "Buy Now",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    primary: "Primary",
+    primaryMobile: "Primary mobile",
+    otherLanguage: "العربية",
+  },
+  ar: {
+    skip: "تخطَّ إلى المحتوى",
+    search: "ابحث في روزيكا",
+    allCollections: "جميع المجموعات",
+    buyNow: "اشترِ الآن",
+    openMenu: "افتح القائمة",
+    closeMenu: "أغلق القائمة",
+    primary: "التنقل الرئيسي",
+    primaryMobile: "التنقل الرئيسي للجوال",
+    otherLanguage: "English",
+  },
+} as const;
 
 function SearchIcon() {
   return (
@@ -27,8 +53,11 @@ function SearchIcon() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ locale = "en" }: { locale?: Locale }) {
   const pathname = usePathname();
+  const copy = t[locale];
+  const primaryNav = primaryNavFor(locale);
+  const to = (href: string) => localePath(locale, href);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -105,23 +134,23 @@ export default function Navbar() {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-green focus:px-4 focus:py-2 focus:text-sm focus:text-cream"
       >
-        Skip to content
+        {copy.skip}
       </a>
 
       <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
-        <BrandMark size="sm" />
+        <BrandMark size="sm" href={to("/")} />
 
         {/* Desktop navigation */}
-        <nav aria-label="Primary" className="hidden xl:block">
+        <nav aria-label={copy.primary} className="hidden xl:block">
           <ul className="flex items-center gap-7">
             {primaryNav.map((link) => {
-              const active = isActive(pathname, link.href);
+              const active = isActive(pathname, to(link.href));
 
               if (!link.children) {
                 return (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={to(link.href)}
                       aria-current={active ? "page" : undefined}
                       className={navLinkClass(active)}
                     >
@@ -184,16 +213,16 @@ export default function Navbar() {
                   >
                     <li>
                       <Link
-                        href={link.href}
+                        href={to(link.href)}
                         className="block px-5 py-2.5 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-linen hover:text-green"
                       >
-                        All Collections
+                        {copy.allCollections}
                       </Link>
                     </li>
                     {link.children.map((child) => (
                       <li key={child.href}>
                         <Link
-                          href={child.href}
+                          href={to(child.href)}
                           className="block px-5 py-2.5 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:bg-linen hover:text-green"
                         >
                           {child.label}
@@ -210,8 +239,8 @@ export default function Navbar() {
         {/* Utilities: search, language toggle, Buy Now */}
         <div className="flex items-center gap-3 sm:gap-4">
           <Link
-            href="/search"
-            aria-label="Search Rosica"
+            href={to("/search")}
+            aria-label={copy.search}
             className="hidden h-9 w-9 items-center justify-center text-green transition-colors duration-300 hover:text-gold sm:flex"
           >
             <SearchIcon />
@@ -219,22 +248,22 @@ export default function Navbar() {
 
           <span aria-hidden="true" className="hidden h-5 w-px bg-gold/40 sm:block" />
 
-          {/* TODO: point at the Arabic locale once the RTL build is ready */}
+          {/* Same page in the other language, not a jump back to the home page. */}
           <Link
-            href="/ar"
-            lang="ar"
-            dir="rtl"
-            hrefLang="ar"
+            href={alternatePath(locale, pathname)}
+            lang={locale === "ar" ? "en" : "ar"}
+            dir={locale === "ar" ? "ltr" : "rtl"}
+            hrefLang={locale === "ar" ? "en" : "ar"}
             className="hidden font-serif text-sm text-green transition-colors duration-300 hover:text-gold sm:block"
           >
-            العربية
+            {copy.otherLanguage}
           </Link>
 
           <Link
-            href="/where-to-buy"
+            href={to("/where-to-buy")}
             className="hidden rounded-sm bg-green px-5 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-[background-color,color,transform] duration-300 ease-out hover:scale-[1.03] hover:bg-gold hover:text-ink motion-reduce:hover:scale-100 sm:inline-block"
           >
-            Buy Now
+            {copy.buyNow}
           </Link>
 
           {/* Mobile trigger */}
@@ -243,7 +272,7 @@ export default function Navbar() {
             className="flex h-10 w-10 items-center justify-center text-green xl:hidden"
             aria-expanded={mobileOpen}
             aria-controls={`${menuId}-mobile`}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? copy.closeMenu : copy.openMenu}
             onClick={() => setMobileOpen((open) => !open)}
           >
             <svg
@@ -272,7 +301,7 @@ export default function Navbar() {
       {/* Mobile navigation */}
       <nav
         id={`${menuId}-mobile`}
-        aria-label="Primary mobile"
+        aria-label={copy.primaryMobile}
         hidden={!mobileOpen}
         className="border-t border-gold/25 bg-cream xl:hidden"
       >
@@ -280,8 +309,8 @@ export default function Navbar() {
           {primaryNav.map((link) => (
             <li key={link.href} className="border-b border-gold/15 last:border-b-0">
               <Link
-                href={link.href}
-                aria-current={isActive(pathname, link.href) ? "page" : undefined}
+                href={to(link.href)}
+                aria-current={isActive(pathname, to(link.href)) ? "page" : undefined}
                 className="block py-3.5 text-[0.6875rem] uppercase tracking-[0.16em] text-green"
               >
                 {link.label}
@@ -291,7 +320,7 @@ export default function Navbar() {
                   {link.children.map((child) => (
                     <li key={child.href}>
                       <Link
-                        href={child.href}
+                        href={to(child.href)}
                         className="block py-2 text-[0.6875rem] uppercase tracking-[0.12em] text-ink-muted transition-colors hover:text-gold"
                       >
                         {child.label}
@@ -304,19 +333,19 @@ export default function Navbar() {
           ))}
           <li className="flex items-center gap-4 pt-5 pb-2">
             <Link
-              href="/where-to-buy"
+              href={to("/where-to-buy")}
               className="flex-1 rounded-sm bg-green px-5 py-3 text-center text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-colors duration-300 hover:bg-gold hover:text-ink"
             >
-              Buy Now
+              {copy.buyNow}
             </Link>
             <Link
-              href="/ar"
-              lang="ar"
-              dir="rtl"
-              hrefLang="ar"
+              href={alternatePath(locale, pathname)}
+              lang={locale === "ar" ? "en" : "ar"}
+              dir={locale === "ar" ? "ltr" : "rtl"}
+              hrefLang={locale === "ar" ? "en" : "ar"}
               className="font-serif text-sm text-green"
             >
-              العربية
+              {copy.otherLanguage}
             </Link>
           </li>
         </ul>

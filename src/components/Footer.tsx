@@ -1,7 +1,29 @@
 import Link from "next/link";
 import BrandMark from "./BrandMark";
 import NewsletterForm from "./NewsletterForm";
-import { footerColumns, socialLinks } from "@/lib/navigation";
+import { footerColumnsFor, socialLinks } from "@/lib/navigation";
+import { localePath, type Locale } from "@/lib/i18n";
+
+const t = {
+  en: {
+    footer: "Footer",
+    blurb:
+      "Rosica is a premium natural beauty brand inspired by nature and refined through modern cosmetic science.",
+    joinHeading: "Join the Rosica Community",
+    joinBody: "Be the first to know about new launches, education and exclusive offers.",
+    rights: "All rights reserved.",
+    social: (label: string) => `Rosica on ${label}`,
+  },
+  ar: {
+    footer: "تذييل الصفحة",
+    blurb:
+      "روزيكا علامة تجارية فاخرة للجمال الطبيعي، مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة.",
+    joinHeading: "انضمّي إلى مجتمع روزيكا",
+    joinBody: "كوني أول من يعرف عن الإصدارات الجديدة والمحتوى التثقيفي والعروض الحصرية.",
+    rights: "جميع الحقوق محفوظة.",
+    social: (label: string) => `روزيكا على ${label}`,
+  },
+} as const;
 
 const socialIcons: Record<string, string> = {
   Instagram:
@@ -38,15 +60,17 @@ function BotanicalFlourish() {
   );
 }
 
-export default function Footer() {
+export default function Footer({ locale = "en" }: { locale?: Locale }) {
   const currentYear = new Date().getFullYear();
+  const copy = t[locale];
+  const footerColumns = footerColumnsFor(locale);
 
   return (
     <footer className="relative overflow-hidden bg-forest text-linen">
       {/* Decorative botanical, echoing the corner flourish in the designs. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-10 bottom-0 hidden h-[85%] w-64 text-gold/25 lg:block"
+        className="pointer-events-none absolute bottom-0 hidden h-[85%] w-64 text-gold/25 ltr:-right-10 rtl:-left-10 rtl:-scale-x-100 lg:block"
       >
         <BotanicalFlourish />
       </div>
@@ -55,17 +79,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,3.1fr)_minmax(0,1.2fr)] lg:gap-10">
           {/* Wordmark, bilingual tagline and brand blurb */}
           <div>
-            <BrandMark size="md" tone="light" />
-            <p className="mt-7 max-w-xs text-sm leading-relaxed text-linen/75">
-              Rosica is a premium natural beauty brand inspired by nature and refined through
-              modern cosmetic science.
-            </p>
+            <BrandMark size="md" tone="light" href={localePath(locale, "/")} />
+            <p className="mt-7 max-w-xs text-sm leading-relaxed text-linen/75">{copy.blurb}</p>
           </div>
 
           {/* Link columns */}
           <nav
-            aria-label="Footer"
-            className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5"
+            aria-label={copy.footer}
+            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4"
           >
             {footerColumns.map((column) => (
               <div key={column.heading}>
@@ -78,7 +99,7 @@ export default function Footer() {
                   {column.links.map((link) => (
                     <li key={`${column.heading}-${link.label}`}>
                       <Link
-                        href={link.href}
+                        href={localePath(locale, link.href)}
                         className="link-underline text-sm text-linen/75 transition-colors duration-300 hover:text-gold"
                       >
                         {link.label}
@@ -91,14 +112,12 @@ export default function Footer() {
           </nav>
 
           {/* Newsletter + social */}
-          <div>
-            <h2 className="eyebrow text-gold-soft">Join the Rosica Community</h2>
-            <p className="mt-5 text-sm leading-relaxed text-linen/75">
-              Be the first to know about new launches, education and exclusive offers.
-            </p>
+          <div id="newsletter" className="scroll-mt-28">
+            <h2 className="eyebrow text-gold-soft">{copy.joinHeading}</h2>
+            <p className="mt-5 text-sm leading-relaxed text-linen/75">{copy.joinBody}</p>
 
             <div className="mt-6">
-              <NewsletterForm tone="light" layout="compact" />
+              <NewsletterForm tone="light" layout="compact" locale={locale} />
             </div>
 
             <ul className="mt-7 flex items-center gap-3">
@@ -108,7 +127,7 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Rosica on ${social.label}`}
+                    aria-label={copy.social(social.label)}
                     className="flex h-9 w-9 items-center justify-center rounded-full border border-linen/25 text-linen/80 transition-[color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-gold hover:text-gold motion-reduce:hover:translate-y-0"
                   >
                     <svg
@@ -128,7 +147,7 @@ export default function Footer() {
 
         <div className="mt-14 border-t border-gold/25 pt-7 text-center">
           <p className="text-xs tracking-wide text-linen/75">
-            © {currentYear} Rosica. All rights reserved.
+            © {currentYear} Rosica. {copy.rights}
           </p>
         </div>
       </div>

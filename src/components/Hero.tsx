@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Icon, { type IconName } from "./Icon";
+import { localeFromPathname } from "@/lib/i18n";
 
 export type HeroFeature = { icon: IconName; label: string };
 
@@ -25,12 +27,17 @@ type HeroProps = {
   ornament?: boolean;
   /** Path under /public; falls back to the botanical wash when absent. */
   image?: string;
+  /**
+   * Mirrored composition for RTL, with the products on the left. A separate
+   * file rather than a CSS flip, which would reverse the product labels.
+   */
+  imageRtl?: string;
   /** Describes the photography that belongs in the hero. */
   imageLabel?: string;
   /**
-   * object-position for the hero photo. The default anchors to the right, where
-   * the products sit — the backdrop to their left is what gets cropped when the
-   * frame is narrower than the photograph, so no bottle is ever cut.
+   * object-position for the hero photo. Left unset it anchors the photograph to
+   * the side opposite the copy — right under LTR, left under RTL — so the
+   * backdrop is what gets cropped and no bottle is ever cut.
    */
   imagePosition?: string;
   /** "tall" is the homepage; "short" suits the inner pages. */
@@ -119,11 +126,17 @@ export default function Hero({
   variant = "split",
   ornament = false,
   image,
+  imageRtl,
   imageLabel = "Rosica botanical product photography",
-  imagePosition = "right center",
+  imagePosition,
   height = "short",
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
+  const isArabic = localeFromPathname(usePathname()) === "ar";
+  const scrollCueLabel = isArabic ? "مرّري إلى المحتوى" : "Scroll to content";
+  // The copy sits at the start of the line, so the photography goes to the end.
+  const photoPosition = imagePosition ?? (isArabic ? "left center" : "right center");
+  const photo = isArabic ? (imageRtl ?? image) : image;
   const paragraphs = typeof body === "string" ? [body] : (body ?? []);
 
   // Gentle fade + soft scale-in on load, staggered across the hero content.
@@ -234,14 +247,21 @@ export default function Hero({
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <HeroMedia
           label={imageLabel}
-          src={image}
+          src={photo}
           priority
-          position={imagePosition}
+          position={photoPosition}
           className="h-full w-full"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,246,238,0.94)_0%,rgba(250,246,238,0.72)_45%,rgba(250,246,238,0.55)_100%)] lg:hidden" />
-        {/* Clears the photography by ~60% so no bottle sits under the wash */}
-        <span className="absolute inset-0 hidden lg:block lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.92)_26%,rgba(250,246,238,0.5)_44%,rgba(250,246,238,0)_60%)]" />
+        {/* Clears the photography by ~60% so no bottle sits under the wash.
+            Runs from whichever edge the copy starts at. */}
+        <span
+          className={`absolute inset-0 hidden lg:block ${
+            isArabic
+              ? "lg:bg-[linear-gradient(270deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.92)_26%,rgba(250,246,238,0.5)_44%,rgba(250,246,238,0)_60%)]"
+              : "lg:bg-[linear-gradient(90deg,rgba(250,246,238,0.97)_0%,rgba(250,246,238,0.92)_26%,rgba(250,246,238,0.5)_44%,rgba(250,246,238,0)_60%)]"
+          }`}
+        />
       </div>
       {/* The photo is decorative here; the alt text lives on this label. */}
       <span className="sr-only">{imageLabel}</span>
@@ -262,8 +282,8 @@ export default function Hero({
       {height === "tall" ? (
         <motion.a
           href="#main-content"
-          aria-label="Scroll to content"
-          className="absolute bottom-8 left-6 hidden h-10 w-10 items-center justify-center rounded-full border border-green/30 text-green transition-colors duration-300 hover:border-gold hover:text-gold sm:left-8 lg:flex"
+          aria-label={scrollCueLabel}
+          className="absolute bottom-8 hidden h-10 w-10 items-center justify-center rounded-full border border-green/30 text-green transition-colors duration-300 hover:border-gold hover:text-gold ltr:left-6 ltr:sm:left-8 rtl:right-6 rtl:sm:right-8 lg:flex"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: reduceMotion ? 0 : 1, duration: 0.6 }}

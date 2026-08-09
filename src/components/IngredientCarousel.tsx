@@ -3,6 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import ArrowLink from "./ArrowLink";
 import Media from "./Media";
+import type { Locale } from "@/lib/i18n";
+
+const t = {
+  en: { previous: "Previous ingredients", next: "Next ingredients", explore: (n: string) => `Explore ${n}` },
+  ar: { previous: "المكوّنات السابقة", next: "المكوّنات التالية", explore: (n: string) => `اكتشفي ${n}` },
+} as const;
 
 /**
  * Horizontal ingredient rail with the paging arrows from the approved design.
@@ -12,7 +18,18 @@ import Media from "./Media";
  */
 export type Ingredient = { name: string; image: string; alt: string; body: string };
 
-export default function IngredientCarousel({ ingredients }: { ingredients: Ingredient[] }) {
+export default function IngredientCarousel({
+  ingredients,
+  href = "/ingredients",
+  exploreLabel = "Explore",
+  locale = "en",
+}: {
+  ingredients: Ingredient[];
+  href?: string;
+  exploreLabel?: string;
+  locale?: Locale;
+}) {
+  const copy = t[locale];
   const track = useRef<HTMLUListElement | null>(null);
   const [canScrollBack, setCanScrollBack] = useState(false);
   const [canScrollOn, setCanScrollOn] = useState(false);
@@ -20,9 +37,11 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
   const sync = useCallback(() => {
     const el = track.current;
     if (!el) return;
+    // Under RTL scrollLeft counts down from 0, so measure by distance travelled.
     const max = el.scrollWidth - el.clientWidth;
-    setCanScrollBack(el.scrollLeft > 4);
-    setCanScrollOn(el.scrollLeft < max - 4);
+    const travelled = Math.abs(el.scrollLeft);
+    setCanScrollBack(travelled > 4);
+    setCanScrollOn(travelled < max - 4);
   }, []);
 
   useEffect(() => {
@@ -44,7 +63,8 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
   function page(direction: 1 | -1) {
     const el = track.current;
     if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.8, behavior: "smooth" });
+    const sign = getComputedStyle(el).direction === "rtl" ? -1 : 1;
+    el.scrollBy({ left: sign * direction * el.clientWidth * 0.8, behavior: "smooth" });
   }
 
   const scrollable = canScrollBack || canScrollOn;
@@ -75,8 +95,8 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
                 {ingredient.body}
               </p>
               <div className="mt-auto flex justify-center pt-5">
-                <ArrowLink href="/ingredients" label={`Explore ${ingredient.name}`}>
-                  Explore
+                <ArrowLink href={href} label={copy.explore(ingredient.name)}>
+                  {exploreLabel}
                 </ArrowLink>
               </div>
             </article>
@@ -90,12 +110,12 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
             type="button"
             onClick={() => page(-1)}
             disabled={!canScrollBack}
-            aria-label="Previous ingredients"
+            aria-label={copy.previous}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-green transition-colors duration-300 hover:border-gold hover:text-gold disabled:opacity-30"
           >
             <svg
               viewBox="0 0 12 20"
-              className="h-3 w-2"
+              className="h-3 w-2 rtl:-scale-x-100"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
@@ -110,12 +130,12 @@ export default function IngredientCarousel({ ingredients }: { ingredients: Ingre
             type="button"
             onClick={() => page(1)}
             disabled={!canScrollOn}
-            aria-label="Next ingredients"
+            aria-label={copy.next}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-green transition-colors duration-300 hover:border-gold hover:text-gold disabled:opacity-30"
           >
             <svg
               viewBox="0 0 12 20"
-              className="h-3 w-2"
+              className="h-3 w-2 rtl:-scale-x-100"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"

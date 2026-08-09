@@ -3,7 +3,7 @@ import ComingSoon from "@/components/ComingSoon";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search Rosica products, ingredients, and journal articles.",
+  description: "Search Rosica products and the Ingredient Library.",
 };
 
 export default function SearchPage() {
@@ -11,7 +11,7 @@ export default function SearchPage() {
     <ComingSoon
       eyebrow="Search"
       title="Search Rosica"
-      body="Search across products, the Ingredient Library, and the Journal is coming soon."
+      body="Search across products and the Ingredient Library is coming soon."
     />
   );
 }

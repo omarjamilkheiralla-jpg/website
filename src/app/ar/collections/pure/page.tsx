@@ -3,10 +3,10 @@ import CollectionPageView from "@/components/pages/CollectionPageView";
 import { pureCopy } from "@/content/collection-pages";
 
 export const metadata: Metadata = {
-  title: pureCopy.en.metaTitle,
-  description: pureCopy.en.metaDescription,
+  title: pureCopy.ar.metaTitle,
+  description: pureCopy.ar.metaDescription,
 };
 
-export default function PurePage() {
-  return <CollectionPageView collection="pure" locale="en" />;
+export default function ArabicPurePage() {
+  return <CollectionPageView collection="pure" locale="ar" />;
 }

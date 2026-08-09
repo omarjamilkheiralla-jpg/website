@@ -31,6 +31,18 @@
   --spacing-section: 6rem;
 }
 
+/*
+  Arabic typography.
+
+  The Latin faces carry no Arabic glyphs, so the whole RTL tree swaps to Amiri
+  and IBM Plex Sans Arabic. Redefining the same two variables means every
+  font-serif / font-sans utility follows without a single component change.
+*/
+[dir="rtl"] {
+  --font-serif: var(--font-amiri), "Noto Naskh Arabic", ui-serif, Georgia, serif;
+  --font-sans: var(--font-plex-arabic), "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -72,6 +84,39 @@
     background-color: var(--color-linen);
     color: var(--color-ink);
   }
+
+  /*
+    Arabic is a connected script. Letter-spacing prises the joins apart and
+    uppercasing is meaningless, so both are cancelled across the RTL tree —
+    these are set by Tailwind utilities on hundreds of elements, which is why
+    the reset is broad rather than per-component. Latin runs inside an Arabic
+    page (the wordmark, "PURE") can opt back in with .keep-tracking.
+  */
+  [dir="rtl"] *:not(.keep-tracking) {
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /* Arabic sits on a taller x-height and needs more room between lines. */
+  [dir="rtl"] body,
+  [dir="rtl"] p,
+  [dir="rtl"] li {
+    line-height: 1.95;
+  }
+
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4 {
+    line-height: 1.45;
+    /* Amiri runs small against Cormorant at the same size. */
+    font-size: 1.06em;
+  }
+
+  /* Arabic numerals stay Western, matching the product packaging. */
+  [dir="rtl"] {
+    font-variant-numeric: lining-nums;
+  }
 }
 
 @layer components {
@@ -82,6 +127,16 @@
     text-transform: uppercase;
     font-weight: 500;
     line-height: 1.6;
+  }
+
+  /*
+    The eyebrow leans on tracking and uppercase for its presence, neither of
+    which Arabic can use. Size and weight carry it instead.
+  */
+  [dir="rtl"] .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.8;
   }
 
   /* Gold accent line that sweeps in under a text link on hover/focus. */
