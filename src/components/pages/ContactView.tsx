@@ -1,6 +1,6 @@
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
-import ContactForm from "@/components/ContactForm";
+import CTAButton from "@/components/CTAButton";
 import NewsletterForm from "@/components/NewsletterForm";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
@@ -86,7 +86,7 @@ export default function ContactView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Details and the form, split by a hairline rule */}
+      {/* Details and the invitation to write, split by a hairline rule */}
       <section className="bg-cream">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-14 px-6 py-20 sm:px-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
           <Reveal>
@@ -132,14 +132,20 @@ export default function ContactView({ locale }: { locale: Locale }) {
             </RevealGroup>
           </Reveal>
 
-          {/* The rule sits on the form column so it disappears when they stack */}
+          {/* The rule sits on this column so it disappears when they stack */}
           <Reveal
             delay={0.1}
             className="lg:border-gold/25 lg:ps-16 ltr:lg:border-l rtl:lg:border-r"
           >
-            <h2 className="eyebrow text-green">{copy.formHeading}</h2>
-            <div className="mt-10">
-              <ContactForm copy={copy} />
+            <h2 className="eyebrow text-green">{copy.writeHeading}</h2>
+            <p className="mt-8 max-w-md text-base leading-relaxed text-ink-muted">
+              {copy.writeBody}
+            </p>
+            <div className="mt-9">
+              {/* Opens the visitor's own mail client, already addressed. */}
+              <CTAButton href={`mailto:${CONTACT_EMAIL}`} variant="gold">
+                {copy.writeCta}
+              </CTAButton>
             </div>
           </Reveal>
         </div>

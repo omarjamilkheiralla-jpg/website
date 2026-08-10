@@ -85,18 +85,6 @@
     color: var(--color-ink);
   }
 
-  /*
-    Arabic is a connected script. Letter-spacing prises the joins apart and
-    uppercasing is meaningless, so both are cancelled across the RTL tree —
-    these are set by Tailwind utilities on hundreds of elements, which is why
-    the reset is broad rather than per-component. Latin runs inside an Arabic
-    page (the wordmark, "PURE") can opt back in with .keep-tracking.
-  */
-  [dir="rtl"] *:not(.keep-tracking) {
-    letter-spacing: normal;
-    text-transform: none;
-  }
-
   /* Arabic sits on a taller x-height and needs more room between lines. */
   [dir="rtl"] body,
   [dir="rtl"] p,
@@ -117,6 +105,23 @@
   [dir="rtl"] {
     font-variant-numeric: lining-nums;
   }
+}
+
+/*
+  Arabic is a connected script. Letter-spacing prises the joins apart and
+  uppercasing is meaningless, so both are cancelled across the RTL tree — they
+  are set by Tailwind's tracking-* and uppercase utilities on hundreds of
+  elements, which is why the reset is broad rather than per-component. Latin
+  runs inside an Arabic page can opt back in with .keep-tracking.
+
+  Deliberately outside @layer: cascade layers are resolved before specificity,
+  so anything inside @layer base loses to Tailwind's utilities layer no matter
+  how specific it is. Unlayered rules beat every layer, which is the only way
+  this reset actually reaches an element carrying `tracking-[0.14em]`.
+*/
+[dir="rtl"] *:not(.keep-tracking) {
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 @layer components {

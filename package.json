@@ -12,14 +12,12 @@
     "@anthropic-ai/sdk": "^0.116.0",
     "framer-motion": "^12.43.0",
     "next": "^16.2.12",
-    "nodemailer": "^9.0.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.1.2",
-    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.5",

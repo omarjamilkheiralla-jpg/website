@@ -17,16 +17,15 @@ export type ContactCopy = {
   /** Email, Website, Address, Response Time, Hours — order matters. */
   info: { label: string; lines: string[] }[];
 
-  formHeading: string;
-  fields: { name: string; email: string; phone: string; message: string };
-  send: string;
-  privacy: string;
-  /** Shown once the message has actually been delivered. */
-  sent: string;
-  sending: string;
-  /** Shown when delivery is not configured and the mail client is used instead. */
-  fallback: string;
-  required: string;
+  /*
+    There is deliberately no contact form. Sending mail from the site would
+    need a mailbox credential in the deployment, and a form that cannot send is
+    worse than none — so the page asks people to email directly instead, which
+    works from every device with nothing to configure and nothing to break.
+  */
+  writeHeading: string;
+  writeBody: string;
+  writeCta: string;
 
   newsletterHeading: string;
   newsletterBody: string;
@@ -63,19 +62,10 @@ export const contactCopy: Localised<ContactCopy> = {
       { label: "Business Hours", lines: ["Monday – Friday", "9:00 AM – 6:00 PM"] },
     ],
 
-    formHeading: "Contact Form",
-    fields: {
-      name: "Name",
-      email: "Email",
-      phone: "Phone (optional)",
-      message: "Message",
-    },
-    send: "Send Message",
-    privacy: "Your information is kept private and secure.",
-    sent: "Thank you — your message is on its way. We'll be in touch shortly.",
-    sending: "Sending…",
-    fallback: `We've opened your mail app instead. If nothing appeared, write to us at ${EMAIL}.`,
-    required: "Please add your name, email and message.",
+    writeHeading: "Write to Us",
+    writeBody:
+      "Email is the quickest way to reach us. Tell us as much as you can about your enquiry — your order, a product, or a wholesale question — and our team will come back to you within 1–2 business days.",
+    writeCta: `Email ${EMAIL}`,
 
     newsletterHeading: "Join the Rosica Community",
     newsletterBody:
@@ -111,19 +101,10 @@ export const contactCopy: Localised<ContactCopy> = {
       { label: "ساعات العمل", lines: ["الاثنين – الجمعة", "9:00 صباحًا – 6:00 مساءً"] },
     ],
 
-    formHeading: "نموذج التواصل",
-    fields: {
-      name: "الاسم",
-      email: "البريد الإلكتروني",
-      phone: "الهاتف (اختياري)",
-      message: "رسالتك",
-    },
-    send: "أرسلي الرسالة",
-    privacy: "معلوماتك تبقى خاصة وآمنة.",
-    sent: "شكرًا لك — رسالتك في طريقها إلينا، وسنعاود التواصل قريبًا.",
-    sending: "جارٍ الإرسال…",
-    fallback: `فتحنا لك تطبيق البريد بدلًا من ذلك. إن لم يظهر شيء، راسلينا على ${EMAIL}.`,
-    required: "يرجى كتابة اسمك وبريدك الإلكتروني ورسالتك.",
+    writeHeading: "راسلينا",
+    writeBody:
+      "البريد الإلكتروني أسرع طريقة للوصول إلينا. اذكري أكبر قدر من التفاصيل عن استفسارك — طلبك، أو منتج معيّن، أو استفسار عن الجملة — وسيعاود فريقنا التواصل معك خلال يوم إلى يومَي عمل.",
+    writeCta: `راسلينا على ${EMAIL}`,
 
     newsletterHeading: "انضمّي إلى مجتمع روزيكا",
     newsletterBody:
