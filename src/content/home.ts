@@ -119,10 +119,10 @@ export const homeCopy: Localised<HomeCopy> = {
         body: "Support long-term healthy-looking hair through consistent botanical care.",
       },
     ],
-    communityEyebrow: "Join the Rosica Community",
+    communityEyebrow: "Follow Rosica",
     communityBody:
-      "Be the first to know about new launches, education and exclusive offers.",
-    communityCta: "Sign Up",
+      "New launches, botanical stories and the world behind the formulas — shared first with our community.",
+    communityCta: "Find Us",
   },
 
   ar: {
@@ -201,8 +201,9 @@ export const homeCopy: Localised<HomeCopy> = {
         body: "يدعم مظهر الشعر الصحي على المدى الطويل عبر عناية نباتية منتظمة.",
       },
     ],
-    communityEyebrow: "انضمّي إلى مجتمع روزيكا",
-    communityBody: "كوني أول من يعرف عن الإصدارات الجديدة والمحتوى التثقيفي والعروض الحصرية.",
-    communityCta: "اشتركي الآن",
+    communityEyebrow: "تابعي روزيكا",
+    communityBody:
+      "الإصدارات الجديدة وحكايات النباتات والعالم خلف التركيبات — نشاركها أولًا مع مجتمعنا.",
+    communityCta: "تابعينا",
   },
 };

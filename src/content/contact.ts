@@ -27,8 +27,8 @@ export type ContactCopy = {
   writeBody: string;
   writeCta: string;
 
-  newsletterHeading: string;
-  newsletterBody: string;
+  followHeading: string;
+  followBody: string;
 };
 
 const EMAIL = "info@rosica.ae";
@@ -67,9 +67,9 @@ export const contactCopy: Localised<ContactCopy> = {
       "Email is the quickest way to reach us. Tell us as much as you can about your enquiry — your order, a product, or a wholesale question — and our team will come back to you within 1–2 business days.",
     writeCta: `Email ${EMAIL}`,
 
-    newsletterHeading: "Join the Rosica Community",
-    newsletterBody:
-      "Be the first to discover new botanical collections, exclusive launches and special offers.",
+    followHeading: "Follow Rosica",
+    followBody:
+      "New launches, botanical stories and the world behind the formulas — shared first with our community.",
   },
 
   ar: {
@@ -106,9 +106,9 @@ export const contactCopy: Localised<ContactCopy> = {
       "البريد الإلكتروني أسرع طريقة للوصول إلينا. اذكري أكبر قدر من التفاصيل عن استفسارك — طلبك، أو منتج معيّن، أو استفسار عن الجملة — وسيعاود فريقنا التواصل معك خلال يوم إلى يومَي عمل.",
     writeCta: `راسلينا على ${EMAIL}`,
 
-    newsletterHeading: "انضمّي إلى مجتمع روزيكا",
-    newsletterBody:
-      "كوني أول من يكتشف المجموعات النباتية الجديدة والإصدارات الحصرية والعروض الخاصة.",
+    followHeading: "تابعي روزيكا",
+    followBody:
+      "الإصدارات الجديدة وحكايات النباتات والعالم خلف التركيبات — نشاركها أولًا مع مجتمعنا.",
   },
 };
 

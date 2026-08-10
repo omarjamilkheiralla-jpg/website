@@ -1,6 +1,5 @@
 import Link from "next/link";
 import BrandMark from "./BrandMark";
-import NewsletterForm from "./NewsletterForm";
 import { footerColumnsFor, socialLinks } from "@/lib/navigation";
 import { localePath, type Locale } from "@/lib/i18n";
 
@@ -9,8 +8,9 @@ const t = {
     footer: "Footer",
     blurb:
       "Rosica is a premium natural beauty brand inspired by nature and refined through modern cosmetic science.",
-    joinHeading: "Join the Rosica Community",
-    joinBody: "Be the first to know about new launches, education and exclusive offers.",
+    joinHeading: "Follow Rosica",
+    joinBody:
+      "New launches, botanical stories and the world behind the formulas — shared first with our community.",
     rights: "All rights reserved.",
     social: (label: string) => `Rosica on ${label}`,
   },
@@ -18,8 +18,9 @@ const t = {
     footer: "تذييل الصفحة",
     blurb:
       "روزيكا علامة تجارية فاخرة للجمال الطبيعي، مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة.",
-    joinHeading: "انضمّي إلى مجتمع روزيكا",
-    joinBody: "كوني أول من يعرف عن الإصدارات الجديدة والمحتوى التثقيفي والعروض الحصرية.",
+    joinHeading: "تابعي روزيكا",
+    joinBody:
+      "الإصدارات الجديدة وحكايات النباتات والعالم خلف التركيبات — نشاركها أولًا مع مجتمعنا.",
     rights: "جميع الحقوق محفوظة.",
     social: (label: string) => `روزيكا على ${label}`,
   },
@@ -111,14 +112,15 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
             ))}
           </nav>
 
-          {/* Newsletter + social */}
+          {/*
+            Social. This block used to carry a newsletter sign-up as well; it
+            was removed because nothing was connected behind it — it thanked
+            people for joining and discarded the address. Put it back only
+            alongside a real mailing-list provider.
+          */}
           <div id="newsletter" className="scroll-mt-28">
             <h2 className="eyebrow text-gold-soft">{copy.joinHeading}</h2>
             <p className="mt-5 text-sm leading-relaxed text-linen/75">{copy.joinBody}</p>
-
-            <div className="mt-6">
-              <NewsletterForm tone="light" layout="compact" locale={locale} />
-            </div>
 
             <ul className="mt-7 flex items-center gap-3">
               {socialLinks.map((social) => (

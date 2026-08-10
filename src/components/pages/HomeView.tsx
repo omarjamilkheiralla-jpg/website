@@ -230,7 +230,7 @@ export default function HomeView({ locale }: { locale: Locale }) {
             <p className="eyebrow text-gold-deep">{copy.communityEyebrow}</p>
             <p className="mt-4 text-sm leading-relaxed text-ink-muted">{copy.communityBody}</p>
             <div className="mt-5">
-              {/* The sign-up form itself lives in the footer. */}
+              {/* Jumps to the social links at the foot of the page. */}
               <ArrowLink href="#newsletter">{copy.communityCta}</ArrowLink>
             </div>
             <div className="mt-auto pt-8">

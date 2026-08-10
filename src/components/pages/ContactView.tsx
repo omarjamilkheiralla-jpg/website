@@ -1,10 +1,10 @@
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
 import CTAButton from "@/components/CTAButton";
-import NewsletterForm from "@/components/NewsletterForm";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { generic, genericAlt } from "@/lib/media";
+import { socialLinks } from "@/lib/navigation";
 import type { Locale } from "@/lib/i18n";
 import { contactCopy, CONTACT_EMAIL } from "@/content/contact";
 
@@ -151,7 +151,13 @@ export default function ContactView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Community band: photography and honeycomb on one side, sign-up on the other */}
+      {/*
+        Community band: photography and honeycomb on one side, the social
+        accounts on the other. This used to hold a newsletter sign-up, which
+        was removed — nothing was connected behind it, so it thanked people for
+        joining and threw the address away. Following the accounts is the real
+        version of the same invitation, and needs nothing configured.
+      */}
       <section className="border-t border-gold/20 bg-shell">
         <div className="grid w-full grid-cols-1 items-stretch lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
           <div className="group relative min-h-[14rem] lg:min-h-[19rem]">
@@ -179,15 +185,26 @@ export default function ContactView({ locale }: { locale: Locale }) {
                 <Icon name="seedling" className="h-8 w-8" />
               </span>
               <h2 className="text-[1.75rem] leading-tight sm:text-[2rem]">
-                {copy.newsletterHeading}
+                {copy.followHeading}
               </h2>
             </div>
             <p className="mt-4 max-w-md text-base leading-relaxed text-ink-muted">
-              {copy.newsletterBody}
+              {copy.followBody}
             </p>
-            <div className="mt-7 max-w-md">
-              <NewsletterForm tone="dark" layout="pill" locale={locale} />
-            </div>
+            <ul className="mt-7 flex flex-wrap gap-3">
+              {socialLinks.map((social) => (
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md border border-gold/45 px-5 py-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:border-gold hover:bg-gold hover:text-ink"
+                  >
+                    {social.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </section>
