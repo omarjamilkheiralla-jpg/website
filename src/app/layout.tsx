@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import LocaleShell from "@/components/LocaleShell";
+import { INDEXABLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -37,7 +38,7 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rosica.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Rosica | Premium Natural Beauty",
     template: "%s | Rosica",
@@ -51,10 +52,9 @@ export const metadata: Metadata = {
     "natural cosmetics",
     "botanical ingredients",
   ],
-  // The site is a private work in progress behind Vercel's deployment
-  // protection. noindex is belt-and-braces: if protection is ever lifted, search
-  // engines still will not list it. REMOVE THIS BLOCK AT LAUNCH.
-  robots: { index: false, follow: false, nocache: true },
+  // Driven by ALLOW_INDEXING — see src/lib/site.ts for why it is off by default
+  // and what has to be true before turning it on.
+  robots: INDEXABLE ? undefined : { index: false, follow: false, nocache: true },
   openGraph: {
     type: "website",
     siteName: "Rosica",
