@@ -16,13 +16,32 @@ import { contactCopy } from "@/content/contact";
  * either brand copy verbatim or a label around it.
  */
 
-/** The four products, in the order the Collections page lists them. */
+/**
+ * The four products, in the order the Collections page lists them, with the
+ * facts printed on their labels.
+ *
+ * The pack is the authority here, not the marketing copy — the free-from claims
+ * differ product by product and getting one wrong is the sort of mistake a
+ * cosmetics brand cannot afford. Note especially that sulfate-free is NOT a
+ * brand-wide claim: two shampoos carry it and one does not.
+ */
 const PRODUCT_NAMES = [
   "Honey & Propolis Repair Shampoo",
   "Purifying & Fresh Cleanse Shampoo",
   "Deep Repair Conditioner",
   "Botanical Restore Shampoo",
 ] as const;
+
+const PRODUCT_LABELS: Record<(typeof PRODUCT_NAMES)[number], string> = {
+  "Honey & Propolis Repair Shampoo":
+    "300 ml. For dry, normal and damaged hair. With honey, propolis, aloe vera and hydrolyzed collagen. Label: sulfate-free, silicone-free, paraben-free, colorant-free.",
+  "Purifying & Fresh Cleanse Shampoo":
+    "300 ml. For oily hair. Deep scalp refresh with rosemary, green tea extracts and amino acid complex. Label: silicone-free, paraben-free, colorant-free — it is NOT sulfate-free.",
+  "Deep Repair Conditioner":
+    "300 ml. Intense nourishment for all hair types. With honey, açaí, shea butter and hydrolyzed collagen.",
+  "Botanical Restore Shampoo":
+    "300 ml. For colour-treated, chemically treated and damaged hair. Natural origin surfactants, with honey, açaí, hydrolyzed collagen, aloe vera and amino acid complex. Label: sulfate-free, silicone-free, paraben-free, colorant-free.",
+};
 
 const bullets = (lines: readonly string[]) => lines.map((l) => `- ${l}`).join("\n");
 
@@ -69,7 +88,7 @@ export function knowledgeFor(locale: Locale): string {
     `# Products\n\nProduct names are printed on the bottle and stay in Latin script in every language.\n\n` +
       PRODUCT_NAMES.map((name, i) => {
         const item = collections.products[i];
-        return `- ${name} (${item.collection}) — ${item.sub}`;
+        return `- ${name} (${item.collection}) — ${item.sub}\n  ${PRODUCT_LABELS[name]}`;
       }).join("\n"),
   );
 
@@ -123,7 +142,7 @@ export function knowledgeFor(locale: Locale): string {
  */
 const UNKNOWNS = [
   "prices, currencies, discounts or promotional codes",
-  "stock levels, sizes, bottle volumes or shelf life",
+  "stock levels or shelf life (the bottle size is known: every product is 300 ml)",
   "shipping, delivery times, customs, returns or refunds",
   "order status, tracking or anything about a specific order",
   "which shops or countries stock Rosica — Where to Buy is not published yet",

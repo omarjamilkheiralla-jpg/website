@@ -55,10 +55,17 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
     promiseBody: [
       "We believe beautiful hair begins with gentle care and powerful botanicals. Our Essentials collection brings together the best of nature and science to deliver visible results you can feel every day.",
     ],
+    /*
+      Taken from the printed labels, which are the authority. "Mineral Oil-Free"
+      used to sit here and appears on no pack; "Colorant-Free" does, on every
+      one. Sulfate-free is deliberately absent from this list: the Honey &
+      Propolis Repair Shampoo is sulfate-free but the Purifying & Fresh Cleanse
+      Shampoo is not, so it cannot be claimed for the collection as a whole.
+    */
     standards: [
       "Paraben-Free Formulas",
       "Silicone-Free Formulas",
-      "Mineral Oil-Free Formulas",
+      "Colorant-Free Formulas",
       "Inspired by Nature",
     ],
     statement: ["Rooted in nature.", "Refined by science.", "Made for you."],
@@ -99,7 +106,7 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
     standards: [
       "خالية من البارابين",
       "خالية من السيليكون",
-      "خالية من الزيوت المعدنية",
+      "خالية من الملوّنات",
       "مستوحاة من الطبيعة",
     ],
     statement: ["متجذّرة في الطبيعة.", "مصقولة بالعلم.", "صُنعت من أجلك."],

@@ -102,9 +102,14 @@ export const aboutCopy: Localised<AboutCopy> = {
       {
         eyebrow: "Quality You Can Trust",
         body: "We are committed to creating premium botanical beauty that is effective, honest, and made with a deep respect for nature and for you.",
+        /*
+          Sulfate-free was here as a brand-wide claim and is not one: the
+          Purifying & Fresh Cleanse Shampoo's label does not carry it. Silicone-
+          free does appear on every pack, so it stands in.
+        */
         marks: [
           "Carefully Selected Ingredients",
-          "Sulfate-Free Formulas",
+          "Silicone-Free Formulas",
           "Paraben-Free Formulas",
           "Performance You Can See",
         ],
@@ -206,7 +211,7 @@ export const aboutCopy: Localised<AboutCopy> = {
         body: "نلتزم بابتكار جمال نباتي فاخر، فعّال وصادق، ومصنوع باحترام عميق للطبيعة ولكِ.",
         marks: [
           "مكوّنات مختارة بعناية",
-          "خالية من السلفات",
+          "خالية من السيليكون",
           "خالية من البارابين",
           "أداء ترينه بعينيك",
         ],

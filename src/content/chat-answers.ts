@@ -50,12 +50,12 @@ export const questions: Question[] = [
     q: { en: "What does Rosica make?", ar: "ماذا تقدّم روزيكا؟" },
     a: {
       en: [
-        "Rosica makes botanical haircare — four products across two collections.",
-        "Rosica Essentials is the daily range: the Honey & Propolis Repair Shampoo, the Purifying & Fresh Cleanse Shampoo and the Deep Repair Conditioner. Rosica PURE is the advanced range, with the sulfate-free Botanical Restore Shampoo.",
+        "Rosica makes botanical haircare — four products across two collections, each 300 ml.",
+        "Rosica Essentials is the daily range: the Honey & Propolis Repair Shampoo for dry, normal and damaged hair, the Purifying & Fresh Cleanse Shampoo for oily hair, and the Deep Repair Conditioner for all hair types. Rosica PURE is the advanced range, with the sulfate-free Botanical Restore Shampoo for colour-treated, chemically treated and damaged hair.",
       ],
       ar: [
-        "تقدّم روزيكا عناية نباتية بالشعر — أربعة منتجات ضمن مجموعتين.",
-        "روزيكا إسينشالز هي مجموعة العناية اليومية: شامبو Honey & Propolis Repair، وشامبو Purifying & Fresh Cleanse، وبلسم Deep Repair. وروزيكا بيور هي المجموعة المتقدّمة، وتضم شامبو Botanical Restore الخالي من السلفات.",
+        "تقدّم روزيكا عناية نباتية بالشعر — أربعة منتجات ضمن مجموعتين، سعة كل منها 300 مل.",
+        "روزيكا إسينشالز هي مجموعة العناية اليومية: شامبو Honey & Propolis Repair للشعر الجاف والعادي والتالف، وشامبو Purifying & Fresh Cleanse للشعر الدهني، وبلسم Deep Repair لجميع أنواع الشعر. وروزيكا بيور هي المجموعة المتقدّمة، وتضم شامبو Botanical Restore الخالي من السلفات للشعر المصبوغ والمعالج كيميائيًا والتالف.",
       ],
     },
     link: {
@@ -91,14 +91,20 @@ export const questions: Question[] = [
     id: "sulfate-free",
     topic: "products",
     q: { en: "Which products are sulfate-free?", ar: "أي المنتجات خالية من السلفات؟" },
+    /*
+      Read straight off the packs. An earlier version of this answer said PURE
+      was "the sulfate-free line", which implied Essentials was not — and the
+      Honey & Propolis Repair Shampoo is sulfate-free. The Purifying & Fresh
+      Cleanse Shampoo genuinely is not, so it is named rather than glossed over.
+    */
     a: {
       en: [
-        "Rosica PURE is the sulfate-free line — the Botanical Restore Shampoo is formulated without sulfates.",
-        "Across both collections, every Rosica formula is free from parabens and silicones.",
+        "Two of the shampoos are: the Honey & Propolis Repair Shampoo in Essentials, and the Botanical Restore Shampoo in PURE, which is made with natural origin surfactants.",
+        "The Purifying & Fresh Cleanse Shampoo is not — its label doesn't carry the claim. Every label does read silicone-free, paraben-free and colorant-free.",
       ],
       ar: [
-        "روزيكا بيور هي المجموعة الخالية من السلفات — شامبو Botanical Restore مركّب دون سلفات.",
-        "وفي المجموعتين معًا، كل تركيبة من روزيكا خالية من البارابين والسيليكون.",
+        "اثنان من الشامبو نعم: شامبو Honey & Propolis Repair من إسينشالز، وشامبو Botanical Restore من بيور المصنوع بمكوّنات تنظيف طبيعية المنشأ.",
+        "أما شامبو Purifying & Fresh Cleanse فلا — لا تحمل عبوته هذا الوصف. وجميع العبوات خالية من السيليكون والبارابين والملوّنات.",
       ],
     },
     link: {
@@ -139,11 +145,11 @@ export const questions: Question[] = [
     },
     a: {
       en: [
-        "Yes. The Essentials formulations are balanced to suit all hair types, including colour-treated and chemically treated hair.",
+        "Yes. The PURE Botanical Restore Shampoo is made specifically for colour-treated, chemically treated and damaged hair — it's sulfate-free and uses natural origin surfactants. The Essentials formulations are balanced to suit all hair types too.",
         "If you have a sensitivity or a specific concern, it's always worth checking the ingredients on the pack and speaking to your stylist or a dermatologist first.",
       ],
       ar: [
-        "نعم. تركيبات إسينشالز متوازنة لتناسب جميع أنواع الشعر، بما في ذلك المصبوغ والمعالج كيميائيًا.",
+        "نعم. شامبو Botanical Restore من بيور مصمّم خصيصًا للشعر المصبوغ والمعالج كيميائيًا والتالف — خالٍ من السلفات ويعتمد مكوّنات تنظيف طبيعية المنشأ. كما أن تركيبات إسينشالز متوازنة لتناسب جميع أنواع الشعر.",
         "وإن كانت لديك حساسية أو حالة معيّنة، يُستحسن دائمًا مراجعة المكوّنات على العبوة واستشارة مصفّف شعرك أو طبيب الجلدية أولًا.",
       ],
     },
@@ -235,11 +241,11 @@ export const questions: Question[] = [
     q: { en: "What are the formulas free from?", ar: "مما تخلو التركيبات؟" },
     a: {
       en: [
-        "Every Rosica formula is free from parabens, silicones and mineral oils. The PURE collection is sulfate-free as well.",
+        "Every label reads silicone-free, paraben-free and colorant-free. Two of the shampoos are sulfate-free as well.",
         "For the complete ingredient list of a particular product, the pack carries it in full — and we're glad to answer any specific question by email.",
       ],
       ar: [
-        "كل تركيبة من روزيكا خالية من البارابين والسيليكون والزيوت المعدنية. ومجموعة بيور خالية من السلفات أيضًا.",
+        "كل العبوات خالية من السيليكون والبارابين والملوّنات. واثنان من الشامبو خاليان من السلفات أيضًا.",
         "أما قائمة المكوّنات الكاملة لمنتج معيّن فتجدينها على العبوة — ويسعدنا الإجابة عن أي سؤال محدّد عبر البريد الإلكتروني.",
       ],
     },
