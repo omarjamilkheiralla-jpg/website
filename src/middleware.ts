@@ -57,9 +57,10 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return new NextResponse("This site is not open yet.", {
+  return new NextResponse(CHALLENGE_PAGE, {
     status: 401,
     headers: {
+      "Content-Type": "text/html; charset=utf-8",
       /*
         ASCII only. Header values are ByteStrings, so the em dash this realm
         used to contain threw at construction and turned the whole gate into a
@@ -72,6 +73,53 @@ export function middleware(request: NextRequest) {
     },
   });
 }
+
+/**
+ * What someone sees if they dismiss the password prompt, or if something
+ * fetches the site without one — a link preview, a crawler, Vercel's own
+ * deployment screenshotter.
+ *
+ * Worth more than the single line of text it replaced. A bare "not open yet" on
+ * a blank white page is indistinguishable from a broken deployment, which is
+ * precisely the moment someone panics and assumes the site is down. This says
+ * what happened and how to get in.
+ *
+ * Inline styles, no assets: every asset on this site sits behind the same gate,
+ * so a stylesheet here would 401 and leave the page unstyled.
+ */
+const CHALLENGE_PAGE = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Rosica &mdash; private preview</title>
+<style>
+  :root { color-scheme: light }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: #faf6ee; color: #1e1e1a; padding: 2rem;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+  main { max-width: 26rem; text-align: center }
+  .rule { display: block; width: 3.5rem; height: 1px; background: #c6a15b; margin: 0 auto 1.75rem }
+  h1 {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+    font-weight: 400; font-size: 2rem; line-height: 1.2; color: #3f5a44; margin: 0 0 1.25rem;
+  }
+  p { line-height: 1.75; color: #57564e; margin: 0 0 1rem; font-size: 0.9375rem }
+  .hint { font-size: 0.8125rem }
+</style>
+</head>
+<body>
+  <main>
+    <span class="rule"></span>
+    <h1>Rosica is not open yet</h1>
+    <p>This is a private preview. Reload the page and enter the password you were given.</p>
+    <p class="hint">The browser asks for a username too &mdash; it is ignored, so type anything there.</p>
+  </main>
+</body>
+</html>`;
 
 export const config = {
   /*
