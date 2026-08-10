@@ -133,4 +133,8 @@ export const footerColumnsFor = (locale: Locale) => footer[locale];
 export const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/rosicanaturalcare/" },
   { label: "Facebook", href: "https://www.facebook.com/Rosicanaturalcare" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/rosica-natural-care-llc-fz/",
+  },
 ];
