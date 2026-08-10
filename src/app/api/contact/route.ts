@@ -1,21 +1,22 @@
 import { NextResponse } from "next/server";
 import { autoReply } from "@/content/auto-reply";
+import { mailerFor, sendMail } from "@/lib/mail";
 
 /**
  * Delivers a contact form submission to the business inbox, then sends the
  * visitor an acknowledgement.
  *
- * Sending goes through Resend's HTTP API — one fetch, no SDK and no SMTP
- * connection to hold open, which is what a serverless function wants. The
- * credentials live only in environment variables; nothing is committed.
+ * Two ways to send; the deployment picks by which variables it has. See
+ * `@/lib/mail` for the trade-off and the full variable list — in short, SMTP
+ * uses a mailbox you already own, Resend needs a verified domain.
  *
- *   RESEND_API_KEY      required, from resend.com
- *   CONTACT_FROM_EMAIL  required, an address on a domain verified in Resend
- *   CONTACT_TO_EMAIL    optional, defaults to the published inbox
+ *   SMTP_HOST / SMTP_USER / SMTP_PASSWORD   one route
+ *   RESEND_API_KEY + CONTACT_FROM_EMAIL     the other
+ *   CONTACT_TO_EMAIL                        optional, defaults to the inbox below
  *
- * Until those are set the route answers 503 with `reason: "unconfigured"`, and
- * the form quietly falls back to opening the visitor's own mail client. That
- * way the page is never a dead end, whatever the deployment is missing.
+ * With neither, the route answers 503 with `reason: "unconfigured"` and the
+ * form quietly falls back to opening the visitor's own mail client, so the page
+ * is never a dead end on a deployment that is missing configuration.
  */
 
 export const runtime = "nodejs";
@@ -29,38 +30,10 @@ function clean(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
-type Mail = {
-  to: string;
-  subject: string;
-  text: string;
-  replyTo: string;
-  /** Only ever set for our own fixed copy — never for anything a visitor typed. */
-  html?: string;
-};
-
-function send(key: string, from: string, mail: Mail) {
-  return fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [mail.to],
-      reply_to: mail.replyTo,
-      subject: mail.subject,
-      text: mail.text,
-      ...(mail.html ? { html: mail.html } : {}),
-    }),
-  });
-}
-
 export async function POST(request: Request) {
-  const key = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
+  const mailer = mailerFor();
 
-  if (!key || !from) {
+  if (!mailer) {
     return NextResponse.json({ ok: false, reason: "unconfigured" }, { status: 503 });
   }
 
@@ -101,22 +74,20 @@ export async function POST(request: Request) {
     .join("\n");
 
   try {
-    const sent = await send(key, from, {
+    await sendMail(mailer, {
       to: TO,
       // So hitting reply in the inbox writes back to the visitor.
       replyTo: email,
       subject: `Website enquiry — ${name}`,
       text: body,
     });
-
-    if (!sent.ok) {
-      // The provider's response may carry the visitor's address; keep it out
-      // of the logs and tell the client only that it failed.
-      console.error("Contact form: Resend responded", sent.status);
-      return NextResponse.json({ ok: false, reason: "send-failed" }, { status: 502 });
-    }
-  } catch {
-    console.error("Contact form: could not reach the mail provider");
+  } catch (error) {
+    // The visitor's address must not reach the logs; the transport and the
+    // provider's own wording are enough to diagnose from.
+    console.error(
+      `Contact form: ${mailer.transport} delivery failed —`,
+      error instanceof Error ? error.message : "unknown error",
+    );
     return NextResponse.json({ ok: false, reason: "send-failed" }, { status: 502 });
   }
 
@@ -126,21 +97,21 @@ export async function POST(request: Request) {
     Deliberately after the enquiry has landed, and deliberately unable to fail
     the request: by this point the message is safely in the business inbox, and
     a missing acknowledgement is not a reason to tell someone their message
-    didn't go through. Replies go to the business, not to the no-reply sender.
+    didn't go through. Replies go to the business, not to the sending address.
   */
   try {
-    const acknowledged = await send(key, from, {
+    await sendMail(mailer, {
       to: email,
       replyTo: TO,
       subject: autoReply.subject,
       text: autoReply.text,
       html: autoReply.html,
     });
-    if (!acknowledged.ok) {
-      console.error("Contact form: auto-reply rejected", acknowledged.status);
-    }
-  } catch {
-    console.error("Contact form: could not send the auto-reply");
+  } catch (error) {
+    console.error(
+      "Contact form: auto-reply failed —",
+      error instanceof Error ? error.message : "unknown error",
+    );
   }
 
   return NextResponse.json({ ok: true });
