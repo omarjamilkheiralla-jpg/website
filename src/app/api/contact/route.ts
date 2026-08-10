@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { autoReply } from "@/content/auto-reply";
 
 /**
- * Delivers a contact form submission to the business inbox.
+ * Delivers a contact form submission to the business inbox, then sends the
+ * visitor an acknowledgement.
  *
  * Sending goes through Resend's HTTP API — one fetch, no SDK and no SMTP
  * connection to hold open, which is what a serverless function wants. The
@@ -25,6 +27,33 @@ const LIMITS = { name: 120, email: 200, phone: 60, message: 5000 };
 
 function clean(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+type Mail = {
+  to: string;
+  subject: string;
+  text: string;
+  replyTo: string;
+  /** Only ever set for our own fixed copy — never for anything a visitor typed. */
+  html?: string;
+};
+
+function send(key: string, from: string, mail: Mail) {
+  return fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [mail.to],
+      reply_to: mail.replyTo,
+      subject: mail.subject,
+      text: mail.text,
+      ...(mail.html ? { html: mail.html } : {}),
+    }),
+  });
 }
 
 export async function POST(request: Request) {
@@ -72,20 +101,12 @@ export async function POST(request: Request) {
     .join("\n");
 
   try {
-    const sent = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [TO],
-        // So hitting reply in the inbox writes back to the visitor.
-        reply_to: email,
-        subject: `Website enquiry — ${name}`,
-        text: body,
-      }),
+    const sent = await send(key, from, {
+      to: TO,
+      // So hitting reply in the inbox writes back to the visitor.
+      replyTo: email,
+      subject: `Website enquiry — ${name}`,
+      text: body,
     });
 
     if (!sent.ok) {
@@ -97,6 +118,29 @@ export async function POST(request: Request) {
   } catch {
     console.error("Contact form: could not reach the mail provider");
     return NextResponse.json({ ok: false, reason: "send-failed" }, { status: 502 });
+  }
+
+  /*
+    Acknowledge the visitor.
+
+    Deliberately after the enquiry has landed, and deliberately unable to fail
+    the request: by this point the message is safely in the business inbox, and
+    a missing acknowledgement is not a reason to tell someone their message
+    didn't go through. Replies go to the business, not to the no-reply sender.
+  */
+  try {
+    const acknowledged = await send(key, from, {
+      to: email,
+      replyTo: TO,
+      subject: autoReply.subject,
+      text: autoReply.text,
+      html: autoReply.html,
+    });
+    if (!acknowledged.ok) {
+      console.error("Contact form: auto-reply rejected", acknowledged.status);
+    }
+  } catch {
+    console.error("Contact form: could not send the auto-reply");
   }
 
   return NextResponse.json({ ok: true });

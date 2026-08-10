@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import ChatWidget from "./ChatWidget";
 import { dirFor, localeFromPathname } from "@/lib/i18n";
 
 /**
@@ -14,7 +15,14 @@ import { dirFor, localeFromPathname } from "@/lib/i18n";
  * variants and the :lang() font rules — the only thing left on <html> is the
  * scrollbar side, which is not worth a client-side flash to move.
  */
-export default function LocaleShell({ children }: { children: React.ReactNode }) {
+export default function LocaleShell({
+  children,
+  /** Whether /api/chat has an API key. Decided on the server; see layout.tsx. */
+  assistant,
+}: {
+  children: React.ReactNode;
+  assistant: boolean;
+}) {
   const locale = localeFromPathname(usePathname());
 
   return (
@@ -22,6 +30,8 @@ export default function LocaleShell({ children }: { children: React.ReactNode })
       <Navbar locale={locale} />
       <main id="main">{children}</main>
       <Footer locale={locale} />
+      {/* Inside the dir wrapper so the panel pins to the correct side. */}
+      {assistant ? <ChatWidget locale={locale} /> : null}
     </div>
   );
 }

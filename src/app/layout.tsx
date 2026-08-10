@@ -77,8 +77,13 @@ export default function RootLayout({
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        {/* Picks the locale off the route and sets dir/lang around the chrome. */}
-        <LocaleShell>{children}</LocaleShell>
+        {/* Picks the locale off the route and sets dir/lang around the chrome.
+            The key is read here, on the server, purely as a yes/no: it decides
+            whether the assistant's launcher is rendered at all, and the value
+            itself never leaves this process. */}
+        <LocaleShell assistant={Boolean(process.env.ANTHROPIC_API_KEY)}>
+          {children}
+        </LocaleShell>
       </body>
     </html>
   );
