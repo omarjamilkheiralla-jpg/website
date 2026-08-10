@@ -57,8 +57,15 @@ export default function BrandMark({
   const markHeight = s.mark;
   const markWidth = Math.round((markHeight * ART.width) / ART.height);
 
+  /*
+    items-center matters more than it looks. The tagline row is wider than the
+    wordmark, so it sets the column's width — and without centring, the
+    wordmark (which has a fixed width) sits flush against the start edge while
+    the tagline centres itself underneath. That left the mark 36px off centre
+    in the header and the footer.
+  */
   const lockup = (
-    <span className={`flex flex-col ${className}`}>
+    <span className={`flex flex-col items-center ${className}`}>
       <Image
         src={WORDMARK}
         alt="Rosica"

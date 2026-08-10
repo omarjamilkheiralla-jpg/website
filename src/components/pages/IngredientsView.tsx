@@ -26,7 +26,8 @@ export default function IngredientsView({ locale }: { locale: Locale }) {
       <section className="bg-shell">
         <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-36 text-center sm:px-8 sm:pt-44">
           <Reveal className="flex justify-center">
-            <BrandMark size="lg" href="" className="items-center" />
+            {/* Centring is the lockup's own business now, not the caller's. */}
+            <BrandMark size="lg" href="" />
           </Reveal>
 
           <Reveal delay={0.12}>
