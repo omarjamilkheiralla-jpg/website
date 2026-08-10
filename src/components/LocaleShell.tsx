@@ -31,7 +31,7 @@ export default function LocaleShell({
       <main id="main">{children}</main>
       <Footer locale={locale} />
       {/* Inside the dir wrapper so the panel pins to the correct side. */}
-      {assistant ? <ChatWidget locale={locale} /> : null}
+      <ChatWidget locale={locale} ai={assistant} />
     </div>
   );
 }

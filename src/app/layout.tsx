@@ -79,8 +79,16 @@ export default function RootLayout({
         </noscript>
         {/* Picks the locale off the route and sets dir/lang around the chrome.
             The key is read here, on the server, purely as a yes/no: it decides
-            whether the assistant's launcher is rendered at all, and the value
-            itself never leaves this process. */}
+            whether the assistant offers a text box as well as its prepared
+            questions. The value itself never leaves this process.
+
+            Note this is read at BUILD time — these pages are prerendered, so
+            the answer is baked into the HTML. Adding the key to the hosting
+            environment therefore needs a redeploy before it takes effect. That
+            is deliberate rather than unfortunate: the alternative is either
+            making every page dynamic, or a probe request on every page load.
+            The failure is soft — without the flag the assistant still answers
+            its prepared questions, it just doesn't invite free typing. */}
         <LocaleShell assistant={Boolean(process.env.ANTHROPIC_API_KEY)}>
           {children}
         </LocaleShell>

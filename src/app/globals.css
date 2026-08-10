@@ -187,6 +187,45 @@
     opacity: 0.55;
   }
 
+  /*
+    The assistant's rotating sphere. See BotanicalOrb.tsx for the geometry —
+    the rules here are only the staging: a perspective on the outer element,
+    a preserve-3d cage inside it, and one rotation driving the whole thing.
+  */
+  .orb {
+    display: block;
+    position: relative;
+    perspective: 220px;
+  }
+
+  .orb-cage {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    animation: orb-spin 18s linear infinite;
+  }
+
+  .orb-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    /* The meridians read as a cage, not a solid ball, so they sit back. */
+    opacity: 0.55;
+  }
+
+  .orb-lat {
+    inset: auto;
+    /* Brighter than the meridians: only two of them carry the horizontal read. */
+    opacity: 0.7;
+  }
+
+  @keyframes orb-spin {
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
   /* Soft lift used by collection / ingredient / product cards. */
   .card-lift {
     transition:
