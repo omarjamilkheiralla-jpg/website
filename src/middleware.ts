@@ -38,11 +38,34 @@ function matches(candidate: string, expected: string): boolean {
   return difference === 0;
 }
 
+/**
+ * Paths that belong to the platform rather than to the site.
+ *
+ * These must never be challenged. Vercel's own Deployment Protection
+ * authenticates by bouncing the browser out to an SSO page and back through
+ * /_vercel/*; if that callback is met with a 401 the two gates deadlock, the
+ * browser retries the handshake until it gives up, and Chrome reports
+ * ERR_TOO_MANY_RETRIES — which looks like the site is down rather than locked.
+ *
+ * Nothing here serves site content, so letting it past costs no privacy.
+ */
+const PLATFORM_PATHS = ["/_vercel", "/.well-known"];
+
 export function middleware(request: NextRequest) {
   const expected = process.env.SITE_PASSWORD;
 
   // No password configured: the site is public. This is the launched state.
   if (!expected) return NextResponse.next();
+
+  /*
+    Segment-wise, not a bare prefix: startsWith("/_vercel") would also wave
+    through "/_vercel-anything", which is a hole for the sake of one character.
+  */
+  const { pathname } = request.nextUrl;
+  const isPlatform = PLATFORM_PATHS.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+  if (isPlatform) return NextResponse.next();
 
   const header = request.headers.get("authorization");
 
