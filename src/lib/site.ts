@@ -8,10 +8,14 @@
  */
 
 /**
- * The canonical origin. The apex, not www: www.rosica.ae is set up to redirect
- * here, so there is exactly one address search engines and shares resolve to.
+ * The canonical origin.
+ *
+ * www, not the apex: the hosting redirects rosica.ae to www.rosica.ae, so this
+ * has to be the address that actually serves — a canonical URL pointing at a
+ * redirect is a small self-inflicted wound. It also matches the address the
+ * contact page and the packaging already give out.
  */
-export const SITE_URL = "https://rosica.ae";
+export const SITE_URL = "https://www.rosica.ae";
 
 /**
  * Whether search engines may index the site.
