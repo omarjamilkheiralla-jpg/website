@@ -26,34 +26,34 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
   en: {
     metaTitle: "Rosica Essentials | Daily Botanical Care",
     metaDescription:
-      "Daily care essentials powered by nature. Gentle, effective formulations that cleanse, nourish, and protect for healthy, beautiful hair every day.",
+      "Daily care essentials inspired by nature. Gentle, effective formulations designed to cleanse, nourish, and protect for soft, healthy-looking hair every day.",
     eyebrow: "Collection 01",
     title: "Rosica Essentials",
     intro:
-      "Daily care essentials powered by nature. Gentle, effective formulations that cleanse, nourish, and protect for healthy, beautiful hair every day.",
-    features: ["Protect", "Strengthen", "Balance"],
+      "Daily care essentials inspired by nature. Gentle, effective formulations designed to cleanse, nourish, and protect for soft, healthy-looking hair every day.",
+    features: ["Nourish", "Cleanse", "Repair"],
     benefitsHeading: "Collection benefits",
     benefits: [
       {
         title: "Natural & Gentle",
-        body: "Formulated with carefully selected botanical ingredients to be gentle on your hair and scalp every day.",
+        body: "Formulated with carefully selected botanical ingredients for gentle, everyday hair and scalp care.",
       },
       {
-        title: "Effective Results",
-        body: "Advanced botanicals work in harmony to cleanse, nourish, and strengthen from root to tip.",
+        title: "Effective Care",
+        body: "Thoughtfully formulated ingredients work together to cleanse, nourish, condition, and care for your hair.",
       },
       {
         title: "For All Hair Types",
-        body: "Balanced formulations suitable for all hair types, including color-treated and chemically treated hair.",
+        body: "Thoughtfully developed formulas designed to support a variety of hair care needs.",
       },
       {
         title: "Conscious by Nature",
-        body: "Created with care for you and the planet using responsible and sustainable practices.",
+        body: "Created with thoughtful choices and consideration for people.",
       },
     ],
     promiseHeading: "The Rosica Essentials Promise",
     promiseBody: [
-      "We believe beautiful hair begins with gentle care and powerful botanicals. Our Essentials collection brings together the best of nature and science to deliver visible results you can feel every day.",
+      "We believe beautiful hair begins with thoughtful care. The Rosica Essentials collection combines carefully selected ingredients with modern cosmetic science to support your everyday hair care routine.",
     ],
     /*
       Taken from the printed labels, which are the authority. "Mineral Oil-Free"
@@ -78,8 +78,8 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
     eyebrow: "المجموعة الأولى",
     title: "روزيكا إسينشالز",
     intro:
-      "أساسيات العناية اليومية بقوة الطبيعة. تركيبات لطيفة وفعّالة تنظّف وتغذّي وتحمي، لشعر صحي وجميل كل يوم.",
-    features: ["حماية", "تقوية", "توازن"],
+      "أساسيات للعناية اليومية، مستوحاة من الطبيعة. تركيبات مدروسة تنظّف وتغذّي وتعتني بالشعر، لتمنحه مظهرًا ناعمًا وحيويًا كل يوم.",
+    features: ["حماية", "عناية", "توازن"],
     benefitsHeading: "مزايا المجموعة",
     benefits: [
       {
@@ -87,21 +87,21 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
         body: "مصمّمة بمكوّنات نباتية مختارة بعناية لتكون لطيفة على شعرك وفروة رأسك كل يوم.",
       },
       {
-        title: "نتائج فعّالة",
-        body: "تتناغم المكوّنات النباتية المتطوّرة لتنظّف وتغذّي وتقوّي الشعر من الجذور حتى الأطراف.",
+        title: "عناية فعّالة",
+        body: "تجمع تركيباتنا بين مكوّنات نباتية مختارة وتقنيات حديثة للعناية بالشعر، لتنظيفه وتغذيته والعناية به من الجذور حتى الأطراف.",
       },
       {
         title: "لجميع أنواع الشعر",
-        body: "تركيبات متوازنة تناسب جميع أنواع الشعر، بما في ذلك المصبوغ والمعالج كيميائيًا.",
+        body: "تركيبات متوازنة تناسب جميع أنواع الشعر.",
       },
       {
-        title: "وعي من الطبيعة",
-        body: "صُنعت باهتمام بكِ وبالكوكب، وفق ممارسات مسؤولة ومستدامة.",
+        title: "عناية واعية",
+        body: "صُممت بعناية، مع مراعاة الإنسان في كل اختيار.",
       },
     ],
     promiseHeading: "وعد روزيكا إسينشالز",
     promiseBody: [
-      "نؤمن بأن جمال الشعر يبدأ من العناية اللطيفة والمكوّنات النباتية الفعّالة. تجمع مجموعة إسينشالز أفضل ما في الطبيعة والعلم لتمنحكِ نتائج مرئية تشعرين بها كل يوم.",
+      "نؤمن بأن جمال الشعر يبدأ بعناية مدروسة ومكوّنات مختارة بعناية. تجمع مجموعة روزيكا إسينشالز بين المكوّنات النباتية وتقنيات العناية الحديثة لتمنح شعرك عناية متوازنة في روتينك اليومي.",
     ],
     standards: [
       "خالية من البارابين",
@@ -118,21 +118,21 @@ export const pureCopy: Localised<CollectionPageCopy> = {
   en: {
     metaTitle: "Rosica Pure | Advanced Botanical Care",
     metaDescription:
-      "Pure, minimal, and effective. Sulfate-free care with advanced botanical ingredients for a healthier beauty experience.",
+      "Pure, minimal, and thoughtfully formulated. Sulfate-free care with carefully selected botanical ingredients for gentle, effective everyday hair care.",
     eyebrow: "Collection 02",
     title: "Rosica Pure",
     intro:
-      "Pure, minimal, and effective. Sulfate-free care with advanced botanical ingredients for a healthier beauty experience.",
-    features: ["Pure", "Clean", "Restore", "Revitalize"],
+      "Pure, minimal, and thoughtfully formulated. Sulfate-free care with carefully selected botanical ingredients for gentle, effective everyday hair care.",
+    features: ["Gentle", "Cleanse", "Restore", "Refresh"],
     benefitsHeading: "Collection benefits",
     benefits: [
       {
         title: "Minimal & Pure",
-        body: "Sulfate-free formulations powered by carefully selected botanical ingredients.",
+        body: "A sulfate-free formula made with carefully selected botanical ingredients for gentle everyday care.",
       },
       {
-        title: "Effective Botanicals",
-        body: "Advanced botanical complexes work in harmony to nourish, strengthen, and restore.",
+        title: "Selected Botanicals",
+        body: "A thoughtful blend of botanical ingredients and modern hair care technology helps leave hair feeling soft, smooth, refreshed, and cared for.",
       },
       {
         title: "Scalp & Hair Care",
@@ -140,13 +140,13 @@ export const pureCopy: Localised<CollectionPageCopy> = {
       },
       {
         title: "Conscious by Nature",
-        body: "Created with care for you and the planet using responsible and sustainable practices.",
+        body: "Created with thoughtful choices and consideration for people.",
       },
     ],
     promiseHeading: "The Rosica Pure Promise",
     promiseBody: [
-      "We combine the purity of nature with scientific innovation to create high-performance formulations that respect your hair and the planet.",
-      "Pure care. Visible results. Made for you.",
+      "The Rosica PURE collection brings together carefully selected ingredients and modern cosmetic science to create gentle, thoughtfully formulated hair care for your everyday routine.",
+      "Pure care. Thoughtfully made for you.",
     ],
     standards: [
       "Sulfate-Free Formulas",
@@ -154,7 +154,7 @@ export const pureCopy: Localised<CollectionPageCopy> = {
       "Silicone-Free Formulas",
       "Inspired by Nature",
     ],
-    statement: ["Pure ingredients.", "Powerful results.", "Naturally beautiful."],
+    statement: ["Thoughtful ingredients.", "Refined by science.", "Naturally beautiful."],
     heroCta: "View All Pure Products",
   },
   ar: {
@@ -164,39 +164,39 @@ export const pureCopy: Localised<CollectionPageCopy> = {
     eyebrow: "المجموعة الثانية",
     title: "روزيكا بيور",
     intro:
-      "نقية وبسيطة وفعّالة. عناية خالية من السلفات بمكوّنات نباتية متطوّرة لتجربة جمال أكثر صحة.",
-    features: ["نقاء", "نظافة", "استعادة", "تنشيط"],
+      "نقية وبسيطة ومدروسة بعناية. تركيبة خالية من السلفات بمكوّنات نباتية مختارة بعناية، لعناية يومية لطيفة وفعّالة بالشعر.",
+    features: ["نقاء", "تنظيف", "عناية", "انتعاش"],
     benefitsHeading: "مزايا المجموعة",
     benefits: [
       {
         title: "بساطة ونقاء",
-        body: "تركيبات خالية من السلفات بقوة مكوّنات نباتية مختارة بعناية.",
+        body: "تركيبة خالية من السلفات، بمكوّنات نباتية مختارة بعناية، لعناية يومية لطيفة.",
       },
       {
-        title: "مكوّنات نباتية فعّالة",
-        body: "تتناغم المركّبات النباتية المتطوّرة لتغذّي الشعر وتقوّيه وتعيد إليه حيويته.",
+        title: "مكوّنات نباتية مختارة",
+        body: "مزيج مدروس من المكوّنات النباتية وتقنيات العناية الحديثة، يساعد على منح الشعر ملمسًا ناعمًا وانسيابيًا وإحساسًا بالانتعاش.",
       },
       {
         title: "عناية بالشعر وفروة الرأس",
         body: "طُوّرت بعناية لدعم راحة فروة الرأس وإبراز مظهر الشعر الصحي والجميل.",
       },
       {
-        title: "وعي من الطبيعة",
-        body: "صُنعت باهتمام بكِ وبالكوكب، وفق ممارسات مسؤولة ومستدامة.",
+        title: "عناية واعية",
+        body: "صُممت بعناية، مع مراعاة الإنسان في كل اختيار.",
       },
     ],
     promiseHeading: "وعد روزيكا بيور",
     promiseBody: [
-      "نجمع بين نقاء الطبيعة والابتكار العلمي لابتكار تركيبات عالية الأداء تحترم شعرك وتحترم الكوكب.",
-      "عناية نقية. نتائج مرئية. صُنعت من أجلك.",
+      "تجمع مجموعة روزيكا بيور بين مكوّنات مختارة بعناية وعلوم التجميل الحديثة، لتقديم عناية لطيفة ومدروسة بالشعر تناسب روتينك اليومي.",
+      "عناية نقية. مدروسة بعناية. صُنعت من أجلك.",
     ],
     standards: [
-      "خالية من السلفات",
-      "خالية من البارابين",
-      "خالية من السيليكون",
+      "تركيبة خالية من السلفات",
+      "تركيبة خالية من البارابين",
+      "تركيبة خالية من السيليكون",
       "مستوحاة من الطبيعة",
     ],
-    statement: ["مكوّنات نقية.", "نتائج قوية.", "جمال طبيعي."],
+    statement: ["مكوّنات مختارة بعناية.", "مصقولة بالعلم.", "جمال مستوحى من الطبيعة."],
     heroCta: "تصفّحي منتجات بيور",
   },
 };

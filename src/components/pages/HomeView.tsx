@@ -233,7 +233,15 @@ export default function HomeView({ locale }: { locale: Locale }) {
               {/* Jumps to the social links at the foot of the page. */}
               <ArrowLink href="#newsletter">{copy.communityCta}</ArrowLink>
             </div>
-            <div className="mt-auto pt-8">
+            {/*
+              pt-8, not mt-auto pt-8. Pushing the photograph to the bottom of a
+              stretched grid cell meant the tallest neighbour dictated this
+              card's height and the difference showed up as a dead band of cream
+              above the footer — most of a screen of it on a phone. Letting the
+              image sit directly under the link keeps the padding generous and
+              the section as tall as its content.
+            */}
+            <div className="pt-8">
               <Media
                 src={generic.journal}
                 alt={genericAlt.journal}

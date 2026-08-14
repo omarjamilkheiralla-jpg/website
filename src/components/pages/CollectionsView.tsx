@@ -97,9 +97,9 @@ export default function CollectionsView({ locale }: { locale: Locale }) {
           {copy.collections.map((collection, i) => (
             <RevealItem key={collection.name} className="h-full">
               <article className="card-lift group flex h-full items-stretch overflow-hidden rounded-md border border-gold/20 bg-linen hover:border-gold/60">
-                <div className="flex min-w-0 flex-1 flex-col p-8 sm:p-9">
+                <div className="flex min-w-0 flex-1 flex-col p-6 sm:p-8 lg:p-9">
                   <p className="eyebrow text-gold-deep">{collection.eyebrow}</p>
-                  <h3 className="mt-3 font-serif text-4xl uppercase tracking-[0.06em] text-green">
+                  <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.06em] text-green sm:text-3xl lg:text-4xl">
                     {collection.name}
                   </h3>
 
@@ -109,11 +109,20 @@ export default function CollectionsView({ locale }: { locale: Locale }) {
 
                   <p className="mt-6 text-sm leading-relaxed text-ink-muted">{collection.body}</p>
 
-                  {/* Two across: four columns ran the tracked-out labels into
-                      one another at this panel width. */}
-                  <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6">
+                  {/*
+                    One label per row below 480px. The copy column is only 48%
+                    of a phone screen, so two tracked-out labels side by side —
+                    NOURISH and STRENGTHEN — ran straight into each other with
+                    no visible gap. Stacking them costs a little height and is
+                    the only width-independent way to keep them apart. min-w-0
+                    lets a long label wrap instead of forcing the grid wider.
+                  */}
+                  <ul className="mt-8 grid grid-cols-1 gap-x-5 gap-y-6 min-[480px]:grid-cols-2">
                     {collection.features.map((label, f) => (
-                      <li key={label} className="flex flex-col items-center gap-2 text-center">
+                      <li
+                        key={label}
+                        className="flex min-w-0 flex-col items-center gap-2 text-center"
+                      >
                         <span className="text-gold">
                           <Icon name={art[i].featureIcons[f]} className="h-6 w-6" />
                         </span>
@@ -134,7 +143,11 @@ export default function CollectionsView({ locale }: { locale: Locale }) {
                   The tall crop is anchored to the bottom so the bottles stay
                   whole however deep the copy column grows.
                 */}
-                <div className="w-[52%] shrink-0 self-stretch">
+                {/*
+                  Narrower on a phone. At 52% the copy column was about 120px
+                  wide inside its padding, which clipped "ESSENTIALS" mid-word.
+                */}
+                <div className="w-[38%] shrink-0 self-stretch sm:w-[46%] lg:w-[52%]">
                   <Media
                     src={art[i].image}
                     alt={art[i].imageAlt}

@@ -32,11 +32,12 @@ export const ingredientsCopy: Localised<IngredientsCopy> = {
     items: [
       { name: "Honey", body: "A natural humectant rich in sugars that helps retain moisture." },
       { name: "Propolis", body: "Known for its protective and soothing properties." },
-      { name: "Aloe Vera", body: "Helps hydrate, soothe and support scalp comfort." },
+      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support skin and scalp comfort." },
       { name: "Rosemary", body: "Traditionally used to help revitalize and strengthen hair." },
     ],
-    closingTitle: "Every formula begins with a botanical.",
-    closingBody: "See how these ingredients come together across the Rosica collections.",
+    closingTitle: "Botanical inspiration, refined by science.",
+    closingBody:
+      "Discover how thoughtfully selected ingredients come together across the Rosica collections.",
     closingCta: "Explore Collections",
   },
   ar: {
@@ -52,7 +53,7 @@ export const ingredientsCopy: Localised<IngredientsCopy> = {
       { name: "العسل", body: "مرطّب طبيعي غني بالسكريات يساعد على الاحتفاظ بالرطوبة." },
       { name: "البروبوليس", body: "معروف بخصائصه الواقية والمهدّئة." },
       { name: "الألوفيرا", body: "يساعد على الترطيب والتهدئة ودعم راحة فروة الرأس." },
-      { name: "إكليل الجبل", body: "يُستخدم تقليديًا للمساعدة على تنشيط الشعر وتقويته." },
+      { name: "إكليل الجبل", body: "يُستخدم تقليديًا في العناية بالشعر ودعم حيويته." },
     ],
     closingTitle: "كل تركيبة تبدأ من نبتة.",
     closingBody: "اكتشفي كيف تجتمع هذه المكوّنات في مجموعات روزيكا.",

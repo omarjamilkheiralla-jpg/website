@@ -48,14 +48,14 @@ export const aboutCopy: Localised<AboutCopy> = {
     eyebrow: "About Rosica",
     title: "Rooted in Nature. Driven by Science.",
     intro:
-      "Rosica was born from a simple belief: nature has the power to heal, restore, and transform. We combine the finest botanical ingredients with advanced scientific research to create premium botanical beauty that is pure, effective, and gentle.",
+      "Rosica was born from a belief in the potential of nature, thoughtfully refined through modern cosmetic science. We bring together carefully selected botanical ingredients and considered formulation to create premium natural beauty designed for everyday care.",
     heroCta: "Discover Our Journey",
 
     storyEyebrow: "Our Story",
     storyTitle: "A Natural Beginning",
     storyBody: [
-      "Our journey began with a desire to create clean, botanical beauty that truly works. Frustrated by harsh chemicals and empty promises, we returned to nature—where the most powerful solutions exist.",
-      "Through years of research and formulation, Rosica was created to deliver visible results while respecting the health of you and the planet.",
+      "Rosica began with a passion for botanical knowledge and a vision of creating beauty products that bring nature and modern cosmetic science together with purpose.",
+      "Built on learning, curiosity, and a commitment to thoughtful formulation, Rosica was created to offer considered beauty care inspired by nature and refined through science.",
     ],
     storyCta: "Discover Our Journey",
 
@@ -64,19 +64,19 @@ export const aboutCopy: Localised<AboutCopy> = {
     philosophy: [
       {
         title: "Nature First",
-        body: "We begin with nature's finest ingredients, carefully selected for their proven benefits.",
+        body: "We thoughtfully select botanical ingredients for their quality and role within our formulations.",
       },
       {
-        title: "Science Backed",
-        body: "Every formula is developed through research and advanced cosmetic science.",
+        title: "Science-Backed",
+        body: "Every formula brings botanical ingredients together with modern cosmetic science and thoughtful formulation.",
       },
       {
-        title: "Pure & Safe",
-        body: "We never compromise on purity. Our formulas are gentle, effective, and free from what your skin doesn't need.",
+        title: "Thoughtful Formulation",
+        body: "Every product is developed with purpose, balancing carefully selected ingredients with performance and everyday care.",
       },
       {
-        title: "Sustainable Choice",
-        body: "We care for you and the planet with responsible sourcing and eco-conscious practices.",
+        title: "Quality with Purpose",
+        body: "From formulation to presentation, we approach every Rosica product with care, attention, and a commitment to quality.",
       },
     ],
 
@@ -85,23 +85,23 @@ export const aboutCopy: Localised<AboutCopy> = {
       {
         eyebrow: "Nature × Science",
         title: "The Perfect Balance",
-        body: "We blend botanical wisdom with scientific innovation to create formulas that deliver real results—from nature, refined by science.",
+        body: "We bring botanical knowledge together with modern cosmetic science to create thoughtfully formulated beauty care—inspired by nature and refined through science.",
         link: "Learn More About Our Ingredients",
       },
       {
         eyebrow: "Our Manufacturing",
         title: "Crafted with Care",
-        body: "Our products are manufactured in world-class facilities that follow the highest standards of quality, safety, and hygiene.",
+        body: "Our products are manufactured in a GMP-certified facility, with careful attention to quality, safety, and hygiene throughout the manufacturing process.",
         marks: [
           "High Quality Standards",
-          "Safe & Ethical Processes",
-          "Environmentally Responsible",
+          "Controlled Manufacturing Processes",
+          "Quality-Controlled Production",
           "Certified GMP",
         ],
       },
       {
         eyebrow: "Quality You Can Trust",
-        body: "We are committed to creating premium botanical beauty that is effective, honest, and made with a deep respect for nature and for you.",
+        body: "We are committed to creating premium botanical beauty through thoughtful formulation, carefully selected ingredients, and consistent attention to quality.",
         /*
           Sulfate-free was here as a brand-wide claim and is not one: the
           Purifying & Fresh Cleanse Shampoo's label does not carry it. Silicone-
@@ -111,27 +111,27 @@ export const aboutCopy: Localised<AboutCopy> = {
           "Carefully Selected Ingredients",
           "Silicone-Free Formulas",
           "Paraben-Free Formulas",
-          "Performance You Can See",
+          "Thoughtful Formulation",
         ],
       },
     ],
 
     collectionsEyebrow: "Our Collections",
-    collectionsTitle: "Two Collections. Complete Care.",
+    collectionsTitle: "Two Collections. One Beginning.",
     collectionsBody:
-      "Discover our curated ranges, each developed with purpose, crafted with nature and refined by science.",
+      "Discover our first two collections, each thoughtfully developed with purpose, inspired by nature and refined through science.",
     collectionsCta: "View All Products",
     collections: [
       {
         name: "Rosica Essentials",
         tagline: "Nourish. Repair. Protect.",
-        body: "Daily care with Honey & Propolis for stronger, healthier beauty.",
+        body: "Everyday hair care created to cleanse, nourish, condition, and support beautifully cared-for hair.",
         cta: "Explore Essentials",
       },
       {
         name: "Rosica Pure",
-        tagline: "Revitalize. Strengthen. Energize.",
-        body: "Advanced care with Rosemary & Biotin to support natural vitality and radiance.",
+        tagline: "Gentle. Restore. Renew.",
+        body: "Gentle botanical hair care created to cleanse, refresh, and support soft, naturally radiant hair.",
         cta: "Explore Pure",
       },
     ],
@@ -139,11 +139,11 @@ export const aboutCopy: Localised<AboutCopy> = {
     promiseEyebrow: "Our Promise to You",
     promiseHeading: "Our promise to you",
     promiseBody:
-      "We are committed to creating premium botanical beauty that is effective, honest, and made with a deep respect for nature and for you.",
+      "Our promise is thoughtful beauty care—guided by botanical knowledge, refined through modern cosmetic science, and created with uncompromising attention to quality.",
     promiseMarks: [
-      "Botanical Haircare",
+      "Botanical Beauty",
       "Thoughtful Formulas",
-      "Visible Results",
+      "Purposeful Care",
       "Inspired by Nature",
     ],
   },
@@ -155,14 +155,14 @@ export const aboutCopy: Localised<AboutCopy> = {
     eyebrow: "عن روزيكا",
     title: "متجذّرة في الطبيعة. مدفوعة بالعلم.",
     intro:
-      "وُلدت روزيكا من إيمان بسيط: أن للطبيعة قدرة على الشفاء والاستعادة والتحوّل. نجمع بين أرقى المكوّنات النباتية والأبحاث العلمية المتقدّمة لابتكار جمال نباتي فاخر، نقي وفعّال ولطيف.",
+      "وُلدت روزيكا من إيمان بسيط: أن للطبيعة قدرة على التجدد والاستعادة والتحوّل. نمزج بين أجود المكوّنات النباتية والابتكار العلمي المتقدّم لنقدّم عناية نباتية فاخرة، نقية وفعّالة ولطيفة.",
     heroCta: "اكتشفي رحلتنا",
 
     storyEyebrow: "قصتنا",
     storyTitle: "بداية طبيعية",
     storyBody: [
-      "بدأت رحلتنا برغبة في ابتكار جمال نباتي نقي يعمل فعلًا. وبعد خيبتنا من المواد الكيميائية القاسية والوعود الفارغة، عدنا إلى الطبيعة، حيث توجد أقوى الحلول.",
-      "وعبر سنوات من البحث والتركيب، وُلدت روزيكا لتمنحكِ نتائج مرئية مع احترام صحتك وصحة الكوكب.",
+      "بدأت رحلتنا برغبة في ابتكار عناية نباتية نقية وفعّالة. وبعيدًا عن المكوّنات القاسية والوعود المبالغ فيها، عدنا إلى الطبيعة، حيث نجد فيها مصدر إلهامنا.",
+      "ومن خلال البحث وتطوير التركيبات، وُلدت روزيكا لتقدّم عناية مدروسة ونتائج ملموسة، مع احترام الطبيعة والبيئة.",
     ],
     storyCta: "اكتشفي رحلتنا",
 
@@ -171,19 +171,19 @@ export const aboutCopy: Localised<AboutCopy> = {
     philosophy: [
       {
         title: "الطبيعة أولًا",
-        body: "نبدأ بأجود ما تقدّمه الطبيعة من مكوّنات، مختارة بعناية لفوائدها المثبتة.",
+        body: "نبدأ بأجود المكوّنات المستوحاة من الطبيعة، والمختارة بعناية لفوائدها المعروفة.",
       },
       {
-        title: "مدعومة بالعلم",
-        body: "كل تركيبة تُطوّر عبر البحث وعلوم التجميل المتقدّمة.",
+        title: "العلم أساس تركيباتنا",
+        body: "تُطوَّر كل تركيبة بالاستناد إلى البحث وعلوم التجميل الحديثة.",
       },
       {
-        title: "نقية وآمنة",
-        body: "لا نساوم أبدًا على النقاء. تركيباتنا لطيفة وفعّالة وخالية مما لا تحتاجه بشرتك.",
+        title: "نقية ومدروسة",
+        body: "نولي النقاء عناية خاصة، ونطوّر تركيبات لطيفة وفعّالة بعناية.",
       },
       {
-        title: "خيار مستدام",
-        body: "نهتم بكِ وبالكوكب عبر مصادر مسؤولة وممارسات صديقة للبيئة.",
+        title: "خيار مسؤول",
+        body: "نهتم بالبيئة من خلال خيارات مدروسة وممارسات مسؤولة.",
       },
     ],
 
@@ -192,18 +192,18 @@ export const aboutCopy: Localised<AboutCopy> = {
       {
         eyebrow: "الطبيعة × العلم",
         title: "التوازن المثالي",
-        body: "نمزج حكمة النبات بالابتكار العلمي لابتكار تركيبات تمنح نتائج حقيقية، من الطبيعة ومصقولة بالعلم.",
+        body: "نمزج خبرة المكوّنات النباتية بالابتكار العلمي لنطوّر تركيبات مدروسة تجمع بين الطبيعة والعلم.",
         link: "اعرفي المزيد عن مكوّناتنا",
       },
       {
         eyebrow: "تصنيعنا",
-        title: "صُنعت بعناية",
+        title: "مصنوعة بعناية",
         body: "تُصنع منتجاتنا في منشآت عالمية المستوى تلتزم بأعلى معايير الجودة والسلامة والنظافة.",
         marks: [
           "معايير جودة عالية",
-          "عمليات آمنة وأخلاقية",
+          "ممارسات مسؤولة ومدروسة",
           "مسؤولية تجاه البيئة",
-          "معتمدة GMP",
+          "تصنيع وفق معايير GMP",
         ],
       },
       {
@@ -213,7 +213,7 @@ export const aboutCopy: Localised<AboutCopy> = {
           "مكوّنات مختارة بعناية",
           "خالية من السيليكون",
           "خالية من البارابين",
-          "أداء ترينه بعينيك",
+          "عناية بأداء مدروس",
         ],
       },
     ],

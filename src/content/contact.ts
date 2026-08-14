@@ -64,7 +64,7 @@ export const contactCopy: Localised<ContactCopy> = {
 
     writeHeading: "Write to Us",
     writeBody:
-      "Email is the quickest way to reach us. Tell us as much as you can about your enquiry — your order, a product, or a wholesale question — and our team will come back to you within 1–2 business days.",
+      "Email is the quickest way to reach us. Please include the relevant details about your enquiry — whether regarding an order, a product, or a wholesale request — and our team will respond within 1–2 business days.",
     writeCta: `Email ${EMAIL}`,
 
     followHeading: "Follow Rosica",
@@ -77,10 +77,10 @@ export const contactCopy: Localised<ContactCopy> = {
     metaDescription:
       "تواصلي مع روزيكا لأي استفسار عن منتجاتنا أو طلبك، أو لمعرفة المزيد عن عنايتنا النباتية.",
 
-    title: "يسعدنا تواصلك",
+    title: "تواصل معنا",
     lede: "يسعدنا أن نسمع منك.",
     intro:
-      "سواء كان لديك سؤال عن منتجاتنا أو عن طلبك، أو رغبتِ ببساطة في معرفة المزيد عن روزيكا، فريقنا هنا لمساعدتك.",
+      "سواء كان لديك سؤال عن منتجاتنا أو طلبك، أو كنت ترغب في معرفة المزيد عن روزيكا، فإن فريقنا هنا لمساعدتك.",
 
     infoHeading: "معلومات التواصل",
     info: [
@@ -95,7 +95,7 @@ export const contactCopy: Localised<ContactCopy> = {
         ],
       },
       {
-        label: "وقت الرد",
+        label: "مدة الرد",
         lines: ["نسعى للرد على جميع الاستفسارات خلال يوم إلى يومَي عمل."],
       },
       { label: "ساعات العمل", lines: ["الاثنين – الجمعة", "9:00 صباحًا – 6:00 مساءً"] },

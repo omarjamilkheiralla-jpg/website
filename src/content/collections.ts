@@ -45,29 +45,29 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
       {
         eyebrow: "Rosica",
         name: "Essentials",
-        body: "Daily care essentials powered by nature. Gentle, effective formulations that cleanse, nourish, and protect.",
+        body: "Daily care essentials inspired by nature. Gentle, effective formulations designed to cleanse, nourish, and protect.",
         features: ["Nourish", "Strengthen", "Protect", "Balance"],
         cta: "Explore Essentials",
       },
       {
         eyebrow: "Rosica",
         name: "Pure",
-        body: "Pure, minimal, and effective. Sulfate-free care with advanced botanical ingredients for a healthier beauty experience.",
-        features: ["Pure", "Clean", "Restore", "Revitalize"],
+        body: "Pure, minimal, and thoughtfully formulated. Sulfate-free care with selected botanical ingredients for gentle, everyday hair care.",
+        features: ["Gentle", "Cleanse", "Restore", "Refresh"],
         cta: "Explore Pure",
       },
     ],
     philosophyHeading: "The Rosica philosophy",
     pillars: [
       {
-        title: "Botanical Expertise",
-        body: "Carefully selected natural ingredients you can trust.",
+        title: "Natural Ingredients",
+        body: "Carefully selected botanical ingredients chosen with purpose.",
       },
-      { title: "Scientific Innovation", body: "Advanced research and modern formulation." },
+      { title: "Scientific Innovation", body: "Modern cosmetic science and thoughtful formulation." },
       { title: "Thoughtful Formulation", body: "Every product created with purpose and care." },
       {
         title: "Responsible Beauty",
-        body: "We care for you and the planet every step of the way.",
+        body: "Thoughtful choices guided by care.",
       },
     ],
 

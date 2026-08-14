@@ -50,7 +50,7 @@ export const homeCopy: Localised<HomeCopy> = {
     eyebrow: "Botanical Beauty",
     title: "Inspired by Nature. Refined Through Science.",
     intro:
-      "Premium botanical beauty developed through thoughtful formulation, carefully selected ingredients, and a commitment to everyday care.",
+      "Premium natural beauty developed through thoughtful formulation, carefully selected botanical ingredients, and a commitment to everyday care.",
     heroPrimary: "Explore Collections",
     heroSecondary: "Learn Our Story",
 
@@ -80,7 +80,7 @@ export const homeCopy: Localised<HomeCopy> = {
     ingredients: [
       { name: "Honey", body: "A natural humectant rich in sugars that helps retain moisture." },
       { name: "Propolis", body: "Known for its protective and soothing properties." },
-      { name: "Aloe Vera", body: "Helps hydrate, soothe and support scalp comfort." },
+      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support skin and scalp comfort." },
       { name: "Rosemary", body: "Traditionally used to help revitalize and strengthen hair." },
     ],
     ingredientExplore: "Explore",
@@ -113,7 +113,7 @@ export const homeCopy: Localised<HomeCopy> = {
     ritualStepsHeading: "The three-step ritual",
     ritual: [
       { title: "Cleanse", body: "Gently remove impurities while preparing the hair." },
-      { title: "Condition", body: "Restore softness, hydration, and manageability." },
+      { title: "Condition", body: "Help restore softness and improve manageability." },
       {
         title: "Maintain",
         body: "Support long-term healthy-looking hair through consistent botanical care.",
@@ -122,7 +122,7 @@ export const homeCopy: Localised<HomeCopy> = {
     communityEyebrow: "Follow Rosica",
     communityBody:
       "New launches, botanical stories and the world behind the formulas — shared first with our community.",
-    communityCta: "Find Us",
+    communityCta: "Follow Rosica",
   },
 
   ar: {
@@ -133,7 +133,7 @@ export const homeCopy: Localised<HomeCopy> = {
     eyebrow: "الجمال النباتي",
     title: "مستوحاة من الطبيعة. مصقولة بالعلم.",
     intro:
-      "جمال نباتي فاخر طُوّر عبر تركيبات مدروسة، ومكوّنات مختارة بعناية، والتزام بالعناية اليومية.",
+      "عناية نباتية فاخرة، صُممت بتركيبات مدروسة ومكوّنات مختارة بعناية، لترافقك في عنايتك اليومية.",
     heroPrimary: "استكشفي المجموعات",
     heroSecondary: "تعرّفي على قصتنا",
 
@@ -144,12 +144,12 @@ export const homeCopy: Localised<HomeCopy> = {
         body: "نختار بعناية مكوّنات نباتية معروفة بجودتها وإرثها وتوافقها مع تركيبات التجميل الحديثة.",
       },
       {
-        title: "علوم تجميل حديثة",
-        body: "كل تركيبة تجمع الطبيعة بعلوم التجميل المعاصرة لتقدّم عناية يومية موثوقة.",
+        title: "علوم التجميل الحديثة",
+        body: "تجمع كل تركيبة بين الطبيعة وعلوم التجميل الحديثة، لتقدّم عناية يومية مدروسة.",
       },
       {
-        title: "تركيب مدروس",
-        body: "كل منتج من روزيكا يُطوّر بهدف واضح ونزاهة واهتمام بكل تفصيل، من المكوّنات حتى التغليف.",
+        title: "تركيبة مدروسة",
+        body: "يُطوّر كل منتج من روزيكا بعناية وهدف واضح واهتمام بكل تفصيل، من المكوّنات وصولًا إلى التغليف.",
       },
     ],
     valuesCta: "اكتشفي المزيد",
@@ -164,44 +164,48 @@ export const homeCopy: Localised<HomeCopy> = {
       { name: "العسل", body: "مرطّب طبيعي غني بالسكريات يساعد على الاحتفاظ بالرطوبة." },
       { name: "البروبوليس", body: "معروف بخصائصه الواقية والمهدّئة." },
       { name: "الألوفيرا", body: "يساعد على الترطيب والتهدئة ودعم راحة فروة الرأس." },
-      { name: "إكليل الجبل", body: "يُستخدم تقليديًا للمساعدة على تنشيط الشعر وتقويته." },
+      { name: "إكليل الجبل", body: "يُستخدم تقليديًا في العناية بالشعر ودعم حيويته." },
     ],
     ingredientExplore: "اكتشفي",
 
     collectionsEyebrow: "مجموعاتنا",
-    collectionsTitle: "مجموعتان. عناية متكاملة.",
-    collectionsBody: "تقدّم روزيكا حاليًا مجموعتين متكاملتين.",
+    collectionsTitle: "مجموعتان. بداية واحدة.",
+    collectionsBody:
+      "تقدّم روزيكا حاليًا مجموعتيها الأوليين ضمن بداية محفظتها المتنامية للعناية الجمالية الطبيعية.",
     collectionsCta: "تصفّحي جميع المنتجات",
     collections: [
       {
         name: "روزيكا إسينشالز",
         tagline: "تغذية. إصلاح. حماية.",
-        body: "صُنعت للتغذية والإصلاح والحماية اليومية بتركيبات نباتية متوازنة بعناية.",
-        cta: "اكتشفي إسينشالز",
+        body: "عناية يومية صُممت للتغذية والإصلاح والحماية، بتركيبات نباتية متوازنة بعناية.",
+        cta: "اكتشف Rosica Essentials",
       },
       {
         name: "روزيكا بيور",
-        tagline: "تنشيط. تقوية. حيوية.",
-        body: "صُمّمت لتنشيط الشعر وتقويته بمكوّنات نباتية متطوّرة، لتجربة عناية فاخرة ومنعشة.",
-        cta: "اكتشفي بيور",
+        tagline: "عناية لطيفة. استعادة. تجدد.",
+        body: "عناية نباتية لطيفة صُممت لتنظيف الشعر وإنعاشه، ودعم نعومته وإشراقه الطبيعي.",
+        cta: "اكتشف Rosica Pure",
       },
     ],
     collectionsFooter: "معًا تمثّلان بداية محفظة روزيكا المتنامية للجمال الطبيعي.",
 
     closingHeading: "طقوس روزيكا ومجتمعها",
     ritualEyebrow: "طقوس روزيكا",
-    ritualIntro: "روتين بسيط لشعر أكثر صحة وقوة.",
+    ritualIntro: "روتين بسيط لعناية يومية متكاملة بالشعر.",
     ritualCta: "تصفّحي المجموعات",
     ritualStepsHeading: "الطقوس الثلاثية",
     ritual: [
-      { title: "تنظيف", body: "يزيل الشوائب بلطف ويهيّئ الشعر." },
-      { title: "ترطيب", body: "يعيد النعومة والترطيب وسهولة التصفيف." },
+      { title: "١ — تنظيف", body: "يزيل الشوائب بلطف ويهيّئ الشعر للعناية التالية." },
       {
-        title: "محافظة",
-        body: "يدعم مظهر الشعر الصحي على المدى الطويل عبر عناية نباتية منتظمة.",
+        title: "٢ — ترطيب وتنعيم",
+        body: "يساعد على استعادة النعومة والترطيب وسهولة التصفيف.",
+      },
+      {
+        title: "٣ — عناية مستمرة",
+        body: "يدعم مظهر الشعر المعتنى به من خلال روتين نباتي منتظم.",
       },
     ],
-    communityEyebrow: "تابعي روزيكا",
+    communityEyebrow: "تابع روزيكا",
     communityBody:
       "الإصدارات الجديدة وحكايات النباتات والعالم خلف التركيبات — نشاركها أولًا مع مجتمعنا.",
     communityCta: "تابعينا",

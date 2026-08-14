@@ -76,7 +76,8 @@ export default function AboutView({ locale }: { locale: Locale }) {
         image={product.rangeGroupHero}
         imageRtl={product.rangeGroupHeroRtl}
         imageLabel={productAlt.rangeGroupHero}
-        actions={<CTAButton href="#our-story">{copy.heroCta}</CTAButton>}
+        /* No hero action: the story CTA lower down does the same job, and two
+           "Discover Our Journey" buttons on one page was one too many. */
       />
 
       {/* Story and philosophy share one band, as in the artwork */}

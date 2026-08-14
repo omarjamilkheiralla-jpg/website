@@ -63,7 +63,6 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
         { label: "Essentials", href: "/collections/essentials" },
         { label: "PURE", href: "/collections/pure" },
         { label: "All Products", href: "/collections" },
-        { label: "Ingredient Library", href: "/ingredients" },
       ],
     },
     {
@@ -100,7 +99,6 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
         { label: "إسينشالز", href: "/collections/essentials" },
         { label: "بيور", href: "/collections/pure" },
         { label: "جميع المنتجات", href: "/collections" },
-        { label: "مكتبة المكوّنات", href: "/ingredients" },
       ],
     },
     {
@@ -126,9 +124,8 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
 export const footerColumnsFor = (locale: Locale) => footer[locale];
 
 /**
- * The brand's own profiles. TikTok is deliberately absent: the placeholder
- * pointed at tiktok.com's front page, which is the same defect as no link at
- * all. Add it back here the moment there is a real handle to point at.
+ * The brand's own profiles. Both the footer and the contact page read from
+ * this one list, so adding an account here puts it in both places.
  */
 export const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/rosicanaturalcare/" },
@@ -137,4 +134,5 @@ export const socialLinks = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/company/rosica-natural-care-llc-fz/",
   },
+  { label: "TikTok", href: "https://www.tiktok.com/@rosicanaturalcare" },
 ];
