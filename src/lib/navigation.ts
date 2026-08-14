@@ -71,7 +71,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
         { label: "FAQs", href: "/faqs" },
         { label: "Contact Us", href: "/contact" },
         { label: "Privacy Policy", href: "/privacy" },
-        { label: "Terms & Conditions", href: "/terms" },
+        { label: "Terms of Service", href: "/terms" },
       ],
     },
     {
@@ -107,7 +107,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
         { label: "الأسئلة الشائعة", href: "/faqs" },
         { label: "تواصل معنا", href: "/contact" },
         { label: "سياسة الخصوصية", href: "/privacy" },
-        { label: "الشروط والأحكام", href: "/terms" },
+        { label: "شروط الخدمة", href: "/terms" },
       ],
     },
     {

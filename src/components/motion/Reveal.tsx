@@ -13,6 +13,8 @@ type RevealProps = {
   offset?: number;
   /** Anchor target, so in-page links can point at a revealed block. */
   id?: string;
+  /** Forwarded to the element, for naming a landmark rendered via `as`. */
+  "aria-label"?: string;
 };
 
 /**
@@ -27,6 +29,7 @@ export default function Reveal({
   className = "",
   offset = 24,
   id,
+  "aria-label": ariaLabel,
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
@@ -47,6 +50,7 @@ export default function Reveal({
   return (
     <MotionTag
       id={id}
+      aria-label={ariaLabel}
       className={className}
       initial="hidden"
       whileInView="visible"

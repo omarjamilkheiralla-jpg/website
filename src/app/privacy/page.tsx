@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import LegalView from "@/components/pages/LegalView";
+import { legalTitles, privacyDocument } from "@/content/legal";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "How Rosica collects, uses, and protects the personal information you share with us.",
+  title: legalTitles.privacy.en.title,
+  description: legalTitles.privacy.en.description,
 };
 
 export default function PrivacyPage() {
   return (
-    <ComingSoon
-      eyebrow="LEGAL"
-      title="Privacy Policy"
-      body="How Rosica collects, uses, and protects the personal information you share with us."
-    />
+    <LegalView locale="en" title={legalTitles.privacy.en.title} document={privacyDocument} />
   );
 }

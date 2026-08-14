@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import LegalView from "@/components/pages/LegalView";
+import { legalTitles, termsDocument } from "@/content/legal";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions",
-  description:
-    "The terms that apply when you use the Rosica website and services.",
+  title: legalTitles.terms.en.title,
+  description: legalTitles.terms.en.description,
 };
 
 export default function TermsPage() {
   return (
-    <ComingSoon
-      eyebrow="LEGAL"
-      title="Terms & Conditions"
-      body="The terms that apply when you use the Rosica website and services."
-    />
+    <LegalView locale="en" title={legalTitles.terms.en.title} document={termsDocument} />
   );
 }

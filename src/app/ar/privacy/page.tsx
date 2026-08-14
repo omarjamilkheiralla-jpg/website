@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import LegalView from "@/components/pages/LegalView";
+import { legalTitles, privacyDocument } from "@/content/legal";
 
 export const metadata: Metadata = {
-  title: "سياسة الخصوصية",
-  description: "كيف تجمع روزيكا معلوماتك الشخصية وتستخدمها وتحميها.",
+  title: legalTitles.privacy.ar.title,
+  description: legalTitles.privacy.ar.description,
 };
 
 export default function ArabicPrivacyPage() {
   return (
-    <ComingSoon
+    <LegalView
       locale="ar"
-      eyebrow="الشؤون القانونية"
-      title="سياسة الخصوصية"
-      body="كيف تجمع روزيكا المعلومات الشخصية التي تشاركينها معنا، وكيف تستخدمها وتحميها."
+      title={legalTitles.privacy.ar.title}
+      document={privacyDocument}
     />
   );
 }
