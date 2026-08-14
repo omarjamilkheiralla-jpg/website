@@ -36,7 +36,7 @@ const art = {
     benefitImages: [
       { src: generic.vaseLinen, alt: genericAlt.vaseLinen },
       { src: generic.labFlaskFlower, alt: genericAlt.labFlaskFlower },
-      { src: generic.hairScalp, alt: genericAlt.hairScalp },
+      { src: generic.hairWaves, alt: genericAlt.hairWaves },
       { src: generic.foliage, alt: genericAlt.foliage },
     ],
     standardIcons: ["beaker", "flask", "droplet", "seedling"] as IconName[],

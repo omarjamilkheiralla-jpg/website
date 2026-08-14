@@ -11,6 +11,9 @@ import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { generic, genericAlt, product, productAlt } from "@/lib/media";
 import { localePath, type Locale } from "@/lib/i18n";
 import { homeCopy } from "@/content/home";
+import { ingredientPhoto } from "@/lib/ingredient-media";
+import { ingredientPath } from "@/components/pages/IngredientView";
+import { INGREDIENT_SLUGS } from "@/content/ingredient-pages";
 
 /** Art direction, paired with the copy by index. */
 const valueArt = [
@@ -19,12 +22,13 @@ const valueArt = [
   { icon: "mortar" as IconName, href: "/about" },
 ];
 
-const ingredientPhotos = [
-  { image: generic.honey, alt: genericAlt.honey },
-  { image: generic.propolis, alt: genericAlt.propolis },
-  { image: generic.aloeVera, alt: genericAlt.aloeVera },
-  { image: generic.rosemary, alt: genericAlt.rosemary },
-];
+/* Photography and destination come from the slug order, so the copy, the photo
+   and the page can never drift apart. */
+const ingredientArt = INGREDIENT_SLUGS.map((slug) => ({
+  image: ingredientPhoto[slug].src,
+  alt: ingredientPhoto[slug].alt,
+  href: ingredientPath(slug),
+}));
 
 const collectionArt = [
   {
@@ -44,8 +48,9 @@ export default function HomeView({ locale }: { locale: Locale }) {
   const ingredients = copy.ingredients.map((ingredient, i) => ({
     name: ingredient.name,
     body: ingredient.body,
-    image: ingredientPhotos[i].image,
-    alt: ingredientPhotos[i].alt,
+    image: ingredientArt[i].image,
+    alt: ingredientArt[i].alt,
+    href: to(ingredientArt[i].href),
   }));
 
   return (
@@ -116,7 +121,6 @@ export default function HomeView({ locale }: { locale: Locale }) {
             <h3 className="sr-only">{copy.featuredHeading}</h3>
             <IngredientCarousel
               ingredients={ingredients}
-              href={to("/ingredients")}
               exploreLabel={copy.ingredientExplore}
               locale={locale}
             />

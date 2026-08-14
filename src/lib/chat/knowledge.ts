@@ -115,11 +115,12 @@ export function knowledgeFor(locale: Locale): string {
         "Collections — /collections",
         "Essentials — /collections/essentials",
         "PURE — /collections/pure",
-        "Ingredient Library — /ingredients",
+        "Each product has its own page — /products/honey-propolis-repair-shampoo, /products/purifying-fresh-cleanse-shampoo, /products/deep-repair-conditioner, /products/botanical-restore-shampoo",
+        "Ingredient Library — /ingredients, and one page per botanical: /ingredients/honey, /ingredients/propolis, /ingredients/aloe-vera, /ingredients/rosemary",
         "Where to Buy — /where-to-buy (placeholder: listings are not published yet)",
-        "Contact — /contact (has a form that reaches the team by email)",
+        "Contact — /contact (contact details; there is no form, people email info@rosica.ae)",
         "FAQs — /faqs (placeholder: no answers published yet)",
-        "Privacy Policy — /privacy, Terms — /terms (both placeholders)",
+        "Privacy Policy — /privacy and Terms of Service — /terms (both published in full, in English on both locale trees)",
       ]) +
       `\n\nArabic versions of every page live under the same path prefixed with /ar.`,
   );
@@ -129,6 +130,8 @@ export function knowledgeFor(locale: Locale): string {
       bullets([
         "Instagram: https://www.instagram.com/rosicanaturalcare/",
         "Facebook: https://www.facebook.com/Rosicanaturalcare",
+        "LinkedIn: https://www.linkedin.com/company/rosica-natural-care-llc-fz/",
+        "TikTok: https://www.tiktok.com/@rosicanaturalcare",
       ]),
   );
 

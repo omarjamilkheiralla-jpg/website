@@ -16,16 +16,21 @@ const t = {
  * ingredients still read as a calm row on a wide screen while the component
  * keeps working as the Ingredient Library grows.
  */
-export type Ingredient = { name: string; image: string; alt: string; body: string };
+export type Ingredient = {
+  name: string;
+  image: string;
+  alt: string;
+  body: string;
+  /** This botanical's own page. */
+  href: string;
+};
 
 export default function IngredientCarousel({
   ingredients,
-  href = "/ingredients",
   exploreLabel = "Explore",
   locale = "en",
 }: {
   ingredients: Ingredient[];
-  href?: string;
   exploreLabel?: string;
   locale?: Locale;
 }) {
@@ -95,7 +100,7 @@ export default function IngredientCarousel({
                 {ingredient.body}
               </p>
               <div className="mt-auto flex justify-center pt-5">
-                <ArrowLink href={href} label={copy.explore(ingredient.name)}>
+                <ArrowLink href={ingredient.href} label={copy.explore(ingredient.name)}>
                   {exploreLabel}
                 </ArrowLink>
               </div>

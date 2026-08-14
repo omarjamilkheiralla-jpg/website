@@ -54,6 +54,8 @@ type CTAButtonProps = {
   size?: Size;
   /** Primary actions carry an arrow in the designs; others do not. */
   arrow?: boolean;
+  /** Leaves the site — renders a plain anchor that opens in a new tab. */
+  external?: boolean;
   className?: string;
 } & Omit<ComponentPropsWithoutRef<"button">, "children" | "className">;
 
@@ -63,6 +65,7 @@ export default function CTAButton({
   variant = "primary",
   size = "md",
   arrow,
+  external = false,
   className = "",
   ...buttonProps
 }: CTAButtonProps) {
@@ -77,6 +80,16 @@ export default function CTAButton({
   );
 
   if (href) {
+    // next/link prefetches and client-routes; neither is meaningful off-site,
+    // and the store has to open in its own tab so the visitor keeps this one.
+    if (external) {
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+          {content}
+        </a>
+      );
+    }
+
     return (
       <Link href={href} className={classes}>
         {content}

@@ -37,7 +37,7 @@ export const generic = {
   // Ritual and editorial.
   soapLinen: "/images/spa-soap-linen.jpg",
   hairTexture: "/images/hair-texture.jpg",
-  hairScalp: "/images/hair-scalp.jpg",
+  hairWaves: "/images/hair-waves.jpg",
   journal: "/images/journal-editorial.jpg",
 } as const;
 
@@ -65,7 +65,8 @@ export const genericAlt = {
 
   soapLinen: "Amber botanical soap bars laid out on white linen with dried grasses",
   hairTexture: "Close-up of long, healthy brown hair",
-  hairScalp: "The back of a woman's head showing long, smooth, healthy hair",
+  hairWaves:
+    "Long, glossy waves seen from behind against a warm neutral wall",
   journal: "An open book beside a jar of flowers in warm daylight",
 } as const;
 

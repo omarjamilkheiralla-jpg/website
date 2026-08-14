@@ -9,6 +9,9 @@ import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { product, productAlt } from "@/lib/media";
 import { localePath, type Locale } from "@/lib/i18n";
 import { collectionsCopy } from "@/content/collections";
+import { PRODUCT_NAMES, PRODUCT_SLUGS } from "@/content/products";
+import { productPhoto } from "@/lib/product-media";
+import { productPath } from "@/components/pages/ProductView";
 
 /**
  * Art direction, paired with the copy by index. Adding a Skin Care or Body
@@ -34,33 +37,16 @@ const pillarIcons: IconName[] = ["seedling", "flask", "mortar", "globe"];
 /**
  * The four products, in the order they are listed in the content file. Names
  * are the ones printed on the bottles and stay in Latin in both languages.
+ *
+ * Each card now opens the product's own page rather than its collection, which
+ * is where the size, hair type, named ingredients and Buy Now live.
  */
-const productArt = [
-  {
-    name: "Honey & Propolis",
-    image: product.honeyPropolisRepairShampoo,
-    imageAlt: productAlt.honeyPropolisRepairShampoo,
-    href: "/collections/essentials",
-  },
-  {
-    name: "Purifying & Fresh",
-    image: product.purifyingFreshCleanseShampoo,
-    imageAlt: productAlt.purifyingFreshCleanseShampoo,
-    href: "/collections/essentials",
-  },
-  {
-    name: "Deep Repair Conditioner",
-    image: product.deepRepairConditioner,
-    imageAlt: productAlt.deepRepairConditioner,
-    href: "/collections/essentials",
-  },
-  {
-    name: "Botanical Restore Shampoo",
-    image: product.botanicalRestoreShampoo,
-    imageAlt: productAlt.botanicalRestoreShampoo,
-    href: "/collections/pure",
-  },
-];
+const productArt = PRODUCT_SLUGS.map((slug) => ({
+  name: PRODUCT_NAMES[slug],
+  image: productPhoto[slug].src,
+  imageAlt: productPhoto[slug].alt,
+  href: productPath(slug),
+}));
 
 export default function CollectionsView({ locale }: { locale: Locale }) {
   const copy = collectionsCopy[locale];

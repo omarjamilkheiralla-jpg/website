@@ -76,14 +76,14 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
     productsBody:
       "Every product across both collections, from daily cleansing to deep repair.",
     products: [
-      { sub: "Repair Shampoo", collection: "Essentials", cta: "View in Essentials" },
-      { sub: "Cleanse Shampoo", collection: "Essentials", cta: "View in Essentials" },
+      { sub: "Repair Shampoo", collection: "Essentials", cta: "Explore" },
+      { sub: "Cleanse Shampoo", collection: "Essentials", cta: "Explore" },
       {
         sub: "Intense Nourishment for All Hair Types",
         collection: "Essentials",
-        cta: "View in Essentials",
+        cta: "Explore",
       },
-      { sub: "Sulfate-Free", collection: "PURE", cta: "View in Pure" },
+      { sub: "Sulfate-Free", collection: "PURE", cta: "Explore" },
     ],
   },
   ar: {
@@ -124,14 +124,14 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
     productsBody:
       "كل منتجات المجموعتين، من التنظيف اليومي حتى الإصلاح العميق.",
     products: [
-      { sub: "شامبو الإصلاح", collection: "إسينشالز", cta: "اعرضيه في إسينشالز" },
-      { sub: "شامبو التنظيف", collection: "إسينشالز", cta: "اعرضيه في إسينشالز" },
+      { sub: "شامبو الإصلاح", collection: "إسينشالز", cta: "اكتشفي" },
+      { sub: "شامبو التنظيف", collection: "إسينشالز", cta: "اكتشفي" },
       {
         sub: "تغذية مكثفة لجميع أنواع الشعر",
         collection: "إسينشالز",
-        cta: "اعرضيه في إسينشالز",
+        cta: "اكتشفي",
       },
-      { sub: "خالٍ من السلفات", collection: "بيور", cta: "اعرضيه في بيور" },
+      { sub: "خالٍ من السلفات", collection: "بيور", cta: "اكتشفي" },
     ],
   },
 };
