@@ -36,7 +36,12 @@ import { localePath, type Locale } from "@/lib/i18n";
 
 type Turn =
   | { role: "visitor"; text: string }
-  | { role: "bot"; text: string[]; link?: { href: string; label: string } };
+  | {
+      role: "bot";
+      text: string[];
+      /** `external` links leave the site — the online store — and open in a new tab. */
+      link?: { href: string; label: string; external?: boolean };
+    };
 
 export default function ChatWidget({ locale, ai }: { locale: Locale; ai: boolean }) {
   const copy = chatCopy[locale];
@@ -104,8 +109,12 @@ export default function ChatWidget({ locale, ai }: { locale: Locale; ai: boolean
             text: question.a[locale],
             link: question.link
               ? {
-                  href: localePath(locale, question.link.href),
+                  // An external href is a full URL and must not be prefixed.
+                  href: question.link.external
+                    ? question.link.href
+                    : localePath(locale, question.link.href),
                   label: question.link.label[locale],
+                  external: question.link.external,
                 }
               : undefined,
           },
@@ -276,13 +285,24 @@ export default function ChatWidget({ locale, ai }: { locale: Locale; ai: boolean
                       </p>
                     ))}
                     {turn.link ? (
-                      <Link
-                        href={turn.link.href}
-                        onClick={() => setOpen(false)}
-                        className="link-underline inline-block text-xs font-medium text-gold-deep"
-                      >
-                        {turn.link.label} →
-                      </Link>
+                      turn.link.external ? (
+                        <a
+                          href={turn.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-underline inline-block text-xs font-medium text-gold-deep"
+                        >
+                          {turn.link.label} →
+                        </a>
+                      ) : (
+                        <Link
+                          href={turn.link.href}
+                          onClick={() => setOpen(false)}
+                          className="link-underline inline-block text-xs font-medium text-gold-deep"
+                        >
+                          {turn.link.label} →
+                        </Link>
+                      )
                     ) : null}
                   </div>
                 ),

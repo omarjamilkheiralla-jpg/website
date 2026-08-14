@@ -1,4 +1,5 @@
 import type { Locale, Localised } from "@/lib/i18n";
+import { SHOP_URL } from "@/lib/shop";
 
 /**
  * The assistant's question bank.
@@ -25,8 +26,12 @@ export type Question = {
   q: Localised<string>;
   /** Answer paragraphs. */
   a: Localised<string[]>;
-  /** Optional "read more" link. Href is authored in English and localised at render. */
-  link?: { href: string; label: Localised<string> };
+  /**
+   * Optional "read more" link. An internal href is authored in English and
+   * localised at render; `external: true` marks a full URL that must be left
+   * alone and opened in a new tab — the online store, for instance.
+   */
+  link?: { href: string; label: Localised<string>; external?: boolean };
   /** Questions offered as follow-ups once this one has been answered. */
   next?: string[];
 };
@@ -50,19 +55,21 @@ export const questions: Question[] = [
     q: { en: "What does Rosica make?", ar: "ماذا تقدّم روزيكا؟" },
     a: {
       en: [
-        "Rosica makes botanical haircare — four products across two collections, each 300 ml.",
-        "Rosica Essentials is the daily range: the Honey & Propolis Repair Shampoo for dry, normal and damaged hair, the Purifying & Fresh Cleanse Shampoo for oily hair, and the Deep Repair Conditioner for all hair types. Rosica PURE is the advanced range, with the sulfate-free Botanical Restore Shampoo for colour-treated, chemically treated and damaged hair.",
+        "Rosica is a premium botanical beauty brand, currently offering four haircare products across two collections.",
+        "Rosica Essentials — Honey & Propolis Repair Shampoo, nourishing and repairing care for dry, normal and damaged hair; Purifying & Fresh Cleanse Shampoo, refreshing cleansing care for oily hair and scalps prone to excess oil; and Deep Repair Conditioner, conditioning care designed to detangle, strengthen and repair all hair types.",
+        "Rosica PURE — Botanical Restore Shampoo, gentle sulfate-free botanical care designed for all hair types, colour-treated, chemically treated and damaged hair, and daily use.",
       ],
       ar: [
-        "تقدّم روزيكا عناية نباتية بالشعر — أربعة منتجات ضمن مجموعتين، سعة كل منها 300 مل.",
-        "روزيكا إسينشالز هي مجموعة العناية اليومية: شامبو Honey & Propolis Repair للشعر الجاف والعادي والتالف، وشامبو Purifying & Fresh Cleanse للشعر الدهني، وبلسم Deep Repair لجميع أنواع الشعر. وروزيكا بيور هي المجموعة المتقدّمة، وتضم شامبو Botanical Restore الخالي من السلفات للشعر المصبوغ والمعالج كيميائيًا والتالف.",
+        "روزيكا علامة فاخرة للجمال النباتي، تقدّم حاليًا أربعة منتجات للعناية بالشعر ضمن مجموعتين.",
+        "روزيكا إسينشالز — شامبو Honey & Propolis Repair، عناية مغذّية ومصلحة للشعر الجاف والعادي والتالف؛ وشامبو Purifying & Fresh Cleanse، عناية منعشة ومنظّفة للشعر الدهني وفروة الرأس المعرّضة للدهون؛ وبلسم Deep Repair، عناية مرطّبة تساعد على فك التشابك وتقوية الشعر وإصلاحه لجميع الأنواع.",
+        "روزيكا بيور — شامبو Botanical Restore، عناية نباتية لطيفة خالية من السلفات، مصمّمة لجميع أنواع الشعر والشعر المصبوغ والمعالج كيميائيًا والتالف، وللاستخدام اليومي.",
       ],
     },
     link: {
       href: "/collections",
-      label: { en: "See all products", ar: "تصفّحي جميع المنتجات" },
+      label: { en: "Explore all products", ar: "تصفّحي جميع المنتجات" },
     },
-    next: ["collections-diff", "sulfate-free", "conditioner"],
+    next: ["collections-diff", "sulfate-free", "oily-hair", "curly-hair"],
   },
   {
     id: "collections-diff",
@@ -73,43 +80,42 @@ export const questions: Question[] = [
     },
     a: {
       en: [
-        "Essentials is everyday care: gentle, effective formulations that cleanse, nourish and protect, balanced to suit all hair types including colour-treated and chemically treated hair.",
-        "PURE is the purer, more minimal range — sulfate-free care with advanced botanical complexes, developed to support scalp comfort and the look of healthy hair.",
+        "Rosica Essentials brings together everyday haircare formulas designed for different needs — from cleansing and freshness to nourishment, repair and conditioning.",
+        "Rosica PURE focuses on gentle, sulfate-free care, combining carefully selected botanical ingredients with advanced haircare technology to support scalp comfort and healthy-looking hair.",
       ],
       ar: [
-        "إسينشالز هي العناية اليومية: تركيبات لطيفة وفعّالة تنظّف وتغذّي وتحمي، ومتوازنة لتناسب جميع أنواع الشعر بما فيها المصبوغ والمعالج كيميائيًا.",
-        "أما بيور فهي المجموعة الأنقى والأبسط — عناية خالية من السلفات بمركّبات نباتية متطوّرة، طُوّرت لدعم راحة فروة الرأس ومظهر الشعر الصحي.",
+        "تجمع روزيكا إسينشالز تركيبات العناية اليومية بالشعر المصمّمة لاحتياجات مختلفة — من التنظيف والانتعاش إلى التغذية والإصلاح والترطيب.",
+        "أما روزيكا بيور فتركّز على العناية اللطيفة الخالية من السلفات، وتجمع بين مكوّنات نباتية مختارة بعناية وتقنيات متقدّمة للعناية بالشعر لدعم راحة فروة الرأس ومظهر الشعر الصحي.",
       ],
     },
     link: {
       href: "/collections",
-      label: { en: "Compare the collections", ar: "قارني بين المجموعتين" },
+      label: { en: "Explore the collections", ar: "تصفّحي المجموعات" },
     },
-    next: ["sulfate-free", "coloured-hair", "damaged-hair"],
+    next: ["sulfate-free", "oily-hair", "curly-hair", "keratin-hair"],
   },
   {
     id: "sulfate-free",
     topic: "products",
     q: { en: "Which products are sulfate-free?", ar: "أي المنتجات خالية من السلفات؟" },
     /*
-      Read straight off the packs. An earlier version of this answer said PURE
-      was "the sulfate-free line", which implied Essentials was not — and the
-      Honey & Propolis Repair Shampoo is sulfate-free. The Purifying & Fresh
-      Cleanse Shampoo genuinely is not, so it is named rather than glossed over.
+      Read straight off the packs. Naming the product that does NOT carry the
+      claim matters as much as naming the two that do — an answer that only
+      lists the sulfate-free ones reads as though the whole range is.
     */
     a: {
       en: [
-        "Two of the shampoos are: the Honey & Propolis Repair Shampoo in Essentials, and the Botanical Restore Shampoo in PURE, which is made with natural origin surfactants.",
-        "The Purifying & Fresh Cleanse Shampoo is not — its label doesn't carry the claim. Every label does read silicone-free, paraben-free and colorant-free.",
+        "Two Rosica shampoos carry a sulfate-free claim: the Honey & Propolis Repair Shampoo from Rosica Essentials, and the Botanical Restore Shampoo from Rosica PURE.",
+        "The Purifying & Fresh Cleanse Shampoo does not carry a sulfate-free claim on its label. Rosica product labels also indicate silicone-free, paraben-free and colorant-free formulations.",
       ],
       ar: [
-        "اثنان من الشامبو نعم: شامبو Honey & Propolis Repair من إسينشالز، وشامبو Botanical Restore من بيور المصنوع بمكوّنات تنظيف طبيعية المنشأ.",
-        "أما شامبو Purifying & Fresh Cleanse فلا — لا تحمل عبوته هذا الوصف. وجميع العبوات خالية من السيليكون والبارابين والملوّنات.",
+        "يحمل شامبوان من روزيكا وصف الخلو من السلفات: شامبو Honey & Propolis Repair من روزيكا إسينشالز، وشامبو Botanical Restore من روزيكا بيور.",
+        "أما شامبو Purifying & Fresh Cleanse فلا تحمل عبوته هذا الوصف. كما تشير عبوات روزيكا إلى تركيبات خالية من السيليكون والبارابين والملوّنات.",
       ],
     },
     link: {
-      href: "/collections/pure",
-      label: { en: "Explore PURE", ar: "استكشفي بيور" },
+      href: "/collections",
+      label: { en: "Explore our products", ar: "تصفّحي منتجاتنا" },
     },
     next: ["free-from", "collections-diff"],
   },
@@ -134,26 +140,82 @@ export const questions: Question[] = [
       href: "/collections/essentials",
       label: { en: "Explore Essentials", ar: "استكشفي إسينشالز" },
     },
-    next: ["contact", "coloured-hair"],
+    next: ["keratin-hair", "curly-hair", "contact"],
   },
   {
-    id: "coloured-hair",
+    id: "keratin-hair",
     topic: "products",
     q: {
-      en: "Can I use these on coloured or treated hair?",
-      ar: "هل يمكنني استخدامها على شعر مصبوغ أو معالج؟",
+      en: "Can I use these on colored hair or hair treated with keratin or protein?",
+      ar: "هل يمكنني استخدامها على شعر مصبوغ أو معالج بالكيراتين أو البروتين؟",
     },
     a: {
       en: [
-        "Yes. The PURE Botanical Restore Shampoo is made specifically for colour-treated, chemically treated and damaged hair — it's sulfate-free and uses natural origin surfactants. The Essentials formulations are balanced to suit all hair types too.",
-        "If you have a sensitivity or a specific concern, it's always worth checking the ingredients on the pack and speaking to your stylist or a dermatologist first.",
+        "Yes. The PURE Botanical Restore Shampoo is made specifically for colour-treated, chemically treated and damaged hair — it's sulfate-free and uses natural origin surfactants.",
+        "If you have a sensitivity or a specific concern, it's always worth checking the ingredients on the pack and speaking to your stylist.",
       ],
       ar: [
-        "نعم. شامبو Botanical Restore من بيور مصمّم خصيصًا للشعر المصبوغ والمعالج كيميائيًا والتالف — خالٍ من السلفات ويعتمد مكوّنات تنظيف طبيعية المنشأ. كما أن تركيبات إسينشالز متوازنة لتناسب جميع أنواع الشعر.",
-        "وإن كانت لديك حساسية أو حالة معيّنة، يُستحسن دائمًا مراجعة المكوّنات على العبوة واستشارة مصفّف شعرك أو طبيب الجلدية أولًا.",
+        "نعم. شامبو Botanical Restore من بيور مصمّم خصيصًا للشعر المصبوغ والمعالج كيميائيًا والتالف — خالٍ من السلفات ويعتمد مكوّنات تنظيف طبيعية المنشأ.",
+        "وإن كانت لديك حساسية أو حالة معيّنة، يُستحسن دائمًا مراجعة المكوّنات على العبوة واستشارة مصفّف شعرك.",
       ],
     },
-    next: ["free-from", "damaged-hair"],
+    link: {
+      href: "/collections/pure",
+      label: { en: "Explore Botanical Restore Shampoo", ar: "استكشفي شامبو Botanical Restore" },
+    },
+    next: ["free-from", "curly-hair", "damaged-hair"],
+  },
+  {
+    id: "oily-hair",
+    topic: "products",
+    q: {
+      en: "Which Rosica shampoo is suitable for oily hair?",
+      ar: "أي شامبو من روزيكا يناسب الشعر الدهني؟",
+    },
+    a: {
+      en: [
+        "Rosica Essentials Purifying & Fresh Cleanse Shampoo is designed for oily hair and scalp.",
+        "Its deep yet gentle cleansing formula helps remove excess oil and impurities while leaving the scalp and hair feeling clean, fresh and refreshed.",
+      ],
+      ar: [
+        "شامبو Purifying & Fresh Cleanse من روزيكا إسينشالز مصمّم للشعر الدهني وفروة الرأس الدهنية.",
+        "تساعد تركيبته المنظّفة العميقة واللطيفة على إزالة الدهون الزائدة والشوائب، مع ترك فروة الرأس والشعر بإحساس بالنظافة والانتعاش.",
+      ],
+    },
+    link: {
+      href: "/collections/essentials",
+      label: {
+        en: "Explore Purifying & Fresh Cleanse Shampoo",
+        ar: "استكشفي شامبو Purifying & Fresh Cleanse",
+      },
+    },
+    next: ["curly-hair", "keratin-hair", "sulfate-free"],
+  },
+  {
+    id: "curly-hair",
+    topic: "products",
+    q: {
+      en: "Which Rosica shampoo is suitable for curly hair?",
+      ar: "أي شامبو من روزيكا يناسب الشعر المجعّد؟",
+    },
+    a: {
+      en: [
+        "Rosica PURE Botanical Restore Shampoo is suitable for curly hair.",
+        "Its gentle, sulfate-free botanical formula provides effective everyday cleansing while supporting scalp comfort and helping hair feel soft, smooth and refreshed.",
+      ],
+      ar: [
+        "شامبو Botanical Restore من روزيكا بيور يناسب الشعر المجعّد.",
+        "تمنح تركيبته النباتية اللطيفة الخالية من السلفات تنظيفًا يوميًا فعّالًا، مع دعم راحة فروة الرأس ومساعدة الشعر على أن يبدو ناعمًا وانسيابيًا ومنتعشًا.",
+      ],
+    },
+    link: {
+      href: "/collections/pure",
+      label: {
+        en: "Explore Botanical Restore Shampoo",
+        ar: "استكشفي شامبو Botanical Restore",
+      },
+    },
+    next: ["oily-hair", "keratin-hair", "collections-diff"],
   },
   {
     id: "conditioner",
@@ -241,15 +303,19 @@ export const questions: Question[] = [
     q: { en: "What are the formulas free from?", ar: "مما تخلو التركيبات؟" },
     a: {
       en: [
-        "Every label reads silicone-free, paraben-free and colorant-free. Two of the shampoos are sulfate-free as well.",
-        "For the complete ingredient list of a particular product, the pack carries it in full — and we're glad to answer any specific question by email.",
+        "Rosica product labels indicate silicone-free, paraben-free and colorant-free formulations.",
+        "In addition, the Honey & Propolis Repair Shampoo and Botanical Restore Shampoo carry a sulfate-free claim. For complete formulation details, the full ingredient list is provided on each product label.",
       ],
       ar: [
-        "كل العبوات خالية من السيليكون والبارابين والملوّنات. واثنان من الشامبو خاليان من السلفات أيضًا.",
-        "أما قائمة المكوّنات الكاملة لمنتج معيّن فتجدينها على العبوة — ويسعدنا الإجابة عن أي سؤال محدّد عبر البريد الإلكتروني.",
+        "تشير عبوات منتجات روزيكا إلى تركيبات خالية من السيليكون والبارابين والملوّنات.",
+        "إضافةً إلى ذلك، يحمل شامبو Honey & Propolis Repair وشامبو Botanical Restore وصف الخلو من السلفات. ولمعرفة تفاصيل التركيبة كاملة، تجدين قائمة المكوّنات على عبوة كل منتج.",
       ],
     },
-    next: ["sulfate-free", "contact"],
+    link: {
+      href: "/collections",
+      label: { en: "Explore our products", ar: "تصفّحي منتجاتنا" },
+    },
+    next: ["sulfate-free", "ingredients-all"],
   },
 
   // ------------------------------------------------------------------- brand
@@ -259,15 +325,15 @@ export const questions: Question[] = [
     q: { en: "Who are Rosica?", ar: "من هي روزيكا؟" },
     a: {
       en: [
-        "Rosica was born from a simple belief: that nature has the power to heal, restore and transform.",
-        "The brand combines botanical ingredients with cosmetic science to make premium botanical beauty that is pure, effective and gentle — rooted in nature, refined by science.",
+        "Rosica is a premium botanical beauty brand inspired by nature and refined through modern cosmetic science.",
+        "Founded with a passion for botanical knowledge, Rosica brings together carefully selected ingredients and thoughtfully developed formulations to create effective, elegant beauty care for everyday routines.",
       ],
       ar: [
-        "وُلدت روزيكا من إيمان بسيط: أن للطبيعة قدرة على الشفاء والاستعادة والتحوّل.",
-        "تجمع العلامة بين المكوّنات النباتية وعلوم التجميل لابتكار جمال نباتي فاخر، نقي وفعّال ولطيف — متجذّر في الطبيعة، مصقول بالعلم.",
+        "روزيكا علامة فاخرة للجمال النباتي، مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة.",
+        "تأسّست بشغف بالمعرفة النباتية، وتجمع بين مكوّنات مختارة بعناية وتركيبات مدروسة لتقديم عناية جمالية فعّالة وأنيقة للروتين اليومي.",
       ],
     },
-    link: { href: "/about", label: { en: "Read our story", ar: "اقرئي قصتنا" } },
+    link: { href: "/about", label: { en: "Discover our story", ar: "اكتشفي قصتنا" } },
     next: ["how-made", "sustainability", "where-based"],
   },
   {
@@ -290,32 +356,38 @@ export const questions: Question[] = [
     q: { en: "How are the products made?", ar: "كيف تُصنع المنتجات؟" },
     a: {
       en: [
-        "Rosica products are manufactured in world-class facilities that follow the highest standards of quality, safety and hygiene, and the manufacturing is GMP certified.",
-        "Every formula is developed through research and advanced cosmetic science, starting from carefully selected botanical ingredients.",
+        "Rosica products are manufactured in a GMP-certified facility, with careful attention to quality, safety and hygiene throughout the manufacturing process.",
+        "Our formulations bring together carefully selected botanical ingredients with modern cosmetic science to create thoughtful, high-quality beauty care.",
       ],
       ar: [
-        "تُصنع منتجات روزيكا في منشآت عالمية المستوى تلتزم بأعلى معايير الجودة والسلامة والنظافة، والتصنيع معتمد وفق GMP.",
-        "وتُطوَّر كل تركيبة عبر البحث وعلوم التجميل المتقدّمة، انطلاقًا من مكوّنات نباتية مختارة بعناية.",
+        "تُصنع منتجات روزيكا في منشأة معتمدة وفق معايير GMP، مع عناية دقيقة بالجودة والسلامة والنظافة في كل مراحل التصنيع.",
+        "وتجمع تركيباتنا بين مكوّنات نباتية مختارة بعناية وعلوم التجميل الحديثة لتقديم عناية جمالية مدروسة وعالية الجودة.",
       ],
     },
-    link: { href: "/about", label: { en: "How Rosica is made", ar: "كيف تُصنع روزيكا" } },
+    link: { href: "/about", label: { en: "Discover our approach", ar: "اكتشفي نهجنا" } },
     next: ["sustainability", "free-from"],
   },
   {
     id: "sustainability",
     topic: "brand",
-    q: { en: "Is Rosica sustainable?", ar: "هل روزيكا مستدامة؟" },
+    q: {
+      en: "How does Rosica approach sustainability?",
+      ar: "كيف تتعامل روزيكا مع الاستدامة؟",
+    },
     a: {
       en: [
-        "Sustainability is one of the brand's four principles: caring for you and the planet through responsible sourcing and eco-conscious practices.",
-        "The manufacturing is described as environmentally responsible, with safe and ethical processes.",
+        "Rosica believes beauty should be developed with consideration for both people and the world around us.",
+        "We aim to make thoughtful choices across our products and brand as we continue to grow, while communicating our approach clearly and responsibly.",
       ],
       ar: [
-        "الاستدامة أحد مبادئ العلامة الأربعة: الاهتمام بكِ وبالكوكب عبر مصادر مسؤولة وممارسات صديقة للبيئة.",
-        "ويوصف التصنيع بأنه مسؤول تجاه البيئة، بعمليات آمنة وأخلاقية.",
+        "تؤمن روزيكا بأن الجمال ينبغي أن يُطوَّر بمراعاة الإنسان والعالم من حوله.",
+        "ونسعى إلى اتخاذ خيارات مدروسة في منتجاتنا وعلامتنا مع استمرار نمونا، مع توضيح نهجنا بشفافية ومسؤولية.",
       ],
     },
-    link: { href: "/about", label: { en: "Read our promise", ar: "اقرئي وعدنا" } },
+    link: {
+      href: "/about",
+      label: { en: "Learn about our philosophy", ar: "تعرّفي على فلسفتنا" },
+    },
     next: ["how-made", "who"],
   },
 
@@ -326,15 +398,20 @@ export const questions: Question[] = [
     q: { en: "Where can I buy Rosica?", ar: "أين يمكنني شراء روزيكا؟" },
     a: {
       en: [
-        "Our official store and retail partner listings are still on their way — that page isn't published yet.",
-        "In the meantime, email us and we'll tell you exactly how to get hold of the products.",
+        "Rosica products are available online in the UAE through our official online store.",
+        "Explore the Rosica collection and shop directly online.",
       ],
       ar: [
-        "متجرنا الرسمي وقائمة متاجر التجزئة ما زالت قيد الإعداد — تلك الصفحة لم تُنشر بعد.",
-        "في هذه الأثناء، راسلينا وسنخبرك تحديدًا بكيفية الحصول على المنتجات.",
+        "منتجات روزيكا متوفّرة عبر الإنترنت في الإمارات من خلال متجرنا الرسمي.",
+        "تصفّحي مجموعة روزيكا واطلبي مباشرةً عبر الإنترنت.",
       ],
     },
-    next: ["contact", "shipping"],
+    link: {
+      href: SHOP_URL,
+      external: true,
+      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
+    },
+    next: ["prices", "shipping", "contact"],
   },
   {
     id: "prices",
@@ -342,15 +419,20 @@ export const questions: Question[] = [
     q: { en: "How much do the products cost?", ar: "كم تبلغ أسعار المنتجات؟" },
     a: {
       en: [
-        "Prices aren't published on the site yet, so I can't quote you one — I'd rather send you to the team than guess.",
-        "Email us and you'll get current pricing straight from them.",
+        "Rosica products are available to shop online in the UAE.",
+        "For current prices and any available offers, visit our official online store, where you'll find the latest pricing for each product.",
       ],
       ar: [
-        "الأسعار لم تُنشر على الموقع بعد، لذا لا أستطيع ذكر سعر — وأفضّل تحويلك إلى الفريق بدلًا من التخمين.",
-        "راسلينا وستصلك الأسعار الحالية منهم مباشرة.",
+        "منتجات روزيكا متاحة للتسوّق عبر الإنترنت في الإمارات.",
+        "لمعرفة الأسعار الحالية وأي عروض متاحة، زوري متجرنا الرسمي حيث تجدين أحدث الأسعار لكل منتج.",
       ],
     },
-    next: ["contact", "where-buy"],
+    link: {
+      href: SHOP_URL,
+      external: true,
+      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
+    },
+    next: ["shipping", "where-buy"],
   },
   {
     id: "shipping",
@@ -358,15 +440,20 @@ export const questions: Question[] = [
     q: { en: "Do you deliver, and where to?", ar: "هل تقومون بالتوصيل، وإلى أين؟" },
     a: {
       en: [
-        "Delivery areas and shipping details aren't published on the site yet, so anything I told you would be a guess.",
-        "The team can confirm what's possible for your location — just drop them an email.",
+        "Yes. Rosica currently delivers across the UAE.",
+        "Delivery options and applicable shipping charges are shown at checkout based on your order and delivery location.",
       ],
       ar: [
-        "مناطق التوصيل وتفاصيل الشحن لم تُنشر على الموقع بعد، لذا سيكون أي جواب مني تخمينًا.",
-        "يمكن للفريق تأكيد ما هو متاح لموقعك — يكفي أن تراسليهم عبر البريد.",
+        "نعم. توصّل روزيكا حاليًا إلى جميع أنحاء الإمارات.",
+        "وتظهر خيارات التوصيل ورسوم الشحن المطبّقة عند إتمام الطلب، بحسب طلبك وموقع التوصيل.",
       ],
     },
-    next: ["contact", "where-buy"],
+    link: {
+      href: SHOP_URL,
+      external: true,
+      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
+    },
+    next: ["where-buy", "prices", "wholesale"],
   },
   {
     id: "wholesale",
@@ -439,6 +526,6 @@ export const questionsInTopic = (topic: TopicId) =>
   questions.filter((q) => q.topic === topic);
 
 /** Shown first, before any topic is chosen — the questions asked most. */
-export const OPENING: string[] = ["collections-diff", "sulfate-free", "where-buy", "contact"];
+export const OPENING: string[] = ["collections-diff", "sulfate-free", "where-buy", "range"];
 
 export const text = <T,>(value: Localised<T>, locale: Locale): T => value[locale];
