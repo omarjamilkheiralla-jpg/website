@@ -1,9 +1,12 @@
 import type { Locale, Localised } from "./i18n";
+import { SHOP_URL } from "./shop";
 
 export type NavLink = {
   label: string;
   href: string;
   children?: NavLink[];
+  /** Leaves the site — rendered as a plain anchor, not localised or prefixed. */
+  external?: boolean;
 };
 
 /**
@@ -77,7 +80,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
     {
       heading: "Where to Buy",
       links: [
-        { label: "Official Store", href: "/where-to-buy" },
+        { label: "Official Store", href: SHOP_URL, external: true },
         { label: "Retail Partners", href: "/where-to-buy" },
         { label: "Wholesale Inquiries", href: "/contact" },
       ],
@@ -113,7 +116,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
     {
       heading: "أين تجدنا",
       links: [
-        { label: "المتجر الرسمي", href: "/where-to-buy" },
+        { label: "المتجر الرسمي", href: SHOP_URL, external: true },
         { label: "متاجر التجزئة", href: "/where-to-buy" },
         { label: "طلبات الجملة", href: "/contact" },
       ],

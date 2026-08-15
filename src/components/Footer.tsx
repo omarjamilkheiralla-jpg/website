@@ -101,12 +101,23 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
                 <ul className="mt-4 space-y-3">
                   {column.links.map((link) => (
                     <li key={`${column.heading}-${link.label}`}>
-                      <Link
-                        href={localePath(locale, link.href)}
-                        className="link-underline text-sm text-linen/75 transition-colors duration-300 hover:text-gold"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-underline text-sm text-linen/75 transition-colors duration-300 hover:text-gold"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={localePath(locale, link.href)}
+                          className="link-underline text-sm text-linen/75 transition-colors duration-300 hover:text-gold"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
