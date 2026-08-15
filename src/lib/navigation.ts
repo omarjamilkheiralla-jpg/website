@@ -27,7 +27,6 @@ const nav: Localised<NavLink[]> = {
       ],
     },
     { label: "Ingredients", href: "/ingredients" },
-    { label: "Where to Buy", href: "/where-to-buy" },
     { label: "Contact", href: "/contact" },
   ],
   ar: [
@@ -42,7 +41,6 @@ const nav: Localised<NavLink[]> = {
       ],
     },
     { label: "المكوّنات", href: "/ingredients" },
-    { label: "أين تجدنا", href: "/where-to-buy" },
     { label: "تواصل معنا", href: "/contact" },
   ],
 };
@@ -81,7 +79,6 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
       heading: "Where to Buy",
       links: [
         { label: "Official Store", href: SHOP_URL, external: true },
-        { label: "Retail Partners", href: "/where-to-buy" },
         { label: "Wholesale Inquiries", href: "/contact" },
       ],
     },
@@ -117,7 +114,6 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
       heading: "أين تجدنا",
       links: [
         { label: "المتجر الرسمي", href: SHOP_URL, external: true },
-        { label: "متاجر التجزئة", href: "/where-to-buy" },
         { label: "طلبات الجملة", href: "/contact" },
       ],
     },

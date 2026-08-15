@@ -27,7 +27,7 @@ const t = {
 
 /**
  * Shared shell for routes that exist in the IA but have no content yet
- * (Contact, FAQs, Where to Buy, Search, legal pages).
+ * (FAQs, Search).
  */
 export default function ComingSoon({ eyebrow, title, body, locale = "en" }: ComingSoonProps) {
   const copy = t[locale];

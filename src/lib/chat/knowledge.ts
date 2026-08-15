@@ -117,7 +117,6 @@ export function knowledgeFor(locale: Locale): string {
         "PURE — /collections/pure",
         "Each product has its own page — /products/honey-propolis-repair-shampoo, /products/purifying-fresh-cleanse-shampoo, /products/deep-repair-conditioner, /products/botanical-restore-shampoo",
         "Ingredient Library — /ingredients, and one page per botanical: /ingredients/honey, /ingredients/propolis, /ingredients/aloe-vera, /ingredients/rosemary",
-        "Where to Buy — /where-to-buy (placeholder: listings are not published yet)",
         "Contact — /contact (contact details; there is no form, people email info@rosica.ae)",
         "FAQs — /faqs (placeholder: no answers published yet)",
         "Privacy Policy — /privacy and Terms of Service — /terms (both published in full, in English on both locale trees)",
@@ -148,7 +147,7 @@ const UNKNOWNS = [
   "stock levels or shelf life (the bottle size is known: every product is 300 ml)",
   "shipping, delivery times, customs, returns or refunds",
   "order status, tracking or anything about a specific order",
-  "which shops or countries stock Rosica — Where to Buy is not published yet",
+  "which physical shops or countries stock Rosica — only the online store is published",
   "full INCI ingredient lists, allergen declarations or certifications beyond those named above",
   "launch dates for products or collections that are not listed above",
 ];

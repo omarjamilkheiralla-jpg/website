@@ -20,8 +20,7 @@ export const SITE_URL = "https://www.rosica.ae";
 /**
  * Whether search engines may index the site.
  *
- * Off by default and deliberately so — several routes (FAQs, Where to Buy,
- * Privacy, Terms) are still placeholders, and a handful of thin pages indexed
+ * Off by default and deliberately so — FAQs is still a placeholder, and a handful of thin pages indexed
  * early is a slow thing to undo. Set ALLOW_INDEXING=true in the hosting
  * environment and redeploy when there is real content behind every link.
  *
@@ -47,7 +46,6 @@ export const ROUTES = [
   "/ingredients/propolis",
   "/ingredients/aloe-vera",
   "/ingredients/rosemary",
-  "/where-to-buy",
   "/contact",
   "/faqs",
   "/privacy",

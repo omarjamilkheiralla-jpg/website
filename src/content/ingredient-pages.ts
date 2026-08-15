@@ -9,8 +9,10 @@ import type { ProductSlug } from "./products";
  * and makes no therapeutic claim and promises no result. Keep that register if
  * this is ever edited: these are cosmetics, and the Terms of Service say so.
  *
- * `foundIn` follows the "In Rosica" paragraph rather than the pack photographs,
- * because the business is the authority on its own formulations.
+ * `INGREDIENT_PRODUCTS` and the "In Rosica" paragraphs are kept in step with
+ * the front of the packs: honey and aloe vera each appear on a pack the
+ * business's first draft did not list, and they confirmed those should be
+ * included. If a product is added to one, add it to the other.
  */
 
 export type IngredientSlug = "honey" | "propolis" | "aloe-vera" | "rosemary";
@@ -34,9 +36,17 @@ export const INGREDIENT_SLUGS: IngredientSlug[] = ["honey", "propolis", "aloe-ve
 
 /** The products named in each ingredient's "In Rosica" paragraph. */
 export const INGREDIENT_PRODUCTS: Record<IngredientSlug, ProductSlug[]> = {
-  honey: ["honey-propolis-repair-shampoo", "deep-repair-conditioner"],
+  honey: [
+    "honey-propolis-repair-shampoo",
+    "deep-repair-conditioner",
+    "botanical-restore-shampoo",
+  ],
   propolis: ["honey-propolis-repair-shampoo"],
-  "aloe-vera": ["purifying-fresh-cleanse-shampoo", "botanical-restore-shampoo"],
+  "aloe-vera": [
+    "honey-propolis-repair-shampoo",
+    "purifying-fresh-cleanse-shampoo",
+    "botanical-restore-shampoo",
+  ],
   rosemary: ["purifying-fresh-cleanse-shampoo"],
 };
 
@@ -60,7 +70,7 @@ export const ingredientPages: Localised<Record<IngredientSlug, IngredientPage>> 
       ],
       rosicaHeading: "In Rosica",
       rosica: [
-        "Honey is featured in Rosica Honey & Propolis Repair Shampoo and Rosica Deep Repair Conditioner, where it forms part of carefully developed formulations designed to nourish and condition the hair.",
+        "Honey is featured in Rosica Honey & Propolis Repair Shampoo, Rosica Deep Repair Conditioner and Rosica PURE Botanical Restore Shampoo, where it forms part of carefully developed formulations designed to nourish and condition the hair.",
         "Combined with complementary ingredients selected for each formula, honey contributes to Rosica's approach to hair care: bringing together botanical ingredients and modern cosmetic formulation for hair that feels soft, smooth and cared for.",
       ],
     },
@@ -102,7 +112,7 @@ export const ingredientPages: Localised<Record<IngredientSlug, IngredientPage>> 
       ],
       rosicaHeading: "In Rosica",
       rosica: [
-        "Aloe vera is featured in Rosica Purifying & Fresh Cleanse Shampoo and Rosica PURE Botanical Restore Shampoo.",
+        "Aloe vera is featured in Rosica Honey & Propolis Repair Shampoo, Rosica Purifying & Fresh Cleanse Shampoo and Rosica PURE Botanical Restore Shampoo.",
         "In these carefully developed formulations, aloe vera works alongside other selected ingredients to support hydration and scalp comfort while contributing to gentle, effective hair care.",
       ],
     },
@@ -147,7 +157,7 @@ export const ingredientPages: Localised<Record<IngredientSlug, IngredientPage>> 
       ],
       rosicaHeading: "في روزيكا",
       rosica: [
-        "يدخل العسل في شامبو العسل والبروبوليس للإصلاح وفي بلسم الإصلاح العميق من روزيكا، ضمن تركيبات مدروسة بعناية لتغذية الشعر وترطيبه.",
+        "يدخل العسل في شامبو العسل والبروبوليس للإصلاح، وبلسم الإصلاح العميق، وشامبو الاستعادة النباتية من روزيكا بيور، ضمن تركيبات مدروسة بعناية لتغذية الشعر وترطيبه.",
         "وباجتماعه مع مكوّنات مكمّلة مختارة لكل تركيبة، يسهم العسل في مقاربة روزيكا للعناية بالشعر: الجمع بين المكوّنات النباتية والتركيب التجميلي الحديث لشعر يبدو ناعمًا وحريريًا وموضع عناية.",
       ],
     },
@@ -189,7 +199,7 @@ export const ingredientPages: Localised<Record<IngredientSlug, IngredientPage>> 
       ],
       rosicaHeading: "في روزيكا",
       rosica: [
-        "تدخل الألوفيرا في شامبو التنظيف المنعش من روزيكا وشامبو الاستعادة النباتية من روزيكا بيور.",
+        "تدخل الألوفيرا في شامبو العسل والبروبوليس للإصلاح، وشامبو التنظيف المنعش، وشامبو الاستعادة النباتية من روزيكا بيور.",
         "وفي هاتين التركيبتين المدروستين بعناية، تعمل الألوفيرا إلى جانب مكوّنات مختارة أخرى لدعم الترطيب وراحة فروة الرأس، مع الإسهام في عناية لطيفة وفعّالة بالشعر.",
       ],
     },
