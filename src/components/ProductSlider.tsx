@@ -23,6 +23,8 @@ export type SliderProduct = {
   imageAlt: string;
   href: string;
   cta: string;
+  /** Formatted live price; absent when Shopify has not answered. */
+  price?: string;
 };
 
 const t = {
@@ -181,6 +183,9 @@ function SliderCard({
           <p className="eyebrow text-gold-deep">{item.collection}</p>
           <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+          {item.price ? (
+            <p className="mt-3 font-serif text-lg text-green">{item.price}</p>
+          ) : null}
           <div className="mt-auto pt-6">
             <ArrowLink
               href={item.href}

@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import BrandMark from "./BrandMark";
 import { primaryNavFor } from "@/lib/navigation";
 import { SHOP_URL } from "@/lib/shop";
+import CartButton from "./cart/CartButton";
 import { alternatePath, localePath, type Locale } from "@/lib/i18n";
 
 function isActive(pathname: string, href: string) {
@@ -259,6 +260,8 @@ export default function Navbar({ locale = "en" }: { locale?: Locale }) {
           >
             {copy.otherLanguage}
           </Link>
+
+          <CartButton locale={locale} />
 
           {/* Goes to the store, not to Where to Buy — this is the buy button. */}
           <a

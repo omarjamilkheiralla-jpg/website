@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import LocaleShell from "@/components/LocaleShell";
 import { INDEXABLE, SITE_URL } from "@/lib/site";
+import { shopifyConfigured } from "@/lib/shopify/client";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -89,7 +90,10 @@ export default function RootLayout({
             making every page dynamic, or a probe request on every page load.
             The failure is soft — without the flag the assistant still answers
             its prepared questions, it just doesn't invite free typing. */}
-        <LocaleShell assistant={Boolean(process.env.ANTHROPIC_API_KEY)}>
+        <LocaleShell
+          assistant={Boolean(process.env.ANTHROPIC_API_KEY)}
+          shop={shopifyConfigured()}
+        >
           {children}
         </LocaleShell>
       </body>

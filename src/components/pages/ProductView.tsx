@@ -6,6 +6,9 @@ import Icon from "@/components/Icon";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { productPhoto } from "@/lib/product-media";
+import AddToCart from "@/components/cart/AddToCart";
+import { formatMoney } from "@/lib/shopify/client";
+import { getOffers } from "@/lib/shopify/products";
 import { SHOP_URL } from "@/lib/shop";
 import { localePath, type Locale } from "@/lib/i18n";
 import {
@@ -29,13 +32,18 @@ function Detail({ label, children }: { label: string; children: React.ReactNode 
   );
 }
 
-export default function ProductView({
+export default async function ProductView({
   locale,
   slug,
 }: {
   locale: Locale;
   slug: ProductSlug;
 }) {
+  /* Live price and stock. An empty result means Shopify is unconfigured or
+     unreachable, and the page falls back to the plain store link. */
+  const offers = await getOffers();
+  const offer = offers[slug];
+
   const copy = productPages[locale][slug];
   const chrome = productChrome[locale];
   const name = PRODUCT_NAMES[slug];
@@ -69,10 +77,24 @@ export default function ProductView({
 
             <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-muted">{copy.lede}</p>
 
+            {offer ? (
+              <p className="mt-7 font-serif text-2xl text-green">
+                {formatMoney(offer.price.amount, offer.price.currencyCode, locale)}
+              </p>
+            ) : null}
+
             <div className="mt-9 flex flex-wrap gap-4">
-              <CTAButton href={SHOP_URL} external>
-                {chrome.buy}
-              </CTAButton>
+              {offer ? (
+                <AddToCart
+                  locale={locale}
+                  variantId={offer.variantId}
+                  available={offer.availableForSale}
+                />
+              ) : (
+                <CTAButton href={SHOP_URL} external>
+                  {chrome.buy}
+                </CTAButton>
+              )}
               <CTAButton
                 href={localePath(locale, PRODUCT_COLLECTION[slug])}
                 variant="secondary"
@@ -141,6 +163,15 @@ export default function ProductView({
                 <p className="mt-2 text-sm leading-relaxed text-ink-muted">
                   {productPages[locale][other].sub}
                 </p>
+                {offers[other] ? (
+                  <p className="mt-3 font-serif text-lg text-green">
+                    {formatMoney(
+                      offers[other].price.amount,
+                      offers[other].price.currencyCode,
+                      locale,
+                    )}
+                  </p>
+                ) : null}
                 <div className="mt-auto pt-5">
                   <ArrowLink
                     href={localePath(locale, productPath(other))}

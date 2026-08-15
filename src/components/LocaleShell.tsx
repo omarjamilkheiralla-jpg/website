@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ChatWidget from "./ChatWidget";
+import { CartProvider } from "./cart/CartProvider";
+import CartDrawer from "./cart/CartDrawer";
 import { dirFor, localeFromPathname } from "@/lib/i18n";
 
 /**
@@ -19,19 +21,27 @@ export default function LocaleShell({
   children,
   /** Whether /api/chat has an API key. Decided on the server; see layout.tsx. */
   assistant,
+  /** Whether the Shopify store is wired up. Also decided on the server. */
+  shop,
 }: {
   children: React.ReactNode;
   assistant: boolean;
+  shop: boolean;
 }) {
   const locale = localeFromPathname(usePathname());
 
-  return (
+  const chrome = (
     <div dir={dirFor(locale)} lang={locale}>
       <Navbar locale={locale} />
       <main id="main">{children}</main>
       <Footer locale={locale} />
-      {/* Inside the dir wrapper so the panel pins to the correct side. */}
+      {/* Inside the dir wrapper so the panels pin to the correct side. */}
       <ChatWidget locale={locale} ai={assistant} />
+      {shop ? <CartDrawer locale={locale} /> : null}
     </div>
   );
+
+  /* No provider when there is no store: without it `useCart` returns null and
+     every cart control removes itself, leaving the site as it was before. */
+  return shop ? <CartProvider>{chrome}</CartProvider> : chrome;
 }

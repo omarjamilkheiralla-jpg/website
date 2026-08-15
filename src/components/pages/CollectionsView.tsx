@@ -11,6 +11,8 @@ import { localePath, type Locale } from "@/lib/i18n";
 import { collectionsCopy } from "@/content/collections";
 import { PRODUCT_NAMES, PRODUCT_SLUGS } from "@/content/products";
 import { productPhoto } from "@/lib/product-media";
+import { formatMoney } from "@/lib/shopify/client";
+import { getOffers } from "@/lib/shopify/products";
 import { productPath } from "@/components/pages/ProductView";
 
 /**
@@ -48,8 +50,9 @@ const productArt = PRODUCT_SLUGS.map((slug) => ({
   href: productPath(slug),
 }));
 
-export default function CollectionsView({ locale }: { locale: Locale }) {
+export default async function CollectionsView({ locale }: { locale: Locale }) {
   const copy = collectionsCopy[locale];
+  const offers = await getOffers();
 
   const sliderProducts: SliderProduct[] = copy.products.map((item, i) => ({
     name: productArt[i].name,
@@ -59,6 +62,10 @@ export default function CollectionsView({ locale }: { locale: Locale }) {
     image: productArt[i].image,
     imageAlt: productArt[i].imageAlt,
     href: localePath(locale, productArt[i].href),
+    price: (() => {
+      const offer = offers[PRODUCT_SLUGS[i]];
+      return offer ? formatMoney(offer.price.amount, offer.price.currencyCode, locale) : undefined;
+    })(),
   }));
 
   return (
