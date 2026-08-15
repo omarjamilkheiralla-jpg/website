@@ -79,9 +79,15 @@ export const homeCopy: Localised<HomeCopy> = {
     featuredHeading: "Featured ingredients",
     ingredients: [
       { name: "Honey", body: "A natural humectant rich in sugars that helps retain moisture." },
-      { name: "Propolis", body: "Known for its protective and soothing properties." },
-      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support skin and scalp comfort." },
-      { name: "Rosemary", body: "Traditionally used to help revitalize and strengthen hair." },
+      {
+        name: "Propolis",
+        body: "A bee-derived ingredient valued in cosmetic care for its protective and soothing properties.",
+      },
+      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support scalp comfort." },
+      {
+        name: "Rosemary",
+        body: "Traditionally valued in hair care to support the appearance and vitality of hair.",
+      },
     ],
     ingredientExplore: "Explore",
 
@@ -128,14 +134,14 @@ export const homeCopy: Localised<HomeCopy> = {
   ar: {
     metaTitle: "روزيكا | مستوحاة من الطبيعة. مصقولة بالعلم.",
     metaDescription:
-      "اكتشفي تجربة جمال طبيعي فاخرة مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة. عناية نباتية فاخرة، مصمّمة بعناية من روزيكا.",
+      "اكتشف تجربة جمال طبيعي فاخرة مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة. عناية نباتية فاخرة، مصمّمة بعناية من روزيكا.",
 
     eyebrow: "الجمال النباتي",
     title: "مستوحاة من الطبيعة. مصقولة بالعلم.",
     intro:
       "عناية نباتية فاخرة، صُممت بتركيبات مدروسة ومكوّنات مختارة بعناية، لترافقك في عنايتك اليومية.",
-    heroPrimary: "استكشفي المجموعات",
-    heroSecondary: "تعرّفي على قصتنا",
+    heroPrimary: "استكشف المجموعات",
+    heroSecondary: "تعرّف على قصتنا",
 
     valuesHeading: "لماذا روزيكا؟",
     values: [
@@ -152,27 +158,33 @@ export const homeCopy: Localised<HomeCopy> = {
         body: "يُطوّر كل منتج من روزيكا بعناية وهدف واضح واهتمام بكل تفصيل، من المكوّنات وصولًا إلى التغليف.",
       },
     ],
-    valuesCta: "اكتشفي المزيد",
+    valuesCta: "اكتشف المزيد",
 
     ingredientsEyebrow: "مكتبة المكوّنات",
     ingredientsTitle: "قوة المكوّنات النباتية",
     ingredientsBody:
-      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفكِ مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا، وتشرح استخداماتها التقليدية وفوائدها التجميلية ودورها في كل تركيبة.",
-    ingredientsCta: "استكشفي جميع المكوّنات",
+      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفك مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا، وتشرح استخداماتها التقليدية وفوائدها التجميلية ودورها في كل تركيبة.",
+    ingredientsCta: "استكشف جميع المكوّنات",
     featuredHeading: "أبرز المكوّنات",
     ingredients: [
       { name: "العسل", body: "مرطّب طبيعي غني بالسكريات يساعد على الاحتفاظ بالرطوبة." },
-      { name: "البروبوليس", body: "معروف بخصائصه الواقية والمهدّئة." },
+      {
+        name: "البروبوليس",
+        body: "مكوّن مستخلص من النحل يُقدَّر في العناية التجميلية لخصائصه الواقية والمهدّئة.",
+      },
       { name: "الألوفيرا", body: "يساعد على الترطيب والتهدئة ودعم راحة فروة الرأس." },
-      { name: "إكليل الجبل", body: "يُستخدم تقليديًا في العناية بالشعر ودعم حيويته." },
+      {
+        name: "إكليل الجبل",
+        body: "يُقدَّر تقليديًا في العناية بالشعر لدعم مظهر الشعر وحيويته.",
+      },
     ],
-    ingredientExplore: "اكتشفي",
+    ingredientExplore: "اكتشف",
 
     collectionsEyebrow: "مجموعاتنا",
     collectionsTitle: "مجموعتان. بداية واحدة.",
     collectionsBody:
       "تقدّم روزيكا حاليًا مجموعتيها الأوليين ضمن بداية محفظتها المتنامية للعناية الجمالية الطبيعية.",
-    collectionsCta: "تصفّحي جميع المنتجات",
+    collectionsCta: "تصفّح جميع المنتجات",
     collections: [
       {
         name: "روزيكا إسينشالز",
@@ -192,7 +204,7 @@ export const homeCopy: Localised<HomeCopy> = {
     closingHeading: "طقوس روزيكا ومجتمعها",
     ritualEyebrow: "طقوس روزيكا",
     ritualIntro: "روتين بسيط لعناية يومية متكاملة بالشعر.",
-    ritualCta: "تصفّحي المجموعات",
+    ritualCta: "تصفّح المجموعات",
     ritualStepsHeading: "الطقوس الثلاثية",
     ritual: [
       { title: "١ — تنظيف", body: "يزيل الشوائب بلطف ويهيّئ الشعر للعناية التالية." },
@@ -208,6 +220,6 @@ export const homeCopy: Localised<HomeCopy> = {
     communityEyebrow: "تابع روزيكا",
     communityBody:
       "الإصدارات الجديدة وحكايات النباتات والعالم خلف التركيبات — نشاركها أولًا مع مجتمعنا.",
-    communityCta: "تابعينا",
+    communityCta: "تابعنا",
   },
 };

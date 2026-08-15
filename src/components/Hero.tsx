@@ -133,7 +133,7 @@ export default function Hero({
 }: HeroProps) {
   const reduceMotion = useReducedMotion();
   const isArabic = localeFromPathname(usePathname()) === "ar";
-  const scrollCueLabel = isArabic ? "مرّري إلى المحتوى" : "Scroll to content";
+  const scrollCueLabel = isArabic ? "مرّر إلى المحتوى" : "Scroll to content";
   // The copy sits at the start of the line, so the photography goes to the end.
   const photoPosition = imagePosition ?? (isArabic ? "left center" : "right center");
   const photo = isArabic ? (imageRtl ?? image) : image;

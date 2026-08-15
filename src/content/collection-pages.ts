@@ -110,7 +110,7 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
       "مستوحاة من الطبيعة",
     ],
     statement: ["متجذّرة في الطبيعة.", "مصقولة بالعلم.", "صُنعت من أجلك."],
-    heroCta: "تصفّحي إسينشالز",
+    heroCta: "تصفّح إسينشالز",
   },
 };
 
@@ -197,6 +197,6 @@ export const pureCopy: Localised<CollectionPageCopy> = {
       "مستوحاة من الطبيعة",
     ],
     statement: ["مكوّنات مختارة بعناية.", "مصقولة بالعلم.", "جمال مستوحى من الطبيعة."],
-    heroCta: "تصفّحي منتجات بيور",
+    heroCta: "تصفّح منتجات بيور",
   },
 };

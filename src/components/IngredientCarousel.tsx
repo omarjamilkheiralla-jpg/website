@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
 
 const t = {
   en: { previous: "Previous ingredients", next: "Next ingredients", explore: (n: string) => `Explore ${n}` },
-  ar: { previous: "المكوّنات السابقة", next: "المكوّنات التالية", explore: (n: string) => `اكتشفي ${n}` },
+  ar: { previous: "المكوّنات السابقة", next: "المكوّنات التالية", explore: (n: string) => `اكتشف ${n}` },
 } as const;
 
 /**

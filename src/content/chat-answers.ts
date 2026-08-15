@@ -67,7 +67,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/collections",
-      label: { en: "Explore all products", ar: "تصفّحي جميع المنتجات" },
+      label: { en: "Explore all products", ar: "تصفّح جميع المنتجات" },
     },
     next: ["collections-diff", "sulfate-free", "oily-hair", "curly-hair"],
   },
@@ -90,7 +90,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/collections",
-      label: { en: "Explore the collections", ar: "تصفّحي المجموعات" },
+      label: { en: "Explore the collections", ar: "تصفّح المجموعات" },
     },
     next: ["sulfate-free", "oily-hair", "curly-hair", "keratin-hair"],
   },
@@ -115,7 +115,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/collections",
-      label: { en: "Explore our products", ar: "تصفّحي منتجاتنا" },
+      label: { en: "Explore our products", ar: "تصفّح منتجاتنا" },
     },
     next: ["free-from", "collections-diff"],
   },
@@ -133,12 +133,12 @@ export const questions: Question[] = [
       ],
       ar: [
         "مجموعة إسينشالز مبنية حول الإصلاح. يتناغم شامبو Honey & Propolis Repair مع بلسم Deep Repair، المصمّم لتغذية مكثّفة تناسب جميع أنواع الشعر.",
-        "وإن أردتِ توصية تناسب شعرك تحديدًا، يسعد فريقنا بمساعدتك — راسلينا واذكري حالة شعرك.",
+        "وإن أردتِ توصية تناسب شعرك تحديدًا، يسعد فريقنا بمساعدتك — راسلنا واذكري حالة شعرك.",
       ],
     },
     link: {
       href: "/collections/essentials",
-      label: { en: "Explore Essentials", ar: "استكشفي إسينشالز" },
+      label: { en: "Explore Essentials", ar: "استكشف إسينشالز" },
     },
     next: ["keratin-hair", "curly-hair", "contact"],
   },
@@ -161,7 +161,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/collections/pure",
-      label: { en: "Explore Botanical Restore Shampoo", ar: "استكشفي شامبو Botanical Restore" },
+      label: { en: "Explore Botanical Restore Shampoo", ar: "استكشف شامبو Botanical Restore" },
     },
     next: ["free-from", "curly-hair", "damaged-hair"],
   },
@@ -186,7 +186,7 @@ export const questions: Question[] = [
       href: "/collections/essentials",
       label: {
         en: "Explore Purifying & Fresh Cleanse Shampoo",
-        ar: "استكشفي شامبو Purifying & Fresh Cleanse",
+        ar: "استكشف شامبو Purifying & Fresh Cleanse",
       },
     },
     next: ["curly-hair", "keratin-hair", "sulfate-free"],
@@ -212,7 +212,7 @@ export const questions: Question[] = [
       href: "/collections/pure",
       label: {
         en: "Explore Botanical Restore Shampoo",
-        ar: "استكشفي شامبو Botanical Restore",
+        ar: "استكشف شامبو Botanical Restore",
       },
     },
     next: ["oily-hair", "keratin-hair", "collections-diff"],
@@ -231,7 +231,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/collections/essentials",
-      label: { en: "Explore Essentials", ar: "استكشفي إسينشالز" },
+      label: { en: "Explore Essentials", ar: "استكشف إسينشالز" },
     },
     next: ["range", "where-buy"],
   },
@@ -243,17 +243,17 @@ export const questions: Question[] = [
     q: { en: "What botanicals do you use?", ar: "ما المكوّنات النباتية التي تستخدمونها؟" },
     a: {
       en: [
-        "Four botanicals sit at the heart of the formulations: honey, propolis, aloe vera and rosemary.",
-        "Each is chosen for a specific role, and the Ingredient Library explains their traditional uses and cosmetic benefits in full.",
+        "Four botanicals sit at the heart of Rosica formulations: honey, propolis, aloe vera and rosemary.",
+        "Each brings its own characteristics to cosmetic care. Our Ingredient Library explores their origins, traditional uses and roles in cosmetic formulations.",
       ],
       ar: [
-        "أربعة مكوّنات نباتية في قلب التركيبات: العسل، والبروبوليس، والألوفيرا، وإكليل الجبل.",
-        "لكل منها دور محدّد، وتشرح مكتبة المكوّنات استخداماتها التقليدية وفوائدها التجميلية بالتفصيل.",
+        "أربعة مكوّنات نباتية في قلب تركيبات روزيكا: العسل، والبروبوليس، والألوفيرا، وإكليل الجبل.",
+        "لكل منها خصائصه في العناية التجميلية. وتستعرض مكتبة المكوّنات أصولها واستخداماتها التقليدية وأدوارها في التركيبات التجميلية.",
       ],
     },
     link: {
       href: "/ingredients",
-      label: { en: "Open the Ingredient Library", ar: "افتحي مكتبة المكوّنات" },
+      label: { en: "Open the Ingredient Library", ar: "افتح مكتبة المكوّنات" },
     },
     next: ["honey", "propolis", "aloe", "rosemary"],
   },
@@ -308,12 +308,12 @@ export const questions: Question[] = [
       ],
       ar: [
         "تشير عبوات منتجات روزيكا إلى تركيبات خالية من السيليكون والبارابين والملوّنات.",
-        "إضافةً إلى ذلك، يحمل شامبو Honey & Propolis Repair وشامبو Botanical Restore وصف الخلو من السلفات. ولمعرفة تفاصيل التركيبة كاملة، تجدين قائمة المكوّنات على عبوة كل منتج.",
+        "إضافةً إلى ذلك، يحمل شامبو Honey & Propolis Repair وشامبو Botanical Restore وصف الخلو من السلفات. ولمعرفة تفاصيل التركيبة كاملة، تجد قائمة المكوّنات على عبوة كل منتج.",
       ],
     },
     link: {
       href: "/collections",
-      label: { en: "Explore our products", ar: "تصفّحي منتجاتنا" },
+      label: { en: "Explore our products", ar: "تصفّح منتجاتنا" },
     },
     next: ["sulfate-free", "ingredients-all"],
   },
@@ -333,7 +333,7 @@ export const questions: Question[] = [
         "تأسّست بشغف بالمعرفة النباتية، وتجمع بين مكوّنات مختارة بعناية وتركيبات مدروسة لتقديم عناية جمالية فعّالة وأنيقة للروتين اليومي.",
       ],
     },
-    link: { href: "/about", label: { en: "Discover our story", ar: "اكتشفي قصتنا" } },
+    link: { href: "/about", label: { en: "Discover our story", ar: "اكتشف قصتنا" } },
     next: ["how-made", "sustainability", "where-based"],
   },
   {
@@ -364,7 +364,7 @@ export const questions: Question[] = [
         "وتجمع تركيباتنا بين مكوّنات نباتية مختارة بعناية وعلوم التجميل الحديثة لتقديم عناية جمالية مدروسة وعالية الجودة.",
       ],
     },
-    link: { href: "/about", label: { en: "Discover our approach", ar: "اكتشفي نهجنا" } },
+    link: { href: "/about", label: { en: "Discover our approach", ar: "اكتشف نهجنا" } },
     next: ["sustainability", "free-from"],
   },
   {
@@ -386,7 +386,7 @@ export const questions: Question[] = [
     },
     link: {
       href: "/about",
-      label: { en: "Learn about our philosophy", ar: "تعرّفي على فلسفتنا" },
+      label: { en: "Learn about our philosophy", ar: "تعرّف على فلسفتنا" },
     },
     next: ["how-made", "who"],
   },
@@ -403,7 +403,7 @@ export const questions: Question[] = [
       ],
       ar: [
         "منتجات روزيكا متوفّرة عبر الإنترنت في الإمارات من خلال متجرنا الرسمي.",
-        "تصفّحي مجموعة روزيكا واطلبي مباشرةً عبر الإنترنت.",
+        "تصفّح مجموعة روزيكا واطلبي مباشرةً عبر الإنترنت.",
       ],
     },
     link: {
@@ -424,7 +424,7 @@ export const questions: Question[] = [
       ],
       ar: [
         "منتجات روزيكا متاحة للتسوّق عبر الإنترنت في الإمارات.",
-        "لمعرفة الأسعار الحالية وأي عروض متاحة، زوري متجرنا الرسمي حيث تجدين أحدث الأسعار لكل منتج.",
+        "لمعرفة الأسعار الحالية وأي عروض متاحة، زُر متجرنا الرسمي حيث تجد أحدث الأسعار لكل منتج.",
       ],
     },
     link: {
@@ -466,7 +466,7 @@ export const questions: Question[] = [
       ],
       ar: [
         "نعم — نرحّب باستفسارات الجملة، وتصل مباشرة إلى الفريق.",
-        "راسلينا بتفاصيل نشاطك التجاري وما ترغبين في توفيره، وسيعاود أحدهم التواصل معك خلال يوم إلى يومَي عمل.",
+        "راسلنا بتفاصيل نشاطك التجاري وما ترغبين في توفيره، وسيعاود أحدهم التواصل معك خلال يوم إلى يومَي عمل.",
       ],
     },
     next: ["contact"],
@@ -485,7 +485,7 @@ export const questions: Question[] = [
         "عبر البريد الإلكتروني على info@rosica.ae. ويسعى الفريق للرد على كل استفسار خلال يوم إلى يومَي عمل.",
       ],
     },
-    link: { href: "/contact", label: { en: "Open the contact page", ar: "افتحي صفحة التواصل" } },
+    link: { href: "/contact", label: { en: "Open the contact page", ar: "افتح صفحة التواصل" } },
     next: ["hours", "social"],
   },
   {
@@ -511,7 +511,7 @@ export const questions: Question[] = [
         "Yes — you'll find Rosica on Instagram at @rosicanaturalcare, and on Facebook as Rosica Natural Care.",
       ],
       ar: [
-        "نعم — تجدين روزيكا على إنستغرام باسم @rosicanaturalcare، وعلى فيسبوك باسم Rosica Natural Care.",
+        "نعم — تجد روزيكا على إنستغرام باسم @rosicanaturalcare، وعلى فيسبوك باسم Rosica Natural Care.",
       ],
     },
     next: ["contact", "who"],

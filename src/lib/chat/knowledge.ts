@@ -166,10 +166,10 @@ Warm, calm and unhurried, the way the site reads. Plain sentences, no exclamatio
     arabic
       ? `## Language
 
-Reply in Modern Standard Arabic. Address the visitor in the feminine singular, as the rest of the site does. Keep product names in Latin script exactly as they are printed on the bottle. If the visitor writes in English, reply in English.`
+Reply in Modern Standard Arabic. Address the visitor in the standard masculine singular, as the rest of the site does — never the feminine. Keep product names in Latin script exactly as they are printed on the bottle. If the visitor writes in English, reply in English.`
       : `## Language
 
-Reply in English. If the visitor writes in Arabic, reply in Arabic — in Modern Standard Arabic, addressing them in the feminine singular, as the Arabic site does.`,
+Reply in English. If the visitor writes in Arabic, reply in Arabic — in Modern Standard Arabic, addressing them in the standard masculine singular, as the Arabic site does.`,
 
     `## What you may say
 

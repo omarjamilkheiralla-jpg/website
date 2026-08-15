@@ -91,10 +91,15 @@ export default function IngredientView({
         </div>
       </Section>
 
-      {/* Only the products whose labels name this ingredient. */}
+      {/* The brand's own words on where the ingredient sits, then the products. */}
       <Section tone="shell" divider>
-        <Reveal>
-          <h2 className="text-[2rem] leading-tight sm:text-4xl">{chrome.foundInHeading}</h2>
+        <Reveal className="max-w-3xl">
+          <h2 className="text-[2rem] leading-tight sm:text-4xl">{copy.rosicaHeading}</h2>
+          <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-muted">
+            {copy.rosica.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
         </Reveal>
 
         <RevealGroup

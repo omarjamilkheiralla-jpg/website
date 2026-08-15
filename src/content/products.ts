@@ -9,8 +9,8 @@ import type { Localised } from "@/lib/i18n";
  * products: if a claim is not on the pack it is not on the page.
  *
  * Note the asymmetry in `freeFrom`: sulfate-free is NOT a brand-wide claim. Two
- * shampoos carry it and Purifying & Fresh does not, which is why that product
- * carries an explicit note instead of a quiet omission.
+ * shampoos carry it and Purifying & Fresh does not, so its list simply omits
+ * it. Do not add the claim to that product.
  *
  * The Shopify store was password-protected when these were written, so the
  * merchandising copy there could not be mirrored. When the store opens, check
@@ -88,7 +88,6 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "Oily hair and scalp",
       keyIngredients: ["Rosemary extract", "Green tea extract", "Amino acid complex"],
       freeFrom: ["Silicone-free", "Paraben-free", "Colorant-free"],
-      note: "This shampoo does not carry a sulfate-free claim on its label. The Honey & Propolis Repair Shampoo and the Botanical Restore Shampoo do.",
     },
     "deep-repair-conditioner": {
       metaTitle: "Deep Repair Conditioner",
@@ -151,7 +150,6 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "الشعر الدهني وفروة الرأس الدهنية",
       keyIngredients: ["خلاصة إكليل الجبل", "خلاصة الشاي الأخضر", "مركّب الأحماض الأمينية"],
       freeFrom: ["خالٍ من السيليكون", "خالٍ من البارابين", "خالٍ من الملوّنات"],
-      note: "لا يحمل هذا الشامبو ادّعاء الخلو من السلفات على ملصقه، بينما يحمله شامبو العسل والبروبوليس وشامبو الاستعادة النباتية.",
     },
     "deep-repair-conditioner": {
       metaTitle: "بلسم الإصلاح العميق",
@@ -202,8 +200,6 @@ export type ProductChrome = {
   suitedLabel: string;
   ingredientsLabel: string;
   freeFromLabel: string;
-  /** Sits under the details, pointing people at the pack for the full list. */
-  fullList: string;
   moreHeading: string;
   moreCta: string;
 };
@@ -218,8 +214,6 @@ export const productChrome: Localised<ProductChrome> = {
     suitedLabel: "Suited to",
     ingredientsLabel: "Key ingredients",
     freeFromLabel: "Formulated without",
-    fullList:
-      "The complete ingredient list is printed on the pack. Patch test where appropriate, and discontinue use if irritation occurs.",
     moreHeading: "More from Rosica",
     moreCta: "Explore",
   },
@@ -232,9 +226,7 @@ export const productChrome: Localised<ProductChrome> = {
     suitedLabel: "مناسب لـ",
     ingredientsLabel: "أبرز المكوّنات",
     freeFromLabel: "خالٍ من",
-    fullList:
-      "قائمة المكوّنات الكاملة مطبوعة على العبوة. يُنصح بإجراء اختبار موضعي عند الحاجة، وإيقاف الاستخدام عند حدوث تهيّج.",
     moreHeading: "المزيد من روزيكا",
-    moreCta: "اكتشفي",
+    moreCta: "اكتشف",
   },
 };

@@ -31,9 +31,15 @@ export const ingredientsCopy: Localised<IngredientsCopy> = {
     listHeading: "Featured botanical ingredients",
     items: [
       { name: "Honey", body: "A natural humectant rich in sugars that helps retain moisture." },
-      { name: "Propolis", body: "Known for its protective and soothing properties." },
-      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support skin and scalp comfort." },
-      { name: "Rosemary", body: "Traditionally used to help revitalize and strengthen hair." },
+      {
+        name: "Propolis",
+        body: "A bee-derived ingredient valued in cosmetic care for its protective and soothing properties.",
+      },
+      { name: "Aloe Vera", body: "Helps hydrate, soothe, and support scalp comfort." },
+      {
+        name: "Rosemary",
+        body: "Traditionally valued in hair care to support the appearance and vitality of hair.",
+      },
     ],
     closingTitle: "Botanical inspiration, refined by science.",
     closingBody:
@@ -43,20 +49,26 @@ export const ingredientsCopy: Localised<IngredientsCopy> = {
   ar: {
     metaTitle: "مكتبة المكوّنات | قوة المكوّنات النباتية",
     metaDescription:
-      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفكِ مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا.",
+      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفك مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا.",
     eyebrow: "مكتبة المكوّنات",
     title: "قوة المكوّنات النباتية",
     intro:
-      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفكِ مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا، وتشرح استخداماتها التقليدية وفوائدها التجميلية ودورها في كل تركيبة.",
+      "الطبيعة في قلب كل تركيبة من روزيكا. تعرّفك مكتبة المكوّنات على النباتات المختارة بعناية وراء منتجاتنا، وتشرح استخداماتها التقليدية وفوائدها التجميلية ودورها في كل تركيبة.",
     listHeading: "أبرز المكوّنات النباتية",
     items: [
       { name: "العسل", body: "مرطّب طبيعي غني بالسكريات يساعد على الاحتفاظ بالرطوبة." },
-      { name: "البروبوليس", body: "معروف بخصائصه الواقية والمهدّئة." },
+      {
+        name: "البروبوليس",
+        body: "مكوّن مستخلص من النحل يُقدَّر في العناية التجميلية لخصائصه الواقية والمهدّئة.",
+      },
       { name: "الألوفيرا", body: "يساعد على الترطيب والتهدئة ودعم راحة فروة الرأس." },
-      { name: "إكليل الجبل", body: "يُستخدم تقليديًا في العناية بالشعر ودعم حيويته." },
+      {
+        name: "إكليل الجبل",
+        body: "يُقدَّر تقليديًا في العناية بالشعر لدعم مظهر الشعر وحيويته.",
+      },
     ],
     closingTitle: "كل تركيبة تبدأ من نبتة.",
-    closingBody: "اكتشفي كيف تجتمع هذه المكوّنات في مجموعات روزيكا.",
-    closingCta: "استكشفي المجموعات",
+    closingBody: "اكتشف كيف تجتمع هذه المكوّنات في مجموعات روزيكا.",
+    closingCta: "استكشف المجموعات",
   },
 };

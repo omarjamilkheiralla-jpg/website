@@ -107,10 +107,6 @@ export default function ProductView({
               {copy.note}
             </p>
           ) : null}
-
-          <p className="mt-8 max-w-2xl text-sm leading-relaxed text-ink-muted">
-            {chrome.fullList}
-          </p>
         </Reveal>
       </Section>
 
