@@ -282,13 +282,24 @@ export default function ProductSlider({
         stopping first was leaving the offset a frame out of step — the source
         of the snap that survived the earlier fixes.
       */
-      animationRef.current = animate(
-        x,
-        restFor(i),
-        immediate || reduceMotion
-          ? { duration: 0 }
-          : { type: "spring", stiffness: 90, damping: 20, mass: 0.9 },
-      );
+      /*
+        Reduced motion gets a short, flat ease rather than nothing at all.
+        Teleporting the track is its own accessibility problem: the row changes
+        without any signal that it moved, so it is hard to tell whether the
+        button did anything or which card is now in front. A brief eased travel
+        carries none of the spring's overshoot — the part that actually makes
+        people queasy — while still showing that something happened.
+
+        `immediate` stays instant. That path is a resize or the silent
+        re-centre at the wrap, and neither is a movement anyone should see.
+      */
+      const transition = immediate
+        ? { duration: 0 }
+        : reduceMotion
+          ? { duration: 0.22, ease: [0.22, 0.61, 0.36, 1] as const }
+          : { type: "spring" as const, stiffness: 90, damping: 20, mass: 0.9 };
+
+      animationRef.current = animate(x, restFor(i), transition);
     },
     [viewport, restFor, reduceMotion, x],
   );
