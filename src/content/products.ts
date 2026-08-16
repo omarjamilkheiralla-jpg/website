@@ -12,9 +12,12 @@ import type { Localised } from "@/lib/i18n";
  * shampoos carry it and Purifying & Fresh does not, so its list simply omits
  * it. Do not add the claim to that product.
  *
- * The Shopify store was password-protected when these were written, so the
- * merchandising copy there could not be mirrored. When the store opens, check
- * these against it rather than assuming they match.
+ * `keyBenefits` and `directions` are transcribed from the store's own
+ * metafields — `custom.key_benefits` and `custom.directions_of_use`. They are
+ * held here rather than fetched live for two reasons: Shopify has only the
+ * English, and a product page should not lose half its content because the
+ * Storefront API had a slow minute. Re-run the transcription if the metafields
+ * change.
  */
 
 export type ProductSlug =
@@ -35,6 +38,10 @@ export type ProductCopy = {
   suitedTo: string;
   keyIngredients: string[];
   freeFrom: string[];
+  /** From Shopify's `custom.key_benefits` metafield. */
+  keyBenefits: string[];
+  /** From Shopify's `custom.directions_of_use` metafield. */
+  directions: string[];
   /** Anything the label makes explicit that the lists above would hide. */
   note?: string;
 };
@@ -76,6 +83,18 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "Dry, normal and damaged hair",
       keyIngredients: ["Honey", "Propolis", "Aloe vera", "Hydrolyzed collagen"],
       freeFrom: ["Sulfate-free", "Silicone-free", "Paraben-free", "Colorant-free"],
+      keyBenefits: [
+        "Nourishes dry and damaged hair",
+        "Helps strengthen weak hair fibers",
+        "Improves softness and smoothness",
+        "Restores healthy-looking shine",
+        "Suitable for daily use",
+      ],
+      directions: [
+        "Apply to wet hair and gently massage into the scalp and lengths until a light lather forms.",
+        "Rinse thoroughly with water. Repeat if needed.",
+        "For best results, follow with Rosica Deep Repair Conditioner.",
+      ],
     },
     "purifying-fresh-cleanse-shampoo": {
       metaTitle: "Purifying & Fresh Cleanse Shampoo",
@@ -88,6 +107,17 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "Oily hair and scalp",
       keyIngredients: ["Rosemary extract", "Green tea extract", "Amino acid complex"],
       freeFrom: ["Silicone-free", "Paraben-free", "Colorant-free"],
+      keyBenefits: [
+        "Deeply cleanses excess oil and impurities",
+        "Helps maintain the scalp's natural moisture balance",
+        "Leaves hair feeling fresh, light and revitalized",
+        "Supports a healthy-looking scalp",
+        "Suitable for regular use",
+      ],
+      directions: [
+        "Apply to wet hair and gently massage into the scalp and lengths until a light lather forms.",
+        "Rinse thoroughly with water. Repeat if needed.",
+      ],
     },
     "deep-repair-conditioner": {
       metaTitle: "Deep Repair Conditioner",
@@ -100,6 +130,19 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "All hair types",
       keyIngredients: ["Honey", "Açaí", "Shea butter", "Hydrolyzed collagen"],
       freeFrom: [],
+      keyBenefits: [
+        "Deeply nourishes dry and damaged hair",
+        "Helps repair and strengthen weakened hair fibers",
+        "Improves softness, smoothness and manageability",
+        "Helps detangle hair while reducing frizz",
+        "Enhances healthy-looking shine",
+        "Suitable for daily use",
+      ],
+      directions: [
+        "After shampooing with Rosica Shampoo, apply Deep Repair Conditioner evenly to the lengths and ends of damp hair.",
+        "Gently massage through the hair and leave on for 2–5 minutes to allow the conditioning and nourishing ingredients to perform effectively.",
+        "Rinse thoroughly with water. Suitable for daily use.",
+      ],
     },
     "botanical-restore-shampoo": {
       metaTitle: "Botanical Restore Shampoo",
@@ -119,6 +162,20 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       ],
       freeFrom: ["Sulfate-free", "Silicone-free", "Paraben-free", "Colorant-free"],
       note: "Formulated with surfactants of natural origin.",
+      keyBenefits: [
+        "Gently cleanses while helping restore dry and stressed hair",
+        "Helps protect the beauty of color-treated and chemically treated hair",
+        "Helps maintain the beauty of protein- and keratin-treated hair",
+        "Helps improve softness and smoothness",
+        "Supports stronger, healthier-looking hair",
+        "Enhances natural shine and manageability",
+        "Suitable for daily use",
+      ],
+      directions: [
+        "Apply to wet hair and gently massage into the scalp and lengths until a light lather forms.",
+        "Rinse thoroughly with water. Repeat if needed.",
+        "For best results, follow with Rosica Deep Repair Conditioner.",
+      ],
     },
   },
   ar: {
@@ -138,6 +195,18 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
         "خالٍ من البارابين",
         "خالٍ من الملوّنات",
       ],
+      keyBenefits: [
+        "يغذّي الشعر الجاف والتالف",
+        "يساعد على تقوية الشعيرات الضعيفة",
+        "يحسّن النعومة والانسيابية",
+        "يعيد اللمعان الصحي للشعر",
+        "مناسب للاستخدام اليومي",
+      ],
+      directions: [
+        "يوضع على الشعر المبلّل مع تدليك فروة الرأس والأطراف بلطف حتى تتكوّن رغوة خفيفة.",
+        "يُشطف جيدًا بالماء. يمكن تكرار الاستخدام عند الحاجة.",
+        "للحصول على أفضل نتيجة، يُتبع ببلسم الإصلاح العميق من روزيكا.",
+      ],
     },
     "purifying-fresh-cleanse-shampoo": {
       metaTitle: "شامبو التنظيف المنعش",
@@ -150,6 +219,17 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "الشعر الدهني وفروة الرأس الدهنية",
       keyIngredients: ["خلاصة إكليل الجبل", "خلاصة الشاي الأخضر", "مركّب الأحماض الأمينية"],
       freeFrom: ["خالٍ من السيليكون", "خالٍ من البارابين", "خالٍ من الملوّنات"],
+      keyBenefits: [
+        "ينظّف بعمق الدهون الزائدة والشوائب",
+        "يساعد على الحفاظ على توازن الرطوبة الطبيعي لفروة الرأس",
+        "يترك الشعر منتعشًا وخفيفًا ومفعمًا بالحيوية",
+        "يدعم مظهرًا صحيًا لفروة الرأس",
+        "مناسب للاستخدام المنتظم",
+      ],
+      directions: [
+        "يوضع على الشعر المبلّل مع تدليك فروة الرأس والأطراف بلطف حتى تتكوّن رغوة خفيفة.",
+        "يُشطف جيدًا بالماء. يمكن تكرار الاستخدام عند الحاجة.",
+      ],
     },
     "deep-repair-conditioner": {
       metaTitle: "بلسم الإصلاح العميق",
@@ -162,6 +242,19 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       suitedTo: "جميع أنواع الشعر",
       keyIngredients: ["العسل", "الأساي", "زبدة الشيا", "الكولاجين المُحلّل"],
       freeFrom: [],
+      keyBenefits: [
+        "يغذّي بعمق الشعر الجاف والتالف",
+        "يساعد على إصلاح الشعيرات الضعيفة وتقويتها",
+        "يحسّن النعومة والانسيابية وسهولة التصفيف",
+        "يساعد على فك التشابك وتقليل التطاير",
+        "يعزّز اللمعان الصحي",
+        "مناسب للاستخدام اليومي",
+      ],
+      directions: [
+        "بعد غسل الشعر بشامبو روزيكا، يوزَّع بلسم الإصلاح العميق بالتساوي على أطوال الشعر وأطرافه وهو رطب.",
+        "يُدلَّك بلطف ويُترك من ٢ إلى ٥ دقائق ليتيح للمكوّنات المرطّبة والمغذّية أداء دورها.",
+        "يُشطف جيدًا بالماء. مناسب للاستخدام اليومي.",
+      ],
     },
     "botanical-restore-shampoo": {
       metaTitle: "شامبو الاستعادة النباتية",
@@ -186,6 +279,20 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
         "خالٍ من الملوّنات",
       ],
       note: "مركّب بمواد تنظيف من أصل طبيعي.",
+      keyBenefits: [
+        "ينظّف بلطف مع المساعدة على استعادة الشعر الجاف والمُجهد",
+        "يساعد على حماية جمال الشعر المصبوغ والمعالج كيميائيًا",
+        "يساعد على الحفاظ على جمال الشعر المعالج بالبروتين والكيراتين",
+        "يساعد على تحسين النعومة والانسيابية",
+        "يدعم شعرًا أقوى وأكثر صحة في المظهر",
+        "يعزّز اللمعان الطبيعي وسهولة التصفيف",
+        "مناسب للاستخدام اليومي",
+      ],
+      directions: [
+        "يوضع على الشعر المبلّل مع تدليك فروة الرأس والأطراف بلطف حتى تتكوّن رغوة خفيفة.",
+        "يُشطف جيدًا بالماء. يمكن تكرار الاستخدام عند الحاجة.",
+        "للحصول على أفضل نتيجة، يُتبع ببلسم الإصلاح العميق من روزيكا.",
+      ],
     },
   },
 };
@@ -200,6 +307,8 @@ export type ProductChrome = {
   suitedLabel: string;
   ingredientsLabel: string;
   freeFromLabel: string;
+  benefitsHeading: string;
+  directionsHeading: string;
   moreHeading: string;
   moreCta: string;
 };
@@ -214,6 +323,8 @@ export const productChrome: Localised<ProductChrome> = {
     suitedLabel: "Suited to",
     ingredientsLabel: "Key ingredients",
     freeFromLabel: "Formulated without",
+    benefitsHeading: "Key benefits",
+    directionsHeading: "Directions of use",
     moreHeading: "More from Rosica",
     moreCta: "Explore",
   },
@@ -226,6 +337,8 @@ export const productChrome: Localised<ProductChrome> = {
     suitedLabel: "مناسب لـ",
     ingredientsLabel: "أبرز المكوّنات",
     freeFromLabel: "خالٍ من",
+    benefitsHeading: "أبرز الفوائد",
+    directionsHeading: "طريقة الاستخدام",
     moreHeading: "المزيد من روزيكا",
     moreCta: "اكتشف",
   },

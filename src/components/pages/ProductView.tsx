@@ -130,6 +130,53 @@ export default async function ProductView({
             </p>
           ) : null}
         </Reveal>
+
+        {/* Benefits and directions, side by side on a wide screen. */}
+        <div className="mt-16 grid grid-cols-1 gap-12 border-t border-gold/25 pt-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <h3 className="font-serif text-2xl text-green sm:text-[1.75rem]">
+              {chrome.benefitsHeading}
+            </h3>
+            <ul className="mt-6 space-y-3">
+              {copy.keyBenefits.map((benefit) => (
+                <li
+                  key={benefit}
+                  className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink-muted"
+                >
+                  <span aria-hidden="true" className="mt-2 shrink-0 text-gold">
+                    <svg viewBox="0 0 8 8" className="h-1.5 w-1.5" fill="currentColor">
+                      <circle cx="4" cy="4" r="4" />
+                    </svg>
+                  </span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <h3 className="font-serif text-2xl text-green sm:text-[1.75rem]">
+              {chrome.directionsHeading}
+            </h3>
+            {/* Numbered: these are steps in order, not a list of qualities. */}
+            <ol className="mt-6 space-y-4">
+              {copy.directions.map((step, index) => (
+                <li
+                  key={step}
+                  className="flex gap-4 text-[0.9375rem] leading-relaxed text-ink-muted"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-0.5 shrink-0 font-serif text-lg text-gold-deep tabular-nums"
+                  >
+                    {index + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
       </Section>
 
       {/* The rest of the range. */}
