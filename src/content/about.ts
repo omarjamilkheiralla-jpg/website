@@ -46,7 +46,7 @@ export const aboutCopy: Localised<AboutCopy> = {
     metaDescription:
       "Rosica combines the finest botanical ingredients with advanced scientific research to create premium botanical beauty that is pure, effective, and gentle.",
     eyebrow: "About Rosica",
-    title: "Rooted in Nature. Driven by Science.",
+    title: "Rooted in Nature.\nDriven by Science.",
     intro:
       "Rosica was born from a belief in the potential of nature, thoughtfully refined through modern cosmetic science. We bring together carefully selected botanical ingredients and considered formulation to create premium natural beauty designed for everyday care.",
     heroCta: "Discover Our Journey",
@@ -153,7 +153,7 @@ export const aboutCopy: Localised<AboutCopy> = {
     metaDescription:
       "تجمع روزيكا بين أرقى المكوّنات النباتية والأبحاث العلمية المتقدّمة لابتكار جمال نباتي فاخر، نقي وفعّال ولطيف.",
     eyebrow: "عن روزيكا",
-    title: "متجذّرة في الطبيعة. مدفوعة بالعلم.",
+    title: "متجذّرة في الطبيعة.\nمدفوعة بالعلم.",
     intro:
       "وُلدت روزيكا من إيمان بسيط: أن للطبيعة قدرة على التجدد والاستعادة والتحوّل. نمزج بين أجود المكوّنات النباتية والابتكار العلمي المتقدّم لنقدّم عناية نباتية فاخرة، نقية وفعّالة ولطيفة.",
     heroCta: "اكتشف رحلتنا",

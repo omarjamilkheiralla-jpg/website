@@ -48,7 +48,7 @@ export const homeCopy: Localised<HomeCopy> = {
       "Discover a premium natural beauty experience inspired by nature and elevated through modern cosmetic science. Premium botanical care, thoughtfully formulated by Rosica.",
 
     eyebrow: "Botanical Beauty",
-    title: "Inspired by Nature. Refined Through Science.",
+    title: "Inspired by Nature.\nRefined Through Science.",
     intro:
       "Premium natural beauty developed through thoughtful formulation, carefully selected botanical ingredients, and a commitment to everyday care.",
     heroPrimary: "Explore Collections",
@@ -137,7 +137,7 @@ export const homeCopy: Localised<HomeCopy> = {
       "اكتشف تجربة جمال طبيعي فاخرة مستوحاة من الطبيعة ومصقولة بعلوم التجميل الحديثة. عناية نباتية فاخرة، مصمّمة بعناية من روزيكا.",
 
     eyebrow: "الجمال النباتي",
-    title: "مستوحاة من الطبيعة. مصقولة بالعلم.",
+    title: "مستوحاة من الطبيعة.\nمصقولة بالعلم.",
     intro:
       "عناية نباتية فاخرة، صُممت بتركيبات مدروسة ومكوّنات مختارة بعناية، لترافقك في عنايتك اليومية.",
     heroPrimary: "استكشف المجموعات",

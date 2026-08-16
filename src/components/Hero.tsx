@@ -158,13 +158,19 @@ export default function Hero({
         </motion.p>
       ) : null}
 
+      {/*
+        `whitespace-pre-line` so a title can force its own break with \n. The
+        two-sentence heroes read as a couplet — one claim per line — and
+        leaving that to the wrap point means it holds at one width and breaks
+        badly at the next.
+      */}
       <motion.h1
         variants={item}
-        className={
+        className={`whitespace-pre-line ${
           height === "tall"
             ? "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.1rem]"
             : "text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3rem]"
-        }
+        }`}
       >
         {title}
       </motion.h1>
