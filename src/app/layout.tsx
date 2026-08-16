@@ -3,6 +3,7 @@ import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/fon
 import LocaleShell from "@/components/LocaleShell";
 import { INDEXABLE, SITE_URL } from "@/lib/site";
 import { shopifyConfigured } from "@/lib/shopify/client";
+import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -90,6 +91,19 @@ export default function RootLayout({
             making every page dynamic, or a probe request on every page load.
             The failure is soft — without the flag the assistant still answers
             its prepared questions, it just doesn't invite free typing. */}
+        {/*
+          Who this site belongs to, in the form Google reads. It is what
+          attaches the gold wordmark to the brand rather than leaving search to
+          pick an image off a page, and what a knowledge panel is built from.
+        */}
+        <script
+          type="application/ld+json"
+          // The payload is our own object, not user input.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationSchema(), websiteSchema()]),
+          }}
+        />
+
         <LocaleShell
           assistant={Boolean(process.env.ANTHROPIC_API_KEY)}
           shop={shopifyConfigured()}
