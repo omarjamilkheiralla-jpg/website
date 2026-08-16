@@ -1,11 +1,13 @@
 /**
  * The Rosica online store.
  *
- * Pointed at the myshopify address rather than shop.rosica.ae because that is
- * what resolves today — the subdomain's DNS record has not been created yet, and
- * a "Shop Rosica" button that 404s is worse than one that looks less branded.
+ * The branded address: shop.rosica.ae is the store's primary domain, its
+ * certificate is issued, and it serves publicly. Shopify redirects the
+ * myshopify address here anyway, so linking to it directly saves a hop and
+ * keeps the brand in the address bar.
  *
- * Change this single line to `https://shop.rosica.ae` the moment the CNAME is
- * live and Shopify has issued its certificate; every link on the site follows.
+ * This is only the fallback destination now — where a Buy button goes when the
+ * Storefront API has not answered and there is no variant to add. The ordinary
+ * path is /shop, which sells without leaving the site.
  */
-export const SHOP_URL = "https://rosica-8306.myshopify.com";
+export const SHOP_URL = "https://shop.rosica.ae";
