@@ -30,6 +30,19 @@ export const SITE_URL = "https://www.rosica.ae";
  */
 export const INDEXABLE = process.env.ALLOW_INDEXING === "true";
 
+/**
+ * Routes that exist but are still placeholders.
+ *
+ * Kept out of the sitemap and marked noindex on the page itself, so switching
+ * indexing on does not put thin pages in front of anyone. Delete an entry the
+ * moment its page carries real content — a page nobody can find is the other
+ * way to waste it.
+ */
+export const PLACEHOLDER_ROUTES = ["/faqs", "/search"] as const;
+
+/** Metadata fragment for those pages. Follow the links, index nothing. */
+export const NO_INDEX = { robots: { index: false, follow: true } } as const;
+
 /** Every page, authored once in English; the Arabic tree mirrors it under /ar. */
 export const ROUTES = [
   "/",

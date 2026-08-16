@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import ComingSoon from "@/components/ComingSoon";
+import { NO_INDEX } from "@/lib/site";
 
 export const metadata: Metadata = {
+  ...NO_INDEX,
   title: "FAQs",
   description:
     "Answers to frequently asked questions about Rosica products, ingredients, and care rituals.",

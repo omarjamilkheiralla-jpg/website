@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { INDEXABLE, ROUTES, SITE_URL } from "@/lib/site";
+import { INDEXABLE, PLACEHOLDER_ROUTES, ROUTES, SITE_URL } from "@/lib/site";
 import { localePath } from "@/lib/i18n";
 
 /**
@@ -12,6 +12,10 @@ import { localePath } from "@/lib/i18n";
  * reader. `x-default` points at the English tree, which is the one a visitor
  * with no matching language preference should land on.
  *
+ * Placeholder routes are left out. They are real pages and stay reachable, but
+ * a sitemap is a list of what is worth crawling and a "coming soon" panel is
+ * not that.
+ *
  * While ALLOW_INDEXING is off the sitemap is served empty rather than omitted —
  * a 404 at /sitemap.xml looks like a mistake; an empty one is a clear statement
  * that there is deliberately nothing to crawl yet.
@@ -21,7 +25,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const now = new Date();
 
-  return ROUTES.flatMap((route) => {
+  const listed = ROUTES.filter(
+    (route) => !(PLACEHOLDER_ROUTES as readonly string[]).includes(route),
+  );
+
+  return listed.flatMap((route) => {
     const languages = {
       en: `${SITE_URL}${route}`,
       ar: `${SITE_URL}${localePath("ar", route)}`,
