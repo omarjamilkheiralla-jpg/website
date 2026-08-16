@@ -44,7 +44,7 @@ export const generic = {
 /** Alt text for the stock imagery, kept beside the paths so it stays in sync. */
 export const genericAlt = {
   honey: "A glass jar of honey with a wooden dipper on a pale background",
-  propolis: "A golden honeycomb filled with honey, seen close up",
+  propolis: "Raw propolis granules spilling from a glass jar",
   aloeVera: "Close-up of aloe vera leaves against a plain white background",
   rosemary: "A sprig of fresh rosemary on pale marble in soft light",
 
