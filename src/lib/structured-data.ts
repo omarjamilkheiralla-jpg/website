@@ -5,6 +5,7 @@ import { productPhoto } from "./product-media";
 import type { ProductOffer } from "./shopify/types";
 import { LEGAL_ENTITY } from "@/content/legal";
 import { PRODUCT_NAMES, productPages, type ProductSlug } from "@/content/products";
+import { questions } from "@/content/chat-answers";
 
 /**
  * Organization structured data.
@@ -127,6 +128,40 @@ export function productSchema(
           },
         }
       : {}),
+  };
+}
+
+/**
+ * The FAQ page, as a machine-readable question-and-answer set.
+ *
+ * A caveat worth recording rather than discovering later: since 2023 Google
+ * only shows FAQ rich results for authoritative government and health sites,
+ * so this will not put expandable questions under the Rosica result. It is here
+ * because it is the correct, valid description of the page, and because Bing
+ * and the assistants that read structured data do still use it. Nobody should
+ * expect a visible change in Google from this function.
+ *
+ * Answers are joined into one string per question because schema.org's
+ * acceptedAnswer takes a single text value.
+ */
+export function faqSchema(locale: Locale) {
+  const url = `${SITE_URL}${localePath(locale, "/faqs")}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    inLanguage: locale,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    mainEntity: questions.map((question) => ({
+      "@type": "Question",
+      name: question.q[locale],
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: question.a[locale].join(" "),
+      },
+    })),
   };
 }
 

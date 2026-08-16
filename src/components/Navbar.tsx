@@ -15,7 +15,6 @@ function isActive(pathname: string, href: string) {
 const t = {
   en: {
     skip: "Skip to content",
-    search: "Search Rosica",
     allCollections: "All Collections",
     buyNow: "Buy Now",
     openMenu: "Open menu",
@@ -26,7 +25,6 @@ const t = {
   },
   ar: {
     skip: "تخطَّ إلى المحتوى",
-    search: "ابحث في روزيكا",
     allCollections: "جميع المجموعات",
     buyNow: "اشترِ الآن",
     openMenu: "افتح القائمة",
@@ -36,23 +34,6 @@ const t = {
     otherLanguage: "English",
   },
 } as const;
-
-function SearchIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-[1.125rem] w-[1.125rem]"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="6.5" />
-      <path d="m16 16 4.5 4.5" />
-    </svg>
-  );
-}
 
 export default function Navbar({ locale = "en" }: { locale?: Locale }) {
   const pathname = usePathname();
@@ -237,18 +218,8 @@ export default function Navbar({ locale = "en" }: { locale?: Locale }) {
           </ul>
         </nav>
 
-        {/* Utilities: search, language toggle, Buy Now */}
+        {/* Utilities: language toggle, cart, Buy Now */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <Link
-            href={to("/search")}
-            aria-label={copy.search}
-            className="hidden h-9 w-9 items-center justify-center text-green transition-colors duration-300 hover:text-gold sm:flex"
-          >
-            <SearchIcon />
-          </Link>
-
-          <span aria-hidden="true" className="hidden h-5 w-px bg-gold/40 sm:block" />
-
           {/* Same page in the other language, not a jump back to the home page. */}
           <Link
             href={alternatePath(locale, pathname)}

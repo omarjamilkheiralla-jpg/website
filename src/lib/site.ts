@@ -37,8 +37,13 @@ export const INDEXABLE = process.env.ALLOW_INDEXING === "true";
  * indexing on does not put thin pages in front of anyone. Delete an entry the
  * moment its page carries real content — a page nobody can find is the other
  * way to waste it.
+ *
+ * Empty, and worth keeping that way. /faqs now carries the full question bank,
+ * and /search was removed outright rather than left as a promise: there were
+ * eight pages to search, and a search box that finds a handful of things a
+ * visitor can already see in the navigation is worse than no search box.
  */
-export const PLACEHOLDER_ROUTES = ["/faqs", "/search"] as const;
+export const PLACEHOLDER_ROUTES: readonly string[] = [];
 
 /** Metadata fragment for those pages. Follow the links, index nothing. */
 export const NO_INDEX = { robots: { index: false, follow: true } } as const;

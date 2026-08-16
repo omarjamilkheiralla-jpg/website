@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
-import { NO_INDEX } from "@/lib/site";
+import FaqView from "@/components/pages/FaqView";
+import { faqCopy } from "@/content/faqs";
 
 export const metadata: Metadata = {
-  ...NO_INDEX,
-  title: "FAQs",
-  description:
-    "Answers to frequently asked questions about Rosica products, ingredients, and care rituals.",
+  title: faqCopy.en.metaTitle,
+  description: faqCopy.en.metaDescription,
 };
 
 export default function FaqsPage() {
-  return (
-    <ComingSoon
-      eyebrow="FAQS"
-      title="Frequently Asked Questions"
-      body="Answers to the questions we are asked most often about Rosica products, ingredients, and care rituals."
-    />
-  );
+  return <FaqView locale="en" />;
 }

@@ -1,5 +1,4 @@
 import type { Locale, Localised } from "@/lib/i18n";
-import { SHOP_URL } from "@/lib/shop";
 
 /**
  * The assistant's question bank.
@@ -44,7 +43,7 @@ export const topics: { id: TopicId; label: Localised<string> }[] = [
   { id: "ingredients", label: { en: "Ingredients", ar: "المكوّنات" } },
   { id: "brand", label: { en: "About Rosica", ar: "عن روزيكا" } },
   { id: "buying", label: { en: "Buying & delivery", ar: "الشراء والتوصيل" } },
-  { id: "help", label: { en: "Talk to us", ar: "تواصلي معنا" } },
+  { id: "help", label: { en: "Talk to us", ar: "تواصل معنا" } },
 ];
 
 export const questions: Question[] = [
@@ -398,19 +397,15 @@ export const questions: Question[] = [
     q: { en: "Where can I buy Rosica?", ar: "أين يمكنني شراء روزيكا؟" },
     a: {
       en: [
-        "Rosica products are available online in the UAE through our official online store.",
-        "Explore the Rosica collection and shop directly online.",
+        "Here on this site. The shop page carries the whole range — add what you want to your bag and check out, without leaving Rosica.",
+        "We deliver across the UAE.",
       ],
       ar: [
-        "منتجات روزيكا متوفّرة عبر الإنترنت في الإمارات من خلال متجرنا الرسمي.",
-        "تصفّح مجموعة روزيكا واطلبي مباشرةً عبر الإنترنت.",
+        "من هنا، عبر هذا الموقع. تضمّ صفحة المتجر التشكيلة كاملة — أضف ما تريد إلى حقيبتك وأتمم طلبك دون مغادرة روزيكا.",
+        "ونوصّل إلى جميع أنحاء الإمارات.",
       ],
     },
-    link: {
-      href: SHOP_URL,
-      external: true,
-      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
-    },
+    link: { href: "/shop", label: { en: "Shop Rosica", ar: "تسوّق روزيكا" } },
     next: ["prices", "shipping", "contact"],
   },
   {
@@ -419,20 +414,16 @@ export const questions: Question[] = [
     q: { en: "How much do the products cost?", ar: "كم تبلغ أسعار المنتجات؟" },
     a: {
       en: [
-        "Rosica products are available to shop online in the UAE.",
-        "For current prices and any available offers, visit our official online store, where you'll find the latest pricing for each product.",
+        "Every price is shown on the shop page and on each product's own page, in AED. They come straight from our store, so what you see is current.",
+        "Shipping and any taxes are calculated at checkout, once you have entered a delivery address.",
       ],
       ar: [
-        "منتجات روزيكا متاحة للتسوّق عبر الإنترنت في الإمارات.",
-        "لمعرفة الأسعار الحالية وأي عروض متاحة، زُر متجرنا الرسمي حيث تجد أحدث الأسعار لكل منتج.",
+        "يظهر سعر كل منتج في صفحة المتجر وفي صفحة المنتج نفسه، بالدرهم الإماراتي. والأسعار مأخوذة مباشرة من متجرنا، فما تراه هو السعر الحالي.",
+        "أما الشحن وأي ضرائب فتُحتسب عند إتمام الطلب، بعد إدخال عنوان التوصيل.",
       ],
     },
-    link: {
-      href: SHOP_URL,
-      external: true,
-      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
-    },
-    next: ["shipping", "where-buy"],
+    link: { href: "/shop", label: { en: "See the range and prices", ar: "اعرض التشكيلة والأسعار" } },
+    next: ["shipping", "returns", "where-buy"],
   },
   {
     id: "shipping",
@@ -440,20 +431,39 @@ export const questions: Question[] = [
     q: { en: "Do you deliver, and where to?", ar: "هل تقومون بالتوصيل، وإلى أين؟" },
     a: {
       en: [
-        "Yes. Rosica currently delivers across the UAE.",
-        "Delivery options and applicable shipping charges are shown at checkout based on your order and delivery location.",
+        "Yes. Rosica currently delivers across the UAE, to the locations available at checkout.",
+        "Delivery charges and estimated delivery times are calculated at checkout from your order and your address, and are shown in full before you pay.",
       ],
       ar: [
-        "نعم. توصّل روزيكا حاليًا إلى جميع أنحاء الإمارات.",
-        "وتظهر خيارات التوصيل ورسوم الشحن المطبّقة عند إتمام الطلب، بحسب طلبك وموقع التوصيل.",
+        "نعم. توصّل روزيكا حاليًا إلى جميع أنحاء الإمارات، وإلى المواقع المتاحة عند إتمام الطلب.",
+        "وتُحتسب رسوم التوصيل والمدة التقديرية عند إتمام الطلب بحسب طلبك وعنوانك، وتظهر كاملة قبل الدفع.",
       ],
     },
     link: {
-      href: SHOP_URL,
-      external: true,
-      label: { en: "Shop Rosica", ar: "تسوّقي روزيكا" },
+      href: "/shipping",
+      label: { en: "Read the Shipping Policy", ar: "اقرأ سياسة الشحن" },
     },
-    next: ["where-buy", "prices", "wholesale"],
+    next: ["returns", "where-buy", "wholesale"],
+  },
+  {
+    id: "returns",
+    topic: "buying",
+    q: { en: "Can I return something?", ar: "هل يمكنني إرجاع منتج؟" },
+    a: {
+      en: [
+        "Yes. You have 14 days from delivery to request a return. Because these are products used on hair and scalp, an item can only be returned unused and unopened, with its seal intact — that is a hygiene requirement rather than a technicality.",
+        "If something arrives damaged, faulty or simply wrong, none of that applies: contact us within 14 days with your order number and a photograph, and you get a replacement or a full refund, delivery charge included, at no cost to you.",
+      ],
+      ar: [
+        "نعم. أمامك 14 يومًا من تاريخ التسليم لطلب الإرجاع. وبما أن هذه منتجات تُستخدم على الشعر وفروة الرأس، لا يُقبل إرجاع المنتج إلا غير مستعمل وغير مفتوح وبختمه الأصلي — وهذا شرط يتعلق بالنظافة والسلامة.",
+        "أما إذا وصل المنتج تالفًا أو معيبًا أو مختلفًا عمّا طلبته، فلا ينطبق أي من ذلك: راسلنا خلال 14 يومًا برقم الطلب وصورة للمنتج، وستحصل على بديل أو استرداد كامل يشمل رسوم التوصيل، دون أي تكلفة عليك.",
+      ],
+    },
+    link: {
+      href: "/returns",
+      label: { en: "Read the Return & Refund Policy", ar: "اقرأ سياسة الإرجاع والاسترداد" },
+    },
+    next: ["shipping", "contact"],
   },
   {
     id: "wholesale",
@@ -466,7 +476,7 @@ export const questions: Question[] = [
       ],
       ar: [
         "نعم — نرحّب باستفسارات الجملة، وتصل مباشرة إلى الفريق.",
-        "راسلنا بتفاصيل نشاطك التجاري وما ترغبين في توفيره، وسيعاود أحدهم التواصل معك خلال يوم إلى يومَي عمل.",
+        "راسلنا بتفاصيل نشاطك التجاري وما ترغب في توفيره، وسيعاود أحدهم التواصل معك خلال يوم إلى يومَي عمل.",
       ],
     },
     next: ["contact"],
@@ -508,10 +518,10 @@ export const questions: Question[] = [
     q: { en: "Are you on social media?", ar: "هل أنتم على وسائل التواصل؟" },
     a: {
       en: [
-        "Yes — you'll find Rosica on Instagram at @rosicanaturalcare, and on Facebook as Rosica Natural Care.",
+        "Yes — Rosica is on Instagram and TikTok as @rosicanaturalcare, on Facebook as Rosica Natural Care, and on LinkedIn as Rosica Natural Care L.L.C-FZ.",
       ],
       ar: [
-        "نعم — تجد روزيكا على إنستغرام باسم @rosicanaturalcare، وعلى فيسبوك باسم Rosica Natural Care.",
+        "نعم — روزيكا على إنستغرام وتيك توك باسم @rosicanaturalcare، وعلى فيسبوك باسم Rosica Natural Care، وعلى لينكدإن باسم Rosica Natural Care L.L.C-FZ.",
       ],
     },
     next: ["contact", "who"],

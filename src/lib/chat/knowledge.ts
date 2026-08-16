@@ -118,7 +118,8 @@ export function knowledgeFor(locale: Locale): string {
         "Each product has its own page — /products/honey-propolis-repair-shampoo, /products/purifying-fresh-cleanse-shampoo, /products/deep-repair-conditioner, /products/botanical-restore-shampoo",
         "Ingredient Library — /ingredients, and one page per botanical: /ingredients/honey, /ingredients/propolis, /ingredients/aloe-vera, /ingredients/rosemary",
         "Contact — /contact (contact details; there is no form, people email info@rosica.ae)",
-        "FAQs — /faqs (placeholder: no answers published yet)",
+        "Shop — /shop (the whole range with prices, buyable on the site)",
+        "FAQs — /faqs (the same questions and answers you have here, published as a page)",
         "Privacy Policy — /privacy, Terms of Service — /terms, Shipping Policy — /shipping, Return & Refund Policy — /returns (all published in full, in English on both locale trees)",
       ]) +
       `\n\nArabic versions of every page live under the same path prefixed with /ar.`,
