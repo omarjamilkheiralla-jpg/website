@@ -70,6 +70,8 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
       links: [
         { label: "FAQs", href: "/faqs" },
         { label: "Contact Us", href: "/contact" },
+        { label: "Shipping Policy", href: "/shipping" },
+        { label: "Returns & Refunds", href: "/returns" },
         { label: "Privacy Policy", href: "/privacy" },
         { label: "Terms of Service", href: "/terms" },
       ],
@@ -105,6 +107,8 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
       links: [
         { label: "الأسئلة الشائعة", href: "/faqs" },
         { label: "تواصل معنا", href: "/contact" },
+        { label: "سياسة الشحن", href: "/shipping" },
+        { label: "الإرجاع والاسترداد", href: "/returns" },
         { label: "سياسة الخصوصية", href: "/privacy" },
         { label: "شروط الخدمة", href: "/terms" },
       ],

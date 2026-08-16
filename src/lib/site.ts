@@ -62,6 +62,8 @@ export const ROUTES = [
   "/ingredients/rosemary",
   "/contact",
   "/faqs",
+  "/shipping",
+  "/returns",
   "/privacy",
   "/terms",
 ] as const;

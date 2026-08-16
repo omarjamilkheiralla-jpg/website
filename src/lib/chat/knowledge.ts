@@ -119,7 +119,7 @@ export function knowledgeFor(locale: Locale): string {
         "Ingredient Library — /ingredients, and one page per botanical: /ingredients/honey, /ingredients/propolis, /ingredients/aloe-vera, /ingredients/rosemary",
         "Contact — /contact (contact details; there is no form, people email info@rosica.ae)",
         "FAQs — /faqs (placeholder: no answers published yet)",
-        "Privacy Policy — /privacy and Terms of Service — /terms (both published in full, in English on both locale trees)",
+        "Privacy Policy — /privacy, Terms of Service — /terms, Shipping Policy — /shipping, Return & Refund Policy — /returns (all published in full, in English on both locale trees)",
       ]) +
       `\n\nArabic versions of every page live under the same path prefixed with /ar.`,
   );
@@ -145,7 +145,7 @@ export function knowledgeFor(locale: Locale): string {
 const UNKNOWNS = [
   "prices, currencies, discounts or promotional codes",
   "stock levels or shelf life (the bottle size is known: every product is 300 ml)",
-  "shipping, delivery times, customs, returns or refunds",
+  "specific delivery charges, delivery times or carriers — those are shown at checkout; the Shipping Policy at /shipping and the Return & Refund Policy at /returns cover the rules",
   "order status, tracking or anything about a specific order",
   "which physical shops or countries stock Rosica — only the online store is published",
   "full INCI ingredient lists, allergen declarations or certifications beyond those named above",
