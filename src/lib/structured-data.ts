@@ -1,6 +1,10 @@
 import { SITE_URL } from "./site";
 import { socialLinks } from "./navigation";
+import { localePath, type Locale } from "./i18n";
+import { productPhoto } from "./product-media";
+import type { ProductOffer } from "./shopify/types";
 import { LEGAL_ENTITY } from "@/content/legal";
+import { PRODUCT_NAMES, productPages, type ProductSlug } from "@/content/products";
 
 /**
  * Organization structured data.
@@ -50,6 +54,79 @@ export function organizationSchema() {
     },
     // The profiles that let Google connect this domain to the same business.
     sameAs: socialLinks.map((link) => link.href),
+  };
+}
+
+/**
+ * One product, in the form Google reads.
+ *
+ * This is what makes a product page eligible for a price and an in-stock line
+ * in the results, and it is the same markup Merchant Center reads for free
+ * product listings. Every value comes from something already on the page: the
+ * name off the bottle, the description from the page's own meta description,
+ * the photograph the page shows, and the price and stock from the same
+ * `getOffers()` call the Add to Bag button uses.
+ *
+ * Deliberately absent, and to stay absent until they are real:
+ *
+ *   - `aggregateRating` / `review` — there are no reviews. Marking up ratings
+ *     that do not exist is the single fastest way to earn a manual penalty.
+ *   - `gtin` / `mpn` — the products have no barcodes recorded here. `sku` is
+ *     the Shopify handle, which is a real identifier rather than an invented
+ *     one.
+ *   - `shippingDetails` — rates and delivery times are settled at checkout and
+ *     are deliberately not published (see content/legal-policies.ts). Asserting
+ *     them here would contradict that.
+ *
+ * `offers` is omitted entirely when Shopify is unreachable. A Product without
+ * an offer is valid; a Product with a price we could not confirm is not.
+ */
+export function productSchema(
+  locale: Locale,
+  slug: ProductSlug,
+  offer?: ProductOffer,
+) {
+  const copy = productPages[locale][slug];
+  const url = `${SITE_URL}${localePath(locale, `/products/${slug}`)}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${url}#product`,
+    name: PRODUCT_NAMES[slug],
+    description: copy.metaDescription,
+    image: `${SITE_URL}${productPhoto[slug].src}`,
+    url,
+    sku: slug,
+    inLanguage: locale,
+    brand: { "@type": "Brand", name: "Rosica" },
+    ...(offer
+      ? {
+          offers: {
+            "@type": "Offer",
+            url,
+            priceCurrency: offer.price.currencyCode,
+            price: offer.price.amount,
+            availability: offer.availableForSale
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            itemCondition: "https://schema.org/NewCondition",
+            seller: { "@id": `${SITE_URL}/#organization` },
+            /* Mirrors the published Return & Refund Policy exactly — 14 days,
+               returned by post, customer pays return postage on a change of
+               mind. Change this and that document together or they disagree. */
+            hasMerchantReturnPolicy: {
+              "@type": "MerchantReturnPolicy",
+              applicableCountry: "AE",
+              returnPolicyCategory:
+                "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: 14,
+              returnMethod: "https://schema.org/ReturnByMail",
+              returnFees: "https://schema.org/ReturnShippingFees",
+            },
+          },
+        }
+      : {}),
   };
 }
 

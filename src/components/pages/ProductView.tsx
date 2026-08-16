@@ -9,6 +9,7 @@ import { productPhoto } from "@/lib/product-media";
 import AddToCart from "@/components/cart/AddToCart";
 import { formatMoney } from "@/lib/shopify/client";
 import { getOffers } from "@/lib/shopify/products";
+import { productSchema } from "@/lib/structured-data";
 import { SHOP_URL } from "@/lib/shop";
 import { localePath, type Locale } from "@/lib/i18n";
 import {
@@ -52,6 +53,20 @@ export default async function ProductView({
 
   return (
     <>
+      {/*
+        The product in the form search reads — name, photograph, and the same
+        price and stock the button above uses. Emitted here rather than in the
+        route so both locale trees get it from one place, and so it can never
+        quote a price the page is not showing.
+      */}
+      <script
+        type="application/ld+json"
+        // Our own object, built from the content files — not user input.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema(locale, slug, offer)),
+        }}
+      />
+
       {/* Hero: the bottle beside its own copy. */}
       <section className="bg-shell">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-6 pb-20 pt-32 sm:px-8 sm:pt-40 lg:grid-cols-2 lg:items-center lg:gap-16">
