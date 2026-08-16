@@ -34,6 +34,7 @@ export const INDEXABLE = process.env.ALLOW_INDEXING === "true";
 export const ROUTES = [
   "/",
   "/about",
+  "/shop",
   "/collections",
   "/collections/essentials",
   "/collections/pure",

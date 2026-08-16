@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import BrandMark from "./BrandMark";
 import { primaryNavFor } from "@/lib/navigation";
-import { SHOP_URL } from "@/lib/shop";
 import CartButton from "./cart/CartButton";
 import { alternatePath, localePath, type Locale } from "@/lib/i18n";
 
@@ -263,15 +262,14 @@ export default function Navbar({ locale = "en" }: { locale?: Locale }) {
 
           <CartButton locale={locale} />
 
-          {/* Goes to the store, not to Where to Buy — this is the buy button. */}
-          <a
-            href={SHOP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Goes to the on-site shop: the whole range, buyable in place. Sending
+              people to Shopify made them find the product a second time. */}
+          <Link
+            href={to("/shop")}
             className="hidden rounded-sm bg-green px-5 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-[background-color,color,transform] duration-300 ease-out hover:scale-[1.03] hover:bg-gold hover:text-ink motion-reduce:hover:scale-100 sm:inline-block"
           >
             {copy.buyNow}
-          </a>
+          </Link>
 
           {/* Mobile trigger */}
           <button
@@ -339,14 +337,12 @@ export default function Navbar({ locale = "en" }: { locale?: Locale }) {
             </li>
           ))}
           <li className="flex items-center gap-4 pt-5 pb-2">
-            <a
-              href={SHOP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={to("/shop")}
               className="flex-1 rounded-sm bg-green px-5 py-3 text-center text-[0.625rem] font-medium uppercase tracking-[0.18em] text-cream transition-colors duration-300 hover:bg-gold hover:text-ink"
             >
               {copy.buyNow}
-            </a>
+            </Link>
             <Link
               href={alternatePath(locale, pathname)}
               lang={locale === "ar" ? "en" : "ar"}

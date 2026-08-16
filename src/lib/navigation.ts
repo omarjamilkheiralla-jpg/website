@@ -1,5 +1,4 @@
 import type { Locale, Localised } from "./i18n";
-import { SHOP_URL } from "./shop";
 
 export type NavLink = {
   label: string;
@@ -78,7 +77,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
     {
       heading: "Where to Buy",
       links: [
-        { label: "Official Store", href: SHOP_URL, external: true },
+        { label: "Shop All", href: "/shop" },
         { label: "Wholesale Inquiries", href: "/contact" },
       ],
     },
@@ -113,7 +112,7 @@ const footer: Localised<{ heading: string; links: NavLink[] }[]> = {
     {
       heading: "أين تجدنا",
       links: [
-        { label: "المتجر الرسمي", href: SHOP_URL, external: true },
+        { label: "تسوّق الكل", href: "/shop" },
         { label: "طلبات الجملة", href: "/contact" },
       ],
     },
