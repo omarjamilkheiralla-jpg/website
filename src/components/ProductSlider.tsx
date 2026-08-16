@@ -61,6 +61,14 @@ const clampAbs = (n: number, limit: number) => Math.max(-limit, Math.min(limit, 
 /**
  * One card, turned in 3D by how far it sits from the centre of the frame.
  *
+ * The turn, the depth and the blur are a *static* treatment: at rest nothing
+ * about them is animating, they simply describe where a card sits in the row.
+ * So they stay on for reduced-motion visitors, who would otherwise be handed a
+ * flat row of squares — which is what prefers-reduced-motion did here before,
+ * and it is not what the setting is asking for. What that setting does switch
+ * off is the travel: `settle` moves the track instantly instead of springing,
+ * so nothing slides across the screen on its own.
+ *
  * The maths has to run per card, and hooks cannot be called inside a loop, so
  * each card owns its own derived motion values. They read straight off the
  * track offset, which means the turn tracks a drag continuously rather than
@@ -72,7 +80,6 @@ function SliderCard({
   step,
   card,
   viewport,
-  flat,
   dir,
   hidden,
   item,
@@ -82,8 +89,6 @@ function SliderCard({
   step: number;
   card: number;
   viewport: number;
-  /** Skips the depth effects for reduced-motion users. */
-  flat: boolean;
   dir: "ltr" | "rtl";
   hidden: boolean;
   item: SliderProduct;
@@ -104,8 +109,8 @@ function SliderCard({
     The origin slides through the centre rather than flipping, so nothing snaps
     as a card crosses.
   */
-  const rotateY = useTransform(distance, (d) => (flat ? 0 : Math.min(Math.abs(d) * 19, 36)));
-  const originX = useTransform(distance, (d) => (flat ? 0.5 : 0.5 - clampAbs(d, 1) * 0.5));
+  const rotateY = useTransform(distance, (d) => Math.min(Math.abs(d) * 19, 36));
+  const originX = useTransform(distance, (d) => 0.5 - clampAbs(d, 1) * 0.5);
   /*
     No opacity falloff. Fading the outer cards looked right but took their text
     under the contrast floor — at the far end it measured about 2.9:1 against
@@ -117,7 +122,7 @@ function SliderCard({
     a shrink far steeper than the turn, and the cards would read as small rather
     than as far away.
   */
-  const z = useTransform(distance, (d) => (flat ? 0 : -Math.min(Math.abs(d), FALLOFF) * 45));
+  const z = useTransform(distance, (d) => -Math.min(Math.abs(d), FALLOFF) * 45);
   /*
     Only the photograph in focus is sharp; the rest soften as they turn away,
     which is what the distortion at the edges needed.
@@ -131,7 +136,7 @@ function SliderCard({
     const spread = Math.abs(d);
     // Off-frame cards get no filter at all: nothing there is visible, and a
     // blur is one of the more expensive things to composite.
-    if (flat || spread > FALLOFF + 0.4) return "none";
+    if (spread > FALLOFF + 0.4) return "none";
     /*
       Quantised to half a pixel. A filter that changes every frame forces a
       repaint every frame on every card in view; in steps it repaints a handful
@@ -402,7 +407,6 @@ export default function ProductSlider({
                 step={step}
                 card={card}
                 viewport={viewport}
-                flat={Boolean(reduceMotion)}
                 dir={rtl ? "rtl" : "ltr"}
                 hidden={duplicate}
                 item={item}
