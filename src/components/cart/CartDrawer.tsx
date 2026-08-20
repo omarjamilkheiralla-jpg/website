@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCart } from "./CartProvider";
 import { cartCopy } from "@/content/cart";
+import { freeShippingNote } from "@/content/offer";
 import { formatMoney } from "@/lib/shopify/client";
 import { productPhoto } from "@/lib/product-media";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
@@ -62,6 +63,7 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
 
   const lines = cart.cart?.lines ?? [];
   const empty = lines.length === 0;
+  const shippingNote = freeShippingNote(locale, cart.cart?.totalQuantity ?? 0);
 
   return (
     <AnimatePresence>
@@ -206,6 +208,14 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
 
             {!empty && cart.cart ? (
               <footer className="border-t border-gold/25 px-6 py-6">
+                {/* Counts down against the real bag, so the last product before
+                    free delivery is the one being asked for by name. */}
+                {shippingNote ? (
+                  <p className="mb-5 rounded-md border border-gold/40 bg-linen px-4 py-2.5 text-center text-xs leading-relaxed text-gold-deep">
+                    {shippingNote}
+                  </p>
+                ) : null}
+
                 <div className="flex items-baseline justify-between">
                   <span className="eyebrow text-gold-deep">{copy.subtotal}</span>
                   <span className="font-serif text-xl tabular-nums text-green">

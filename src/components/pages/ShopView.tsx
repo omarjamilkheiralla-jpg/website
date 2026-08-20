@@ -13,6 +13,7 @@ import { SHOP_URL } from "@/lib/shop";
 import { localePath, type Locale } from "@/lib/i18n";
 import { PRODUCT_NAMES, PRODUCT_SLUGS, productPages } from "@/content/products";
 import { shopCopy } from "@/content/shop";
+import { offerCopy } from "@/content/offer";
 import { productPath } from "./ProductView";
 
 /**
@@ -45,6 +46,16 @@ export default async function ShopView({ locale }: { locale: Locale }) {
             <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-ink-muted">
               {copy.intro}
             </p>
+
+            {/* The delivery offer, stated once and before the grid — a shopper
+                should know the threshold while they are still choosing, not
+                discover it in the bag. */}
+            <div className="mt-8 flex justify-center">
+              <p className="inline-flex items-center gap-2.5 rounded-full border border-gold/40 bg-cream px-5 py-2 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-gold-deep">
+                <Icon name="sparkle" className="h-3 w-3" />
+                {offerCopy[locale].headline}
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
