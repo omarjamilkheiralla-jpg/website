@@ -101,6 +101,8 @@ export default async function ShopView({ locale }: { locale: Locale }) {
                         locale={locale}
                         variantId={offer.variantId}
                         available={offer.availableForSale}
+                        price={Number(offer.price.amount)}
+                        currency={offer.price.currencyCode}
                         className="w-full"
                       />
                     ) : (

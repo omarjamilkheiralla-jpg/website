@@ -2,6 +2,7 @@
 
 import { useCart } from "./CartProvider";
 import { cartCopy } from "@/content/cart";
+import { catalogueId, trackAddToCart } from "@/lib/analytics/meta-pixel";
 import type { Locale } from "@/lib/i18n";
 
 /**
@@ -15,11 +16,16 @@ export default function AddToCart({
   locale,
   variantId,
   available,
+  price,
+  currency,
   className = "",
 }: {
   locale: Locale;
   variantId: string;
   available: boolean;
+  /** Unit price, for the Meta AddToCart value. Omitted, no event is sent. */
+  price?: number;
+  currency?: string;
   className?: string;
 }) {
   const cart = useCart();
@@ -34,7 +40,19 @@ export default function AddToCart({
     <button
       type="button"
       disabled={!available || busy}
-      onClick={() => void cart.add(variantId)}
+      /* Analytics fires only after Shopify has accepted the line. Tracking the
+         click instead would count failed adds as conversions, and a sold-out
+         or expired variant is exactly when that would happen. */
+      onClick={() => {
+        void cart.add(variantId).then((added) => {
+          if (!added || price === undefined) return;
+          trackAddToCart({
+            contentIds: [catalogueId(variantId)],
+            value: price,
+            currency,
+          });
+        });
+      }}
       /* aria-live so the change from "Add to Bag" to "Adding…" is announced,
          which is the only feedback a screen reader gets before the drawer. */
       aria-live="polite"

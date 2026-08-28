@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import LocaleShell from "@/components/LocaleShell";
+import MetaPixel from "@/components/analytics/MetaPixel";
 import { INDEXABLE, SITE_URL } from "@/lib/site";
 import { shopifyConfigured } from "@/lib/shopify/client";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
@@ -103,6 +104,12 @@ export default function RootLayout({
             __html: JSON.stringify([organizationSchema(), websiteSchema()]),
           }}
         />
+
+        {/* Meta Pixel. A Client Component on purpose — this layout is a Server
+            Component and never runs in the browser, and App Router navigations
+            are client-side, so PageView on route change has to be handled
+            there. See the component for why the first one is skipped. */}
+        <MetaPixel />
 
         <LocaleShell
           assistant={Boolean(process.env.ANTHROPIC_API_KEY)}

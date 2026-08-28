@@ -10,6 +10,8 @@ import AddToCart from "@/components/cart/AddToCart";
 import { formatMoney } from "@/lib/shopify/client";
 import { getOffers } from "@/lib/shopify/products";
 import { productSchema } from "@/lib/structured-data";
+import TrackViewContent from "@/components/analytics/TrackViewContent";
+import { catalogueId } from "@/lib/analytics/meta-pixel";
 import { SHOP_URL } from "@/lib/shop";
 import { localePath, type Locale } from "@/lib/i18n";
 import {
@@ -53,6 +55,18 @@ export default async function ProductView({
 
   return (
     <>
+      {/* ViewContent, with the catalogue id and price of the variant this page
+          is actually offering. Only when Shopify answered: without an offer
+          there is no variant id, and an event carrying no content_ids matches
+          nothing in the catalogue — better absent than empty. */}
+      {offer ? (
+        <TrackViewContent
+          contentId={catalogueId(offer.variantId)}
+          value={Number(offer.price.amount)}
+          currency={offer.price.currencyCode}
+        />
+      ) : null}
+
       {/*
         The product in the form search reads — name, photograph, and the same
         price and stock the button above uses. Emitted here rather than in the
@@ -104,6 +118,8 @@ export default async function ProductView({
                   locale={locale}
                   variantId={offer.variantId}
                   available={offer.availableForSale}
+                  price={Number(offer.price.amount)}
+                  currency={offer.price.currencyCode}
                 />
               ) : (
                 <CTAButton href={SHOP_URL} external>

@@ -37,7 +37,9 @@ type CartContextValue = {
   error: boolean;
   open: boolean;
   setOpen: (open: boolean) => void;
-  add: (variantId: string, quantity?: number) => Promise<void>;
+  /** Resolves true when Shopify accepted the line — analytics needs to know
+      the difference between a click and an actual add. */
+  add: (variantId: string, quantity?: number) => Promise<boolean>;
   setQuantity: (lineId: string, quantity: number) => Promise<void>;
   remove: (lineId: string) => Promise<void>;
 };
@@ -147,6 +149,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     async (variantId: string, quantity = 1) => {
       const ok = await send({ action: "add", variantId, quantity });
       if (ok) setOpen(true);
+      return ok;
     },
     [send],
   );
