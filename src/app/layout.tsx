@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Amiri, Cormorant_Garamond, IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import LocaleShell from "@/components/LocaleShell";
 import MetaPixel from "@/components/analytics/MetaPixel";
+import { META_PIXEL_ID, pixelSnippet } from "@/lib/analytics/meta-pixel";
 import { INDEXABLE, SITE_URL } from "@/lib/site";
 import { shopifyConfigured } from "@/lib/shopify/client";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
@@ -67,6 +68,9 @@ export const metadata: Metadata = {
   },
 };
 
+/* Development traffic cannot be filtered out of a pixel after the fact. */
+const PIXEL_ON = process.env.NODE_ENV === "production";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -105,11 +109,28 @@ export default function RootLayout({
           }}
         />
 
-        {/* Meta Pixel. A Client Component on purpose — this layout is a Server
-            Component and never runs in the browser, and App Router navigations
-            are client-side, so PageView on route change has to be handled
-            there. See the component for why the first one is skipped. */}
-        <MetaPixel />
+        {/* Meta Pixel.
+            Rendered inline and server-side so it runs during HTML parse: the
+            queue stub then exists before any component mounts, and a product
+            page's ViewContent effect can never fire into a missing `fbq`.
+            MetaPixel below adds PageView on client-side navigation, which the
+            snippet cannot see because those do not reload the document. */}
+        {PIXEL_ON ? (
+          <>
+            <script dangerouslySetInnerHTML={{ __html: pixelSnippet() }} />
+            <noscript>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                alt=""
+                src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+              />
+            </noscript>
+            <MetaPixel />
+          </>
+        ) : null}
 
         <LocaleShell
           assistant={Boolean(process.env.ANTHROPIC_API_KEY)}

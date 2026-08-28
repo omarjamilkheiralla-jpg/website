@@ -79,6 +79,35 @@ function track(event: string, params?: Record<string, unknown>): void {
   }, 100);
 }
 
+/**
+ * Meta's own snippet, to be rendered inline and run during HTML parse.
+ *
+ * Deliberately not `next/script` with `afterInteractive`. That strategy delays
+ * the whole thing until after hydration, which means React effects — the
+ * ViewContent on a product page among them — run at a moment when `fbq` does
+ * not yet exist, and have to be rescued by polling for it.
+ *
+ * Run inline, the tiny queue stub is defined before any component mounts, so
+ * every later `fbq(...)` call is captured and replayed the instant the real
+ * library arrives. The library itself is still fetched async by the snippet;
+ * only the stub is synchronous, which is a few hundred bytes.
+ *
+ * PageView is fired here, for the document load. Route changes are handled by
+ * MetaPixel, which skips its own first run so the two never overlap.
+ */
+export function pixelSnippet(): string {
+  return `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','${META_PIXEL_ID}');
+fbq('track','PageView');`;
+}
+
 export function trackPageView(): void {
   track("PageView");
 }
