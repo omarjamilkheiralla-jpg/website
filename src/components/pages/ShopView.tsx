@@ -7,7 +7,7 @@ import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import AddToCart from "@/components/cart/AddToCart";
 import { productPhoto } from "@/lib/product-media";
-import { formatMoney } from "@/lib/shopify/client";
+import Price from "@/components/Price";
 import { getOffers } from "@/lib/shopify/products";
 import { SHOP_URL } from "@/lib/shop";
 import { localePath, type Locale } from "@/lib/i18n";
@@ -89,9 +89,12 @@ export default async function ShopView({ locale }: { locale: Locale }) {
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{product.sub}</p>
 
                   {offer ? (
-                    <p className="mt-4 font-serif text-xl text-green">
-                      {formatMoney(offer.price.amount, offer.price.currencyCode, locale)}
-                    </p>
+                    <Price
+                      locale={locale}
+                      price={offer.price}
+                      compareAt={offer.compareAt}
+                      className="mt-4"
+                    />
                   ) : null}
 
                   {/* Buying sits at the bottom of every card, on one baseline. */}

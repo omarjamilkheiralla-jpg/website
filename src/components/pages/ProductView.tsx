@@ -7,7 +7,7 @@ import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { productPhoto } from "@/lib/product-media";
 import AddToCart from "@/components/cart/AddToCart";
-import { formatMoney } from "@/lib/shopify/client";
+import Price from "@/components/Price";
 import { getOffers } from "@/lib/shopify/products";
 import { productSchema } from "@/lib/structured-data";
 import TrackViewContent from "@/components/analytics/TrackViewContent";
@@ -107,9 +107,13 @@ export default async function ProductView({
             <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-muted">{copy.lede}</p>
 
             {offer ? (
-              <p className="mt-7 font-serif text-2xl text-green">
-                {formatMoney(offer.price.amount, offer.price.currencyCode, locale)}
-              </p>
+              <Price
+                locale={locale}
+                price={offer.price}
+                compareAt={offer.compareAt}
+                size="lg"
+                className="mt-7"
+              />
             ) : null}
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -242,13 +246,13 @@ export default async function ProductView({
                   {productPages[locale][other].sub}
                 </p>
                 {offers[other] ? (
-                  <p className="mt-3 font-serif text-lg text-green">
-                    {formatMoney(
-                      offers[other].price.amount,
-                      offers[other].price.currencyCode,
-                      locale,
-                    )}
-                  </p>
+                  <Price
+                    locale={locale}
+                    price={offers[other].price}
+                    compareAt={offers[other].compareAt}
+                    size="sm"
+                    className="mt-3"
+                  />
                 ) : null}
                 <div className="mt-auto pt-5">
                   <ArrowLink

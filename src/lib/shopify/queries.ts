@@ -75,6 +75,18 @@ export const PRODUCTS_QUERY = /* GraphQL */ `
               node {
                 id
                 availableForSale
+                price {
+                  amount
+                  currencyCode
+                }
+                # The "was" price. Null unless it is set on the variant in
+                # Shopify, which is what keeps a struck-through figure a
+                # deliberate decision recorded in the store rather than
+                # something this site invents.
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
               }
             }
           }

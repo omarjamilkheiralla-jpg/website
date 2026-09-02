@@ -10,7 +10,16 @@ type ProductsResponse = {
         handle: string;
         availableForSale: boolean;
         priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
-        variants: { edges: { node: { id: string; availableForSale: boolean } }[] };
+        variants: {
+          edges: {
+            node: {
+              id: string;
+              availableForSale: boolean;
+              price: { amount: string; currencyCode: string };
+              compareAtPrice: { amount: string; currencyCode: string } | null;
+            };
+          }[];
+        };
       };
     }[];
   };
@@ -43,9 +52,18 @@ export async function getOffers(): Promise<Offers> {
     const variant = node.variants.edges[0]?.node;
     if (!variant) continue;
 
+    /* Only treat it as a reduction if the compare-at price is actually above
+       the selling price. Shopify happily stores an equal or lower value, and
+       a strike-through on the same number reads as a mistake. */
+    const price = node.priceRange.minVariantPrice;
+    const compare = variant.compareAtPrice;
+    const reduced =
+      compare && Number(compare.amount) > Number(price.amount) ? compare : undefined;
+
     offers[slug] = {
       variantId: variant.id,
-      price: node.priceRange.minVariantPrice,
+      price,
+      ...(reduced ? { compareAt: reduced } : {}),
       availableForSale: node.availableForSale && variant.availableForSale,
     };
   }

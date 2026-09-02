@@ -8,6 +8,12 @@ export type ProductOffer = {
   /** Shopify's variant id, the thing a cart line points at. */
   variantId: string;
   price: Money;
+  /**
+   * The former price, when one is set in Shopify and is genuinely higher.
+   * Absent otherwise — the UI shows a strike-through only when this exists,
+   * so a product with no compare-at price simply shows its price.
+   */
+  compareAt?: Money;
   availableForSale: boolean;
 };
 
