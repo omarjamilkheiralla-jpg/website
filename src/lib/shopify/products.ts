@@ -2,6 +2,7 @@ import { storefront } from "./client";
 import { PRODUCTS_QUERY } from "./queries";
 import type { Offers } from "./types";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
+import { SALE_MARKUP } from "@/content/offer";
 
 type ProductsResponse = {
   products: {
@@ -52,13 +53,25 @@ export async function getOffers(): Promise<Offers> {
     const variant = node.variants.edges[0]?.node;
     if (!variant) continue;
 
-    /* Only treat it as a reduction if the compare-at price is actually above
-       the selling price. Shopify happily stores an equal or lower value, and
-       a strike-through on the same number reads as a mistake. */
+    /* The former price, in order of preference.
+       1. A compare-at price set in Shopify, but only when it is genuinely
+          above the selling price -- Shopify will store an equal or lower one,
+          and striking through the same number reads as a bug.
+       2. Otherwise the flat markup from content/offer.ts, if it is switched on.
+       Real store data always wins, so setting a proper compare-at on a variant
+       silently takes that product off the formula. */
     const price = node.priceRange.minVariantPrice;
     const compare = variant.compareAtPrice;
+
     const reduced =
-      compare && Number(compare.amount) > Number(price.amount) ? compare : undefined;
+      compare && Number(compare.amount) > Number(price.amount)
+        ? compare
+        : SALE_MARKUP > 0
+          ? {
+              amount: (Number(price.amount) + SALE_MARKUP).toFixed(2),
+              currencyCode: price.currencyCode,
+            }
+          : undefined;
 
     offers[slug] = {
       variantId: variant.id,

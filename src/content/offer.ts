@@ -29,6 +29,25 @@ import type { Locale, Localised } from "@/lib/i18n";
  */
 export const FREE_SHIPPING_MIN_ITEMS = 3;
 
+/**
+ * Amount added to each price to produce the struck-through "was" figure.
+ *
+ * Set to 0 to switch the whole thing off; every price then shows on its own.
+ *
+ * A real compare-at price set on the variant in Shopify always wins over this.
+ * The markup only fills in where the store has none, so the moment a genuine
+ * former price exists it is the one shown, and this stops applying to that
+ * product without anything here changing.
+ *
+ * Worth being clear about what this is, since it is not obvious from the
+ * number alone: a former price is a claim that the product used to cost that
+ * much. UAE consumer-protection law expects that claim to be true, and Dubai
+ * Economy requires a permit for discount promotions. Setting real compare-at
+ * prices in Shopify after actually selling at them is the version that holds
+ * up; this constant is the shortcut.
+ */
+export const SALE_MARKUP = 20;
+
 type OfferCopy = {
   /** The standing line, shown before anyone has a bag. */
   headline: string;
