@@ -11,6 +11,8 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ArrowLink from "./ArrowLink";
 import Media from "./Media";
+import Price from "./Price";
+import type { Money } from "@/lib/shopify/types";
 import type { Locale } from "@/lib/i18n";
 
 export type SliderProduct = {
@@ -23,8 +25,17 @@ export type SliderProduct = {
   imageAlt: string;
   href: string;
   cta: string;
-  /** Formatted live price; absent when Shopify has not answered. */
-  price?: string;
+  /**
+   * Live price, absent when Shopify has not answered, and the former price
+   * beside it when the product is reduced.
+   *
+   * These are the raw money values rather than formatted strings so the card
+   * can hand them to the same Price component the shop grid and the product
+   * page use. Formatting here instead is what left the carousel showing the
+   * selling price on its own while every other surface showed the reduction.
+   */
+  price?: Money;
+  compareAt?: Money;
 };
 
 const t = {
@@ -83,6 +94,7 @@ function SliderCard({
   dir,
   hidden,
   item,
+  locale,
 }: {
   x: MotionValue<number>;
   index: number;
@@ -92,6 +104,7 @@ function SliderCard({
   dir: "ltr" | "rtl";
   hidden: boolean;
   item: SliderProduct;
+  locale: Locale;
 }) {
   // Distance from the centre of the frame, measured in whole cards.
   const distance = useTransform(x, (offset) => {
@@ -189,7 +202,13 @@ function SliderCard({
           <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
           {item.price ? (
-            <p className="mt-3 font-serif text-lg text-green">{item.price}</p>
+            <Price
+              locale={locale}
+              price={item.price}
+              compareAt={item.compareAt}
+              size="sm"
+              className="mt-3"
+            />
           ) : null}
           <div className="mt-auto pt-6">
             <ArrowLink
@@ -421,6 +440,7 @@ export default function ProductSlider({
                 dir={rtl ? "rtl" : "ltr"}
                 hidden={duplicate}
                 item={item}
+                locale={locale}
               />
             );
           })}
