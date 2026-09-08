@@ -27,6 +27,18 @@ export type ProductOffer = {
  */
 export type Offers = Partial<Record<ProductSlug, ProductOffer>>;
 
+/**
+ * The gift box add-on. Null everywhere until the product exists in Shopify.
+ *
+ * No compare-at: an add-on is not on offer, and striking a price through on
+ * something a customer is deciding whether to add reads as pressure rather
+ * than as a saving.
+ */
+export type GiftBox = {
+  variantId: string;
+  price: Money;
+};
+
 export type CartLine = {
   id: string;
   quantity: number;

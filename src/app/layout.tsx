@@ -5,6 +5,7 @@ import MetaPixel from "@/components/analytics/MetaPixel";
 import { META_PIXEL_ID, pixelSnippet } from "@/lib/analytics/meta-pixel";
 import { INDEXABLE, SITE_URL } from "@/lib/site";
 import { shopifyConfigured } from "@/lib/shopify/client";
+import { getGiftBox } from "@/lib/shopify/products";
 import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
 /* Development traffic cannot be filtered out of a pixel after the fact. */
 const PIXEL_ON = process.env.NODE_ENV === "production";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -135,6 +136,11 @@ export default function RootLayout({
         <LocaleShell
           assistant={Boolean(process.env.ANTHROPIC_API_KEY)}
           shop={shopifyConfigured()}
+          /* Read here rather than in the drawer because the drawer is a client
+             component and this is the only server component that wraps every
+             page — the bag can be opened from any of them. Null until the
+             product exists in Shopify, and the toggle then does not render. */
+          giftBox={await getGiftBox()}
         >
           {children}
         </LocaleShell>

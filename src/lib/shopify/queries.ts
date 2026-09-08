@@ -57,6 +57,38 @@ const CART_FIELDS = /* GraphQL */ `
  * become a second source of truth for either. Only commerce facts come from
  * here — price, currency, stock, and the variant id needed to add to a cart.
  */
+/**
+ * The gift box, looked up by its handle.
+ *
+ * Separate from PRODUCTS_QUERY rather than folded into it: that query is
+ * matched against the site's four product slugs and anything else is dropped,
+ * and widening it to let one more handle through would put an add-on into the
+ * same list the shop grid and the product pages iterate over. The box is not
+ * part of the range and should not be able to appear as though it were.
+ *
+ * Returns null when no product carries the handle, which is the normal state
+ * until one is created in Shopify.
+ */
+export const GIFT_BOX_QUERY = /* GraphQL */ `
+  query GiftBox($handle: String!) {
+    product(handle: $handle) {
+      availableForSale
+      variants(first: 1) {
+        edges {
+          node {
+            id
+            availableForSale
+            price {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const PRODUCTS_QUERY = /* GraphQL */ `
   query Products {
     products(first: 20) {

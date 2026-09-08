@@ -7,6 +7,7 @@ import ChatWidget from "./ChatWidget";
 import { CartProvider } from "./cart/CartProvider";
 import CartDrawer from "./cart/CartDrawer";
 import { dirFor, localeFromPathname } from "@/lib/i18n";
+import type { GiftBox } from "@/lib/shopify/types";
 
 /**
  * Wraps the chrome in the current locale's direction.
@@ -23,10 +24,13 @@ export default function LocaleShell({
   assistant,
   /** Whether the Shopify store is wired up. Also decided on the server. */
   shop,
+  /** The gift box add-on, or null when the store has no such product. */
+  giftBox,
 }: {
   children: React.ReactNode;
   assistant: boolean;
   shop: boolean;
+  giftBox: GiftBox | null;
 }) {
   const locale = localeFromPathname(usePathname());
 
@@ -37,7 +41,7 @@ export default function LocaleShell({
       <Footer locale={locale} />
       {/* Inside the dir wrapper so the panels pin to the correct side. */}
       <ChatWidget locale={locale} ai={assistant} />
-      {shop ? <CartDrawer locale={locale} /> : null}
+      {shop ? <CartDrawer locale={locale} giftBox={giftBox} /> : null}
     </div>
   );
 

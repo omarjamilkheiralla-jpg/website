@@ -1,8 +1,9 @@
 import { storefront } from "./client";
-import { PRODUCTS_QUERY } from "./queries";
-import type { Offers } from "./types";
+import { GIFT_BOX_QUERY, PRODUCTS_QUERY } from "./queries";
+import type { GiftBox, Offers } from "./types";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
 import { SALE_MARKUP } from "@/content/offer";
+import { GIFT_BOX_HANDLE } from "@/content/gift-box";
 
 type ProductsResponse = {
   products: {
@@ -81,4 +82,39 @@ export async function getOffers(): Promise<Offers> {
     };
   }
   return offers;
+}
+
+type GiftBoxResponse = {
+  product: {
+    availableForSale: boolean;
+    variants: {
+      edges: { node: { id: string; availableForSale: boolean; price: { amount: string; currencyCode: string } } }[];
+    };
+  } | null;
+};
+
+/**
+ * The gift box, if the store has one.
+ *
+ * Returns null when Shopify is unconfigured or unreachable, when no product
+ * carries the handle, or when the box is out of stock — every one of those is
+ * the same thing as far as the bag is concerned: do not offer it. An add-on
+ * that cannot be fulfilled is worse than no add-on, because it is discovered
+ * at the point of payment.
+ *
+ * Cached for five minutes alongside the product offers, and read on every page
+ * because the bag can be opened from any of them.
+ */
+export async function getGiftBox(): Promise<GiftBox | null> {
+  const data = await storefront<GiftBoxResponse>(
+    GIFT_BOX_QUERY,
+    { handle: GIFT_BOX_HANDLE },
+    300,
+  );
+  if (!data?.product?.availableForSale) return null;
+
+  const variant = data.product.variants.edges[0]?.node;
+  if (!variant?.availableForSale) return null;
+
+  return { variantId: variant.id, price: variant.price };
 }

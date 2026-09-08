@@ -2,15 +2,17 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCart } from "./CartProvider";
 import { cartCopy } from "@/content/cart";
 import { freeShippingNote } from "@/content/offer";
+import { giftBoxCopy } from "@/content/gift-box";
 import { formatMoney } from "@/lib/shopify/client";
 import { productPhoto } from "@/lib/product-media";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
 import { localePath, type Locale } from "@/lib/i18n";
+import type { GiftBox } from "@/lib/shopify/types";
 
 /**
  * The bag.
@@ -29,12 +31,31 @@ const photoFor = (handle: string) =>
     ? productPhoto[handle as ProductSlug]
     : null;
 
-export default function CartDrawer({ locale }: { locale: Locale }) {
+export default function CartDrawer({
+  locale,
+  giftBox,
+}: {
+  locale: Locale;
+  giftBox: GiftBox | null;
+}) {
   const cart = useCart();
   const copy = cartCopy[locale];
+  const gift = giftBoxCopy[locale];
   const reduceMotion = useReducedMotion();
   const panel = useRef<HTMLDivElement | null>(null);
   const rtl = locale === "ar";
+
+  /*
+    What the customer just asked for, held only while Shopify is answering.
+
+    The rest of the drawer deliberately shows nothing until the store confirms
+    it, because everything else in here is money. A tick box is not money — it
+    is the record of a decision already made — and leaving it to snap back to
+    unticked for the length of a round trip reads as the click not registering,
+    which invites a second one. Cleared as soon as the mutation settles, so the
+    cart is still the thing that decides, including when it fails.
+  */
+  const [pendingGift, setPendingGift] = useState<boolean | null>(null);
 
   const open = cart?.open ?? false;
   const setOpen = cart?.setOpen;
@@ -61,8 +82,33 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
 
   if (!cart) return null;
 
-  const lines = cart.cart?.lines ?? [];
-  const empty = lines.length === 0;
+  const allLines = cart.cart?.lines ?? [];
+  const empty = allLines.length === 0;
+
+  /*
+    The gift box is in the cart like anything else, but it is presented as a
+    toggle in the footer rather than as a line with its own quantity stepper —
+    "2 gift boxes" is not a thing anyone means to order.
+
+    So it comes out of the list, and only while there is something to put in
+    it. If the last bottle is removed and the box is somehow all that remains,
+    it drops back into the list as an ordinary line so it can still be taken
+    out. Silently removing it on the customer's behalf would be tidier and is
+    exactly the kind of thing that makes a total change while nobody is
+    looking.
+  */
+  const giftLine = giftBox
+    ? allLines.find((line) => line.variantId === giftBox.variantId)
+    : undefined;
+  const productLines = allLines.filter((line) => line !== giftLine);
+  const lines = productLines.length > 0 ? productLines : allLines;
+  const showGiftToggle = Boolean(giftBox) && productLines.length > 0;
+  const giftChecked = pendingGift ?? Boolean(giftLine);
+
+  /* Counted against the whole bag, box included, because Shopify's automatic
+     free-shipping discount counts total item quantity and cannot be told to
+     skip one product. Agreeing with the checkout matters more here than the
+     strict reading of "three products" — see content/gift-box.ts. */
   const shippingNote = freeShippingNote(locale, cart.cart?.totalQuantity ?? 0);
 
   return (
@@ -214,6 +260,42 @@ export default function CartDrawer({ locale }: { locale: Locale }) {
                   <p className="mb-5 rounded-md border border-gold/40 bg-linen px-4 py-2.5 text-center text-xs leading-relaxed text-gold-deep">
                     {shippingNote}
                   </p>
+                ) : null}
+
+                {/* The gift box. A label wrapping the checkbox, so the whole
+                    row is the hit target — a 16px box is a poor one on a
+                    phone. Checking it adds the Shopify variant to this same
+                    cart, so it reaches the checkout, the invoice and the total
+                    the way any other line does. */}
+                {showGiftToggle && giftBox ? (
+                  <label className="mb-5 flex cursor-pointer items-center gap-3 rounded-md border border-gold/40 bg-linen px-4 py-3 transition-colors duration-300 hover:border-gold has-[:disabled]:cursor-default has-[:disabled]:opacity-50">
+                    <input
+                      type="checkbox"
+                      checked={giftChecked}
+                      disabled={cart.status === "busy"}
+                      aria-label={gift.a11y}
+                      onChange={() => {
+                        void (async () => {
+                          setPendingGift(!giftChecked);
+                          if (giftLine) await cart.remove(giftLine.id);
+                          else await cart.add(giftBox.variantId, 1);
+                          setPendingGift(null);
+                        })();
+                      }}
+                      className="h-4 w-4 shrink-0 accent-green"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-xs font-medium text-green">
+                        {gift.label}
+                      </span>
+                      <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
+                        {gift.note}
+                      </span>
+                    </span>
+                    <span className="shrink-0 font-serif text-sm tabular-nums text-green">
+                      {formatMoney(giftBox.price.amount, giftBox.price.currencyCode, locale)}
+                    </span>
+                  </label>
                 ) : null}
 
                 <div className="flex items-baseline justify-between">
