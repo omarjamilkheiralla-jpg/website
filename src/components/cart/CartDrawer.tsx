@@ -7,9 +7,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCart } from "./CartProvider";
 import { cartCopy } from "@/content/cart";
 import { freeShippingNote } from "@/content/offer";
-import { giftBoxCopy } from "@/content/gift-box";
+import { GIFT_BOX_HANDLE, giftBoxCopy } from "@/content/gift-box";
 import { formatMoney } from "@/lib/shopify/client";
 import { productPhoto } from "@/lib/product-media";
+import { product, productAlt } from "@/lib/media";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
 import { localePath, type Locale } from "@/lib/i18n";
 import type { GiftBox } from "@/lib/shopify/types";
@@ -26,10 +27,14 @@ import type { GiftBox } from "@/lib/shopify/types";
  * a line item renders instantly instead of waiting on a second image host.
  */
 
-const photoFor = (handle: string) =>
-  (PRODUCT_SLUGS as string[]).includes(handle)
-    ? productPhoto[handle as ProductSlug]
-    : null;
+const photoFor = (handle: string) => {
+  if ((PRODUCT_SLUGS as string[]).includes(handle)) return productPhoto[handle as ProductSlug];
+  /* The gift box is not one of the four products, but it is the one other
+     thing that can appear as a line — when it is all that is left in the bag —
+     and a line item with an empty frame beside it reads as a broken image. */
+  if (handle === GIFT_BOX_HANDLE) return { src: product.giftBox, alt: productAlt.giftBox };
+  return null;
+};
 
 export default function CartDrawer({
   locale,
@@ -268,7 +273,7 @@ export default function CartDrawer({
                     cart, so it reaches the checkout, the invoice and the total
                     the way any other line does. */}
                 {showGiftToggle && giftBox ? (
-                  <label className="mb-5 flex cursor-pointer items-center gap-3 rounded-md border border-gold/40 bg-linen px-4 py-3 transition-colors duration-300 hover:border-gold has-[:disabled]:cursor-default has-[:disabled]:opacity-50">
+                  <label className="mb-5 flex cursor-pointer items-center gap-3.5 rounded-md border border-gold/40 bg-linen p-3 transition-colors duration-300 hover:border-gold has-[:disabled]:cursor-default has-[:disabled]:opacity-50">
                     <input
                       type="checkbox"
                       checked={giftChecked}
@@ -284,6 +289,26 @@ export default function CartDrawer({
                       }}
                       className="h-4 w-4 shrink-0 accent-green"
                     />
+
+                    {/* The packaging, at the size the line items above use, so
+                        the offer reads as a thing being bought rather than a
+                        setting being changed. Decorative here: the label and
+                        note beside it already say what it is, and a second
+                        description would be read out twice. */}
+                    {/* Square, because the photograph is square: a portrait
+                        frame would crop the bag and the card out of it and
+                        leave a dark panel that reads as nothing in particular. */}
+                    <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md border border-gold/20 bg-cream">
+                      <Image
+                        src={product.giftBox}
+                        alt=""
+                        fill
+                        sizes="64px"
+                        quality={80}
+                        className="object-cover"
+                      />
+                    </span>
+
                     <span className="min-w-0 flex-1">
                       <span className="block text-xs font-medium text-green">
                         {gift.label}

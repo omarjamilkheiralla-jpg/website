@@ -106,6 +106,11 @@ export const product = {
   purifyingFreshCleanseShampoo: "/images/product-purifying-fresh-cleanse-shampoo.jpg",
   deepRepairConditioner: "/images/product-deep-repair-conditioner.jpg",
   botanicalRestoreShampoo: "/images/product-botanical-restore-shampoo.jpg",
+  /* The packaging, from the brand's own shoot. Held here rather than read from
+     Shopify's CDN, like every other product photograph: the store is the
+     authority on price and stock, this site is the authority on how the brand
+     looks. */
+  giftBox: "/images/product-gift-box.jpg",
 } as const;
 
 /** Alt text for the product photography. */
@@ -134,4 +139,6 @@ export const productAlt = {
     "Rosica Essentials Deep Repair Conditioner with dried blooms and olive branches",
   botanicalRestoreShampoo:
     "Rosica PURE Botanical Restore Shampoo on travertine with olive branches and aloe vera",
+  giftBox:
+    "The Rosica gift box open with branded tissue paper, beside the gold-embossed gift bag and a thank-you card",
 } as const;
