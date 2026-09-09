@@ -20,6 +20,9 @@ export type CollectionPageCopy = {
   standards: string[];
   statement: string[];
   heroCta: string;
+  /** Heading over the collection's own products. */
+  productsEyebrow: string;
+  productsTitle: string;
 };
 
 export const essentialsCopy: Localised<CollectionPageCopy> = {
@@ -70,6 +73,8 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
     ],
     statement: ["Rooted in nature.", "Refined by science.", "Made for you."],
     heroCta: "View All Essentials",
+    productsEyebrow: "The Collection",
+    productsTitle: "Three Essentials",
   },
   ar: {
     metaTitle: "روزيكا إسينشالز | العناية النباتية اليومية",
@@ -111,6 +116,8 @@ export const essentialsCopy: Localised<CollectionPageCopy> = {
     ],
     statement: ["متجذّرة في الطبيعة.", "مصقولة بالعلم.", "صُنعت من أجلك."],
     heroCta: "تصفّح إسينشالز",
+    productsEyebrow: "المجموعة",
+    productsTitle: "ثلاثة منتجات أساسية",
   },
 };
 
@@ -156,6 +163,8 @@ export const pureCopy: Localised<CollectionPageCopy> = {
     ],
     statement: ["Thoughtful ingredients.", "Refined by science.", "Naturally beautiful."],
     heroCta: "View All Pure Products",
+    productsEyebrow: "The Collection",
+    productsTitle: "The Pure Shampoo",
   },
   ar: {
     metaTitle: "روزيكا بيور | العناية النباتية المتقدّمة",
@@ -198,5 +207,7 @@ export const pureCopy: Localised<CollectionPageCopy> = {
     ],
     statement: ["مكوّنات مختارة بعناية.", "مصقولة بالعلم.", "جمال مستوحى من الطبيعة."],
     heroCta: "تصفّح منتجات بيور",
+    productsEyebrow: "المجموعة",
+    productsTitle: "شامبو بيور",
   },
 };

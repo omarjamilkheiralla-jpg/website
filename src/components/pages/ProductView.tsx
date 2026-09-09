@@ -116,6 +116,26 @@ export default async function ProductView({
               />
             ) : null}
 
+            {/*
+              Who the bottle is for, beside the price rather than only in the
+              details below. It is the one fact that decides whether this is the
+              right bottle at all, and it was sitting under two screens of copy.
+
+              A quiet line rather than a badge: it sits between the price and
+              the buttons, where the eye already is, and earns its place by
+              being short. The same words still appear in the details table —
+              this is a signpost, not a second source.
+            */}
+            <p className="mt-4 flex items-center gap-2.5 text-[0.8125rem] leading-relaxed text-ink-muted">
+              <span aria-hidden="true" className="text-gold">
+                <Icon name="droplet" className="h-4 w-4" />
+              </span>
+              <span>
+                <span className="sr-only">{chrome.suitedLabel}: </span>
+                {copy.suitedTo}
+              </span>
+            </p>
+
             <div className="mt-9 flex flex-wrap gap-4">
               {offer ? (
                 <AddToCart

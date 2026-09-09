@@ -27,7 +27,6 @@ export type CollectionsCopy = {
    * photography — nothing here is written for them. The names stay in Latin in
    * both languages, as they are printed on the bottle.
    */
-  products: { sub: string; collection: string; cta: string }[];
 };
 
 export const collectionsCopy: Localised<CollectionsCopy> = {
@@ -75,16 +74,6 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
     productsTitle: "The Full Rosica Range",
     productsBody:
       "Every product across both collections, from daily cleansing to deep repair.",
-    products: [
-      { sub: "Repair Shampoo", collection: "Essentials", cta: "Explore" },
-      { sub: "Cleanse Shampoo", collection: "Essentials", cta: "Explore" },
-      {
-        sub: "Intense Nourishment for All Hair Types",
-        collection: "Essentials",
-        cta: "Explore",
-      },
-      { sub: "Sulfate-Free", collection: "PURE", cta: "Explore" },
-    ],
   },
   ar: {
     metaTitle: "المجموعات | مجموعتان. عناية نباتية متكاملة.",
@@ -123,15 +112,5 @@ export const collectionsCopy: Localised<CollectionsCopy> = {
     productsTitle: "تشكيلة روزيكا الكاملة",
     productsBody:
       "كل منتجات المجموعتين، من التنظيف اليومي حتى الإصلاح العميق.",
-    products: [
-      { sub: "شامبو الإصلاح", collection: "إسينشالز", cta: "اكتشف" },
-      { sub: "شامبو التنظيف", collection: "إسينشالز", cta: "اكتشف" },
-      {
-        sub: "تغذية مكثفة لجميع أنواع الشعر",
-        collection: "إسينشالز",
-        cta: "اكتشف",
-      },
-      { sub: "خالٍ من السلفات", collection: "بيور", cta: "اكتشف" },
-    ],
   },
 };

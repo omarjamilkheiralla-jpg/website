@@ -1,6 +1,7 @@
 import type { Locale } from "@/lib/i18n";
 import { aboutCopy } from "@/content/about";
 import { collectionsCopy } from "@/content/collections";
+import { PRODUCT_SLUGS, productPages } from "@/content/products";
 import { essentialsCopy, pureCopy } from "@/content/collection-pages";
 import { ingredientsCopy } from "@/content/ingredients";
 import { contactCopy } from "@/content/contact";
@@ -86,8 +87,9 @@ export function knowledgeFor(locale: Locale): string {
 
   sections.push(
     `# Products\n\nProduct names are printed on the bottle and stay in Latin script in every language.\n\n` +
-      PRODUCT_NAMES.map((name, i) => {
-        const item = collections.products[i];
+      PRODUCT_SLUGS.map((slug, i) => {
+        const name = PRODUCT_NAMES[i];
+        const item = productPages[locale][slug];
         return `- ${name} (${item.collection}) — ${item.sub}\n  ${PRODUCT_LABELS[name]}`;
       }).join("\n"),
   );

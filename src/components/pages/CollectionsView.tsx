@@ -3,16 +3,15 @@ import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
-import ProductSlider, { type SliderProduct } from "@/components/ProductSlider";
+import ProductSlider from "@/components/ProductSlider";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { product, productAlt } from "@/lib/media";
 import { localePath, type Locale } from "@/lib/i18n";
 import { collectionsCopy } from "@/content/collections";
-import { PRODUCT_NAMES, PRODUCT_SLUGS } from "@/content/products";
-import { productPhoto } from "@/lib/product-media";
+import { PRODUCT_SLUGS } from "@/content/products";
 import { getOffers } from "@/lib/shopify/products";
-import { productPath } from "@/components/pages/ProductView";
+import { sliderProducts } from "@/lib/slider-products";
 
 /**
  * Art direction, paired with the copy by index. Adding a Skin Care or Body
@@ -35,35 +34,11 @@ const art = [
 
 const pillarIcons: IconName[] = ["seedling", "flask", "mortar", "globe"];
 
-/**
- * The four products, in the order they are listed in the content file. Names
- * are the ones printed on the bottles and stay in Latin in both languages.
- *
- * Each card now opens the product's own page rather than its collection, which
- * is where the size, hair type, named ingredients and Buy Now live.
- */
-const productArt = PRODUCT_SLUGS.map((slug) => ({
-  name: PRODUCT_NAMES[slug],
-  image: productPhoto[slug].src,
-  imageAlt: productPhoto[slug].alt,
-  href: productPath(slug),
-}));
-
 export default async function CollectionsView({ locale }: { locale: Locale }) {
   const copy = collectionsCopy[locale];
   const offers = await getOffers();
 
-  const sliderProducts: SliderProduct[] = copy.products.map((item, i) => ({
-    name: productArt[i].name,
-    sub: item.sub,
-    collection: item.collection,
-    cta: item.cta,
-    image: productArt[i].image,
-    imageAlt: productArt[i].imageAlt,
-    href: localePath(locale, productArt[i].href),
-    price: offers[PRODUCT_SLUGS[i]]?.price,
-    compareAt: offers[PRODUCT_SLUGS[i]]?.compareAt,
-  }));
+  const cards = sliderProducts(locale, PRODUCT_SLUGS, offers);
 
   return (
     <>
@@ -170,7 +145,7 @@ export default async function CollectionsView({ locale }: { locale: Locale }) {
         </div>
 
         <Reveal className="mt-12" delay={0.1}>
-          <ProductSlider products={sliderProducts} locale={locale} />
+          <ProductSlider products={cards} locale={locale} />
         </Reveal>
       </section>
 

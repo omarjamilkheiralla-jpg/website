@@ -21,6 +21,9 @@ export type SliderProduct = {
   /** The line beneath it on the bottle. */
   sub: string;
   collection: string;
+  /** Who it is for — "Oily hair and scalp". Optional; omitted on pages where
+      the choice has already been made. */
+  note?: string;
   image: string;
   imageAlt: string;
   href: string;
@@ -201,6 +204,9 @@ function SliderCard({
           <p className="eyebrow text-gold-deep">{item.collection}</p>
           <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+          {item.note ? (
+            <p className="mt-2 text-xs leading-relaxed text-gold-deep">{item.note}</p>
+          ) : null}
           {item.price ? (
             <Price
               locale={locale}
