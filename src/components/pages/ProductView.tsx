@@ -265,6 +265,9 @@ export default async function ProductView({
                 <p className="mt-2 text-sm leading-relaxed text-ink-muted">
                   {productPages[locale][other].sub}
                 </p>
+                <p className="mt-2 text-xs leading-relaxed text-gold-deep">
+                  {productPages[locale][other].suitedTo}
+                </p>
                 {offers[other] ? (
                   <Price
                     locale={locale}

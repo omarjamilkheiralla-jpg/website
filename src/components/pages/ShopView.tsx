@@ -87,6 +87,12 @@ export default async function ShopView({ locale }: { locale: Locale }) {
                     {PRODUCT_NAMES[slug]}
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{product.sub}</p>
+                  {/* Who the bottle is for, under the name, the same way the
+                      carousel cards carry it. This is the card someone decides
+                      on, and hair type is what the decision turns on. */}
+                  <p className="mt-2 text-xs leading-relaxed text-gold-deep">
+                    {product.suitedTo}
+                  </p>
 
                   {offer ? (
                     <Price
