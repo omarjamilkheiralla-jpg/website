@@ -74,6 +74,9 @@ export default function CartDrawer({
   const [offering, setOffering] = useState(false);
   const offered = useRef(false);
 
+  /** The photograph, opened full width. */
+  const [zoomed, setZoomed] = useState(false);
+
   const open = cart?.open ?? false;
   const setOpen = cart?.setOpen;
 
@@ -82,9 +85,11 @@ export default function CartDrawer({
     if (!open || !setOpen) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
-      /* Innermost thing first. Escaping straight past the offer would close
-         the bag with it, which is not what the key was pressed for. */
-      if (offering) setOffering(false);
+      /* Innermost thing first. Escaping straight past the photograph or the
+         offer would close the bag with them, which is not what the key was
+         pressed for. */
+      if (zoomed) setZoomed(false);
+      else if (offering) setOffering(false);
       else setOpen(false);
     };
     document.addEventListener("keydown", onKey);
@@ -94,7 +99,7 @@ export default function CartDrawer({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previous;
     };
-  }, [open, setOpen, offering]);
+  }, [open, setOpen, offering, zoomed]);
 
   // Move focus into the panel when it opens, so the keyboard follows the eye.
   useEffect(() => {
@@ -289,7 +294,8 @@ export default function CartDrawer({
                     cart, so it reaches the checkout, the invoice and the total
                     the way any other line does. */}
                 {showGiftToggle && giftBox ? (
-                  <label className="mb-5 flex cursor-pointer items-center gap-3.5 rounded-md border border-gold/40 bg-linen p-3 transition-colors duration-300 hover:border-gold has-[:disabled]:cursor-default has-[:disabled]:opacity-50">
+                  <div className="relative mb-5">
+                  <label className="flex cursor-pointer items-center gap-3.5 rounded-md border border-gold/40 bg-linen p-3 transition-colors duration-300 hover:border-gold has-[:disabled]:cursor-default has-[:disabled]:opacity-50">
                     <input
                       type="checkbox"
                       checked={giftChecked}
@@ -337,6 +343,24 @@ export default function CartDrawer({
                       {formatMoney(giftBox.price.amount, giftBox.price.currencyCode, locale)}
                     </span>
                   </label>
+
+                  {/* Over the corner of the thumbnail rather than beside it:
+                      the row is already four things wide inside a 448px panel,
+                      and a fifth column would push the text into three lines.
+                      Deliberately a sibling of the label, not a child — a
+                      button inside a label toggles the checkbox when pressed. */}
+                  <button
+                    type="button"
+                    aria-label={gift.enlarge}
+                    onClick={() => setZoomed(true)}
+                    className="absolute bottom-1.5 flex h-7 w-7 items-center justify-center rounded-full border border-gold/40 bg-cream text-green shadow-sm transition-colors duration-300 hover:border-gold hover:text-gold-deep ltr:left-[4.75rem] rtl:right-[4.75rem]"
+                  >
+                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+                      <circle cx="7" cy="7" r="4.5" />
+                      <path d="M10.5 10.5L14 14M7 5v4M5 7h4" />
+                    </svg>
+                  </button>
+                  </div>
                 ) : null}
 
                 <div className="flex items-baseline justify-between">
@@ -389,7 +413,12 @@ export default function CartDrawer({
                 className="absolute inset-y-0 flex w-full max-w-md flex-col overflow-y-auto bg-cream shadow-2xl ltr:right-0 rtl:left-0"
               >
                 <div className="flex min-h-full flex-col justify-center px-7 py-10">
-                  <div className="relative aspect-square w-full overflow-hidden rounded-md border border-gold/25">
+                  <button
+                    type="button"
+                    aria-label={gift.enlarge}
+                    onClick={() => setZoomed(true)}
+                    className="relative aspect-square w-full overflow-hidden rounded-md border border-gold/25 transition-colors duration-300 hover:border-gold"
+                  >
                     <Image
                       src={product.giftBox}
                       alt={productAlt.giftBox}
@@ -398,7 +427,7 @@ export default function CartDrawer({
                       quality={85}
                       className="object-cover"
                     />
-                  </div>
+                  </button>
 
                   <p className="eyebrow mt-7 text-gold-deep">{gift.prompt.eyebrow}</p>
                   <h2 className="mt-3 font-serif text-[1.75rem] leading-tight text-green">
@@ -442,6 +471,66 @@ export default function CartDrawer({
                     {gift.prompt.decline}
                   </a>
                 </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/*
+            The packaging at a size worth looking at.
+
+            Over the whole screen rather than inside the drawer: the panel is
+            448px at its widest, which is barely larger than the card it is
+            opened from, and the point of the button is to see the box properly.
+          */}
+          <AnimatePresence>
+            {zoomed ? (
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={productAlt.giftBox}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/80 p-5 backdrop-blur-sm sm:p-10"
+              >
+                {/* The backdrop closes it, as a full-size button behind the
+                    photograph rather than a click handler on the container —
+                    it is then reachable by keyboard and announced as a control. */}
+                <button
+                  type="button"
+                  aria-label={gift.closeImage}
+                  onClick={() => setZoomed(false)}
+                  className="absolute inset-0 h-full w-full cursor-zoom-out"
+                />
+
+                <motion.div
+                  initial={{ scale: reduceMotion ? 1 : 0.96 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: reduceMotion ? 1 : 0.96 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.22 }}
+                  className="pointer-events-none relative aspect-square w-full max-w-2xl overflow-hidden rounded-md border border-gold/30 shadow-2xl"
+                >
+                  <Image
+                    src={product.giftBox}
+                    alt={productAlt.giftBox}
+                    fill
+                    sizes="(max-width: 672px) 100vw, 672px"
+                    quality={90}
+                    className="object-cover"
+                  />
+                </motion.div>
+
+                <button
+                  type="button"
+                  onClick={() => setZoomed(false)}
+                  aria-label={gift.closeImage}
+                  className="absolute end-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-cream/40 bg-ink/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-ink/70 sm:end-8 sm:top-8"
+                >
+                  <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+                    <path d="M2 2l12 12M14 2L2 14" />
+                  </svg>
+                </button>
               </motion.div>
             ) : null}
           </AnimatePresence>

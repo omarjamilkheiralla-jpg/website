@@ -145,7 +145,9 @@ export default async function CollectionPageView({
                   <div className="flex flex-1 flex-col p-6">
                     <p className="eyebrow text-gold-deep">{card.collection}</p>
                     <h3 className="mt-3 font-serif text-xl leading-snug text-green">{card.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-muted">{card.sub}</p>
+                    {card.sub ? (
+                      <p className="mt-2 text-sm leading-relaxed text-ink-muted">{card.sub}</p>
+                    ) : null}
                     {card.note ? (
                       <p className="mt-2 text-xs leading-relaxed text-gold-deep">{card.note}</p>
                     ) : null}

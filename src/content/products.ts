@@ -77,7 +77,7 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       metaDescription:
         "Nourishing and repairing care for dry, normal and damaged hair, with honey, propolis and aloe vera. 300 ml, from Rosica Essentials.",
       collection: "Essentials",
-      sub: "Repair Shampoo",
+      sub: "",
       lede: "Nourishing and repairing care for dry, normal and damaged hair.",
       size: "300 ml",
       suitedTo: "Dry, normal and damaged hair",
@@ -101,7 +101,7 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       metaDescription:
         "Refreshing cleansing care for oily hair and scalps prone to excess oil, with rosemary and green tea. 300 ml, from Rosica Essentials.",
       collection: "Essentials",
-      sub: "Cleanse Shampoo",
+      sub: "",
       lede: "Refreshing cleansing care for oily hair and scalps prone to excess oil.",
       size: "300 ml",
       suitedTo: "Oily hair and scalp",
@@ -124,7 +124,7 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       metaDescription:
         "Conditioning care designed to detangle, strengthen and repair all hair types, with honey, açaí and shea butter. 300 ml, from Rosica Essentials.",
       collection: "Essentials",
-      sub: "Intense Nourishment for All Hair Types",
+      sub: "Intense Nourishment",
       lede: "Conditioning care designed to detangle, strengthen and repair all hair types.",
       size: "300 ml",
       suitedTo: "All hair types",
@@ -149,7 +149,7 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       metaDescription:
         "Gentle, sulfate-free botanical care for colour-treated, chemically treated and damaged hair, and for daily use. 300 ml, from Rosica PURE.",
       collection: "PURE",
-      sub: "Sulfate-Free",
+      sub: "",
       lede: "Gentle, sulfate-free botanical care designed for all hair types — colour-treated, chemically treated and damaged hair, and daily use.",
       size: "300 ml",
       suitedTo: "Colour-treated, chemically treated and damaged hair; suitable for daily use",
@@ -236,7 +236,7 @@ export const productPages: Localised<Record<ProductSlug, ProductCopy>> = {
       metaDescription:
         "بلسم يساعد على فك التشابك وتقوية الشعر وإصلاحه لجميع أنواع الشعر، بالعسل والأساي وزبدة الشيا. ٣٠٠ مل، من مجموعة روزيكا إسينشالز.",
       collection: "إسينشالز",
-      sub: "تغذية مكثفة لجميع أنواع الشعر",
+      sub: "تغذية مكثفة",
       lede: "بلسم مصمّم لفك التشابك وتقوية الشعر وإصلاحه، لجميع أنواع الشعر.",
       size: "٣٠٠ مل",
       suitedTo: "جميع أنواع الشعر",

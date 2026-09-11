@@ -124,9 +124,11 @@ export default function IngredientView({
                 <h3 className="mt-3 font-serif text-lg leading-snug text-green">
                   {PRODUCT_NAMES[productSlug]}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                  {productPages[locale][productSlug].sub}
-                </p>
+                {productPages[locale][productSlug].sub ? (
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                    {productPages[locale][productSlug].sub}
+                  </p>
+                ) : null}
                 <div className="mt-auto pt-5">
                   <ArrowLink
                     href={localePath(locale, productPath(productSlug))}

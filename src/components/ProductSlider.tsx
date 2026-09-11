@@ -203,7 +203,9 @@ function SliderCard({
         <div className="flex flex-1 flex-col p-6">
           <p className="eyebrow text-gold-deep">{item.collection}</p>
           <h3 className="mt-3 font-serif text-xl leading-snug text-green">{item.name}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+          {item.sub ? (
+            <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.sub}</p>
+          ) : null}
           {item.note ? (
             <p className="mt-2 text-xs leading-relaxed text-gold-deep">{item.note}</p>
           ) : null}

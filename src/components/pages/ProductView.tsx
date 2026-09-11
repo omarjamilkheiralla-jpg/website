@@ -98,7 +98,9 @@ export default async function ProductView({
           <Reveal delay={0.1}>
             <p className="eyebrow text-gold-deep">{copy.collection}</p>
             <h1 className="mt-4 text-[2.25rem] leading-[1.1] sm:text-[2.75rem]">{name}</h1>
-            <p className="mt-3 font-serif text-xl text-green">{copy.sub}</p>
+            {copy.sub ? (
+              <p className="mt-3 font-serif text-xl text-green">{copy.sub}</p>
+            ) : null}
 
             <span aria-hidden="true" className="ornament-rule mt-7 max-w-sm">
               <Icon name="sparkle" className="h-3.5 w-3.5" />
@@ -262,9 +264,11 @@ export default async function ProductView({
                 <h3 className="mt-3 font-serif text-lg leading-snug text-green">
                   {PRODUCT_NAMES[other]}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                  {productPages[locale][other].sub}
-                </p>
+                {productPages[locale][other].sub ? (
+                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                    {productPages[locale][other].sub}
+                  </p>
+                ) : null}
                 <p className="mt-2 text-xs leading-relaxed text-gold-deep">
                   {productPages[locale][other].suitedTo}
                 </p>
