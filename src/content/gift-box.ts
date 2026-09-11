@@ -46,6 +46,25 @@ type GiftBoxCopy = {
   note: string;
   /** Announced to a screen reader in place of the visual pairing. */
   a11y: string;
+  /**
+   * The last word before the bag hands over to Shopify's checkout.
+   *
+   * Shown once, and only when the box is not already in the bag. Shopify's
+   * checkout page cannot be added to without Shopify Plus, so this is the
+   * final place the offer can be made at all — which is the reason it exists,
+   * and the reason it is allowed to be more than a tick box.
+   */
+  prompt: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    /** Primary: takes the offer, then continues to checkout. */
+    accept: string;
+    /** Secondary: continues without it. Never a dead end. */
+    decline: string;
+    /** Names the dialog for assistive technology. */
+    a11y: string;
+  };
 };
 
 export const giftBoxCopy: Localised<GiftBoxCopy> = {
@@ -53,10 +72,28 @@ export const giftBoxCopy: Localised<GiftBoxCopy> = {
     label: "Add a gift box",
     note: "Your order boxed and ribboned, ready to give.",
     a11y: "Add a gift box to this order",
+    prompt: {
+      eyebrow: "Special offer",
+      title: "Make it a gift",
+      body:
+        "Your order arrives in our signature black box, lined with Rosica tissue and finished with a handwritten card, inside the gold-embossed carrying bag — so it is ready to give the moment it lands, with nothing left to wrap.",
+      accept: "Add the gift box",
+      decline: "Continue without",
+      a11y: "Add a gift box before checkout",
+    },
   },
   ar: {
     label: "أضيفي علبة هدية",
     note: "طلبك في علبة أنيقة مع شريطة، جاهز للإهداء.",
     a11y: "إضافة علبة هدية إلى هذا الطلب",
+    prompt: {
+      eyebrow: "عرض خاص",
+      title: "اجعليها هدية",
+      body:
+        "يصل طلبك في علبة روزيكا السوداء المميّزة، مبطّنة بورق حريري وبطاقة شكر مكتوبة بخط اليد، داخل حقيبة بشعار ذهبي — جاهز للإهداء فور وصوله، دون حاجة إلى أي تغليف.",
+      accept: "أضيفي علبة الهدية",
+      decline: "المتابعة بدونها",
+      a11y: "إضافة علبة هدية قبل إتمام الطلب",
+    },
   },
 };

@@ -8,6 +8,7 @@ import { useCart } from "./CartProvider";
 import { cartCopy } from "@/content/cart";
 import { freeShippingNote } from "@/content/offer";
 import { GIFT_BOX_HANDLE, giftBoxCopy } from "@/content/gift-box";
+import Price from "@/components/Price";
 import { formatMoney } from "@/lib/shopify/client";
 import { productPhoto } from "@/lib/product-media";
 import { product, productAlt } from "@/lib/media";
@@ -62,6 +63,17 @@ export default function CartDrawer({
   */
   const [pendingGift, setPendingGift] = useState<boolean | null>(null);
 
+  /*
+    The offer made on the way out, and whether it has been made already.
+
+    Once per open bag, never twice. Shopify's checkout page cannot be added to
+    without Plus, so this is the last chance to make the offer at all — but a
+    customer who has said no and pressed Checkout again is telling us
+    something, and asking a second time turns an offer into an obstacle.
+  */
+  const [offering, setOffering] = useState(false);
+  const offered = useRef(false);
+
   const open = cart?.open ?? false;
   const setOpen = cart?.setOpen;
 
@@ -69,7 +81,11 @@ export default function CartDrawer({
   useEffect(() => {
     if (!open || !setOpen) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key !== "Escape") return;
+      /* Innermost thing first. Escaping straight past the offer would close
+         the bag with it, which is not what the key was pressed for. */
+      if (offering) setOffering(false);
+      else setOpen(false);
     };
     document.addEventListener("keydown", onKey);
     const previous = document.body.style.overflow;
@@ -78,7 +94,7 @@ export default function CartDrawer({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previous;
     };
-  }, [open, setOpen]);
+  }, [open, setOpen, offering]);
 
   // Move focus into the panel when it opens, so the keyboard follows the eye.
   useEffect(() => {
@@ -335,6 +351,15 @@ export default function CartDrawer({
                     touch this site. A plain anchor, not next/link. */}
                 <a
                   href={cart.cart.checkoutUrl}
+                  onClick={(event) => {
+                    /* Still an anchor, so the URL is real: middle-click, copy
+                       link and a page with no JavaScript all behave. The offer
+                       only interrupts an ordinary left click. */
+                    if (!showGiftToggle || giftChecked || offered.current) return;
+                    event.preventDefault();
+                    offered.current = true;
+                    setOffering(true);
+                  }}
                   className="mt-5 flex w-full items-center justify-center rounded-md bg-green px-7 py-3.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:bg-green-deep"
                 >
                   {copy.checkout}
@@ -342,6 +367,84 @@ export default function CartDrawer({
               </footer>
             ) : null}
           </motion.div>
+
+          {/*
+            The last word before Shopify takes over.
+
+            Rendered over the bag rather than as a second dialog on the page, so
+            there is one thing on screen at a time and the bag is still visibly
+            underneath. Both buttons lead to the checkout — the offer delays the
+            handover by one decision, it never blocks it.
+          */}
+          <AnimatePresence>
+            {offering && giftBox && cart.cart ? (
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={gift.prompt.a11y}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+                transition={{ duration: reduceMotion ? 0 : 0.28 }}
+                className="absolute inset-y-0 flex w-full max-w-md flex-col overflow-y-auto bg-cream shadow-2xl ltr:right-0 rtl:left-0"
+              >
+                <div className="flex min-h-full flex-col justify-center px-7 py-10">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-md border border-gold/25">
+                    <Image
+                      src={product.giftBox}
+                      alt={productAlt.giftBox}
+                      fill
+                      sizes="(max-width: 448px) 100vw, 400px"
+                      quality={85}
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <p className="eyebrow mt-7 text-gold-deep">{gift.prompt.eyebrow}</p>
+                  <h2 className="mt-3 font-serif text-[1.75rem] leading-tight text-green">
+                    {gift.prompt.title}
+                  </h2>
+                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">
+                    {gift.prompt.body}
+                  </p>
+
+                  <Price
+                    locale={locale}
+                    price={giftBox.price}
+                    compareAt={giftBox.compareAt}
+                    size="lg"
+                    className="mt-6"
+                  />
+
+                  <button
+                    type="button"
+                    disabled={cart.status === "busy"}
+                    onClick={() => {
+                      const url = cart.cart?.checkoutUrl;
+                      void (async () => {
+                        await cart.add(giftBox.variantId, 1);
+                        /* Straight on to the checkout either way. Adding the
+                           box does not change the cart's checkout URL, and
+                           leaving someone back in the bag after they accepted
+                           makes them press Checkout a second time. */
+                        if (url) window.location.assign(url);
+                      })();
+                    }}
+                    className="mt-8 flex w-full items-center justify-center rounded-md bg-green px-7 py-3.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:bg-green-deep disabled:opacity-50"
+                  >
+                    {gift.prompt.accept}
+                  </button>
+
+                  <a
+                    href={cart.cart.checkoutUrl}
+                    className="mt-4 text-center text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-ink-muted underline decoration-gold/40 underline-offset-4 transition-colors duration-300 hover:text-green"
+                  >
+                    {gift.prompt.decline}
+                  </a>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </motion.div>
       ) : null}
     </AnimatePresence>

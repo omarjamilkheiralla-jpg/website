@@ -82,6 +82,10 @@ export const GIFT_BOX_QUERY = /* GraphQL */ `
               amount
               currencyCode
             }
+            compareAtPrice {
+              amount
+              currencyCode
+            }
           }
         }
       }

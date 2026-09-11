@@ -1,6 +1,6 @@
 import { storefront } from "./client";
 import { GIFT_BOX_QUERY, PRODUCTS_QUERY } from "./queries";
-import type { GiftBox, Offers } from "./types";
+import type { GiftBox, Money, Offers } from "./types";
 import { PRODUCT_SLUGS, type ProductSlug } from "@/content/products";
 import { SALE_MARKUP } from "@/content/offer";
 import { GIFT_BOX_HANDLE } from "@/content/gift-box";
@@ -33,6 +33,29 @@ function matchSlug(handle: string): ProductSlug | null {
 }
 
 /**
+ * The struck-through "was" figure for a price, or undefined when there is none.
+ *
+ * In order of preference:
+ *  1. A compare-at price set in Shopify, but only when it is genuinely above
+ *     the selling price -- Shopify will store an equal or lower one, and
+ *     striking through the same number reads as a bug.
+ *  2. Otherwise the flat markup from content/offer.ts, if it is switched on.
+ *
+ * Real store data always wins, so setting a proper compare-at on a variant
+ * silently takes that product off the formula. Shared by the range and the
+ * gift box: a rule about how a former price is decided should be written once,
+ * or the bag and the offer can end up quoting different numbers.
+ */
+function formerPrice(price: Money, compareAt: Money | null): Money | undefined {
+  if (compareAt && Number(compareAt.amount) > Number(price.amount)) return compareAt;
+  if (SALE_MARKUP <= 0) return undefined;
+  return {
+    amount: (Number(price.amount) + SALE_MARKUP).toFixed(2),
+    currencyCode: price.currencyCode,
+  };
+}
+
+/**
  * Live price and stock for the range, keyed by the site's product slug.
  *
  * Returns an empty object when Shopify is unconfigured or unreachable — every
@@ -54,25 +77,8 @@ export async function getOffers(): Promise<Offers> {
     const variant = node.variants.edges[0]?.node;
     if (!variant) continue;
 
-    /* The former price, in order of preference.
-       1. A compare-at price set in Shopify, but only when it is genuinely
-          above the selling price -- Shopify will store an equal or lower one,
-          and striking through the same number reads as a bug.
-       2. Otherwise the flat markup from content/offer.ts, if it is switched on.
-       Real store data always wins, so setting a proper compare-at on a variant
-       silently takes that product off the formula. */
     const price = node.priceRange.minVariantPrice;
-    const compare = variant.compareAtPrice;
-
-    const reduced =
-      compare && Number(compare.amount) > Number(price.amount)
-        ? compare
-        : SALE_MARKUP > 0
-          ? {
-              amount: (Number(price.amount) + SALE_MARKUP).toFixed(2),
-              currencyCode: price.currencyCode,
-            }
-          : undefined;
+    const reduced = formerPrice(price, variant.compareAtPrice);
 
     offers[slug] = {
       variantId: variant.id,
@@ -88,7 +94,14 @@ type GiftBoxResponse = {
   product: {
     availableForSale: boolean;
     variants: {
-      edges: { node: { id: string; availableForSale: boolean; price: { amount: string; currencyCode: string } } }[];
+      edges: {
+        node: {
+          id: string;
+          availableForSale: boolean;
+          price: Money;
+          compareAtPrice: Money | null;
+        };
+      }[];
     };
   } | null;
 };
@@ -116,5 +129,10 @@ export async function getGiftBox(): Promise<GiftBox | null> {
   const variant = data.product.variants.edges[0]?.node;
   if (!variant?.availableForSale) return null;
 
-  return { variantId: variant.id, price: variant.price };
+  const reduced = formerPrice(variant.price, variant.compareAtPrice);
+  return {
+    variantId: variant.id,
+    price: variant.price,
+    ...(reduced ? { compareAt: reduced } : {}),
+  };
 }
