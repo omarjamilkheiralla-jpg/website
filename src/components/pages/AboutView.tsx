@@ -3,6 +3,7 @@ import CTAButton from "@/components/CTAButton";
 import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
+import MadeInUAE from "@/components/MadeInUAE";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { generic, genericAlt, product, productAlt } from "@/lib/media";
@@ -19,6 +20,7 @@ const pillarArt = [
     imageAlt: genericAlt.labFlowerTube,
     href: "/ingredients",
     markIcons: [] as IconName[],
+    provenance: false,
   },
   {
     id: "quality",
@@ -26,6 +28,8 @@ const pillarArt = [
     imageAlt: genericAlt.labGlassware,
     href: undefined,
     markIcons: ["certificate", "shield", "globe", "beaker"] as IconName[],
+    /* Country of origin belongs with manufacturing, not with formulation. */
+    provenance: true,
   },
   {
     id: undefined,
@@ -33,6 +37,7 @@ const pillarArt = [
     imageAlt: genericAlt.soapLinen,
     href: undefined,
     markIcons: ["leaf", "droplet", "beaker", "sparkle"] as IconName[],
+    provenance: false,
   },
 ];
 
@@ -165,6 +170,14 @@ export default function AboutView({ locale }: { locale: Locale }) {
                 ) : null}
                 {pillar.marks ? (
                   <MarkRow labels={pillar.marks} icons={pillarArt[i].markIcons} />
+                ) : null}
+                {/* Where they are made, under the standards they are made to. */}
+                {pillarArt[i].provenance ? (
+                  <MadeInUAE
+                    locale={locale}
+                    variant="inline"
+                    className="mt-8 border-t border-gold/25 pt-6"
+                  />
                 ) : null}
               </div>
             </Reveal>

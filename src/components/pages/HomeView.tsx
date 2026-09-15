@@ -6,6 +6,7 @@ import ArrowLink from "@/components/ArrowLink";
 import Icon, { type IconName } from "@/components/Icon";
 import Media from "@/components/Media";
 import IngredientCarousel from "@/components/IngredientCarousel";
+import MadeInUAE from "@/components/MadeInUAE";
 import Reveal from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { generic, genericAlt, product, productAlt } from "@/lib/media";
@@ -258,6 +259,9 @@ export default function HomeView({ locale }: { locale: Locale }) {
           </RevealItem>
         </RevealGroup>
       </section>
+
+      {/* Where the bottles are made, closing the page above the footer. */}
+      <MadeInUAE locale={locale} />
     </>
   );
 }
