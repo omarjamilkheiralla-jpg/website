@@ -42,6 +42,15 @@ type CartContextValue = {
   add: (variantId: string, quantity?: number) => Promise<boolean>;
   setQuantity: (lineId: string, quantity: number) => Promise<void>;
   remove: (lineId: string) => Promise<void>;
+  /**
+   * The last successful add, for the confirmation.
+   *
+   * `seq` increments on every add so adding the same bottle twice is two
+   * separate announcements rather than one unchanged object the toast cannot
+   * tell apart.
+   */
+  added: { seq: number; title: string } | null;
+  clearAdded: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -53,10 +62,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
+  const [added, setAdded] = useState<{ seq: number; title: string } | null>(null);
   const cartId = useRef<string | null>(null);
 
-  /** Reads the id, sends the action, and folds the response back into state. */
-  const send = useCallback(async (body: Record<string, unknown>): Promise<boolean> => {
+  const clearAdded = useCallback(() => setAdded(null), []);
+
+  /**
+   * Reads the id, sends the action, and folds the response back into state.
+   *
+   * Returns the cart itself rather than a boolean: `add` needs the line it
+   * just created to name it in the confirmation, and state set here is not
+   * readable until the next render.
+   */
+  const send = useCallback(async (body: Record<string, unknown>): Promise<Cart | null> => {
     setStatus("busy");
     setError(false);
     try {
@@ -69,7 +87,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       // 503 is "no store configured" — not an error worth showing anyone.
       if (response.status === 503) {
         setCart(null);
-        return false;
+        return null;
       }
 
       const data = (await response.json()) as Response;
@@ -78,21 +96,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
         cartId.current = null;
         window.localStorage.removeItem(STORAGE_KEY);
         setCart(null);
-        return false;
+        return null;
       }
 
       if (!data.ok || !data.cart) {
         setError(true);
-        return false;
+        return null;
       }
 
       cartId.current = data.cart.id;
       window.localStorage.setItem(STORAGE_KEY, data.cart.id);
       setCart(data.cart);
-      return true;
+      return data.cart;
     } catch {
       setError(true);
-      return false;
+      return null;
     } finally {
       setStatus("idle");
     }
@@ -145,11 +163,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  /*
+    Adding confirms; it does not interrupt.
+
+    This used to throw the drawer open on every add, which took the page away
+    from someone who was still shopping and, on a phone, covered it entirely.
+    The confirmation says the same thing without moving anyone, and the bag
+    button appears in the navbar the moment the bag stops being empty, so the
+    way through to checkout is still one tap.
+  */
   const add = useCallback(
     async (variantId: string, quantity = 1) => {
-      const ok = await send({ action: "add", variantId, quantity });
-      if (ok) setOpen(true);
-      return ok;
+      const next = await send({ action: "add", variantId, quantity });
+      if (!next) return false;
+
+      const line = next.lines.find((candidate) => candidate.variantId === variantId);
+      setAdded((previous) => ({
+        seq: (previous?.seq ?? 0) + 1,
+        title: line?.productTitle ?? "",
+      }));
+      return true;
     },
     [send],
   );
@@ -171,8 +204,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo(
-    () => ({ cart, status, error, open, setOpen, add, setQuantity, remove }),
-    [cart, status, error, open, add, setQuantity, remove],
+    () => ({ cart, status, error, open, setOpen, add, setQuantity, remove, added, clearAdded }),
+    [cart, status, error, open, add, setQuantity, remove, added, clearAdded],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

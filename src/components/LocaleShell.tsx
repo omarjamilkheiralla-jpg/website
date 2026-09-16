@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import ChatWidget from "./ChatWidget";
 import { CartProvider } from "./cart/CartProvider";
 import CartDrawer from "./cart/CartDrawer";
+import CartToast from "./cart/CartToast";
 import { dirFor, localeFromPathname } from "@/lib/i18n";
 import type { GiftBox } from "@/lib/shopify/types";
 
@@ -42,6 +43,7 @@ export default function LocaleShell({
       {/* Inside the dir wrapper so the panels pin to the correct side. */}
       <ChatWidget locale={locale} ai={assistant} />
       {shop ? <CartDrawer locale={locale} giftBox={giftBox} /> : null}
+      {shop ? <CartToast locale={locale} /> : null}
     </div>
   );
 

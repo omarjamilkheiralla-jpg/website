@@ -20,6 +20,17 @@ export type CartCopy = {
   /** Shown when a request to Shopify fails. */
   error: string;
   itemCount: (n: number) => string;
+  /**
+   * The confirmation after a successful add.
+   *
+   * `added` names the bottle; `addedFallback` covers the case where the line
+   * came back without a title, which should not happen but must not leave a
+   * blank toast if it does.
+   */
+  added: (title: string) => string;
+  addedFallback: string;
+  viewBag: string;
+  dismiss: string;
 };
 
 export const cartCopy: Localised<CartCopy> = {
@@ -40,6 +51,10 @@ export const cartCopy: Localised<CartCopy> = {
     removeLine: "Remove",
     error: "Something went wrong. Please try again.",
     itemCount: (n) => (n === 1 ? "1 item" : `${n} items`),
+    added: (title) => `${title} added to your bag`,
+    addedFallback: "Added to your bag",
+    viewBag: "View bag",
+    dismiss: "Dismiss",
   },
   ar: {
     title: "حقيبتك",
@@ -58,5 +73,9 @@ export const cartCopy: Localised<CartCopy> = {
     removeLine: "إزالة",
     error: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     itemCount: (n) => (n === 1 ? "منتج واحد" : `${n} منتجات`),
+    added: (title) => `تمت إضافة ${title} إلى حقيبتك`,
+    addedFallback: "تمت الإضافة إلى حقيبتك",
+    viewBag: "عرض الحقيبة",
+    dismiss: "إغلاق",
   },
 };
