@@ -104,6 +104,9 @@ export default function HomeView({ locale }: { locale: Locale }) {
         </RevealGroup>
       </section>
 
+      {/* Where the bottles are made */}
+      <MadeInUAE locale={locale} />
+
       {/* Ingredient library */}
       <Section tone="cream">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)] lg:gap-16">
@@ -259,9 +262,6 @@ export default function HomeView({ locale }: { locale: Locale }) {
           </RevealItem>
         </RevealGroup>
       </section>
-
-      {/* Where the bottles are made, closing the page above the footer. */}
-      <MadeInUAE locale={locale} />
     </>
   );
 }

@@ -26,9 +26,44 @@ export type IconName =
   | "envelope"
   | "pin"
   | "clock"
-  | "calendar";
+  | "calendar"
+  | "uaeMap"
+  | "rosette"
+  | "registered";
 
 const paths: Record<IconName, string[]> = {
+  /*
+    The three provenance marks.
+
+    uaeMap is a simplified outline of the country, not a survey: the Musandam
+    exclave and the smaller coastal indentations are left out, because at 28px
+    they close up into noise. It is drawn to read as "the UAE" at a glance and
+    nothing more, and it is deliberately not a flag — a flag in a line-icon row
+    would be the only full-colour thing on the page.
+  */
+  /*
+    Plotted from the country's real extent — roughly 51.5°E–56.4°E and
+    22.6°N–26.1°N — rather than drawn by eye, so the proportions are right:
+    the Gulf coast running up from Ghuwaifat through Abu Dhabi and Dubai to
+    the northern tip, the short east coast at Fujairah, and the long, near
+    straight Saudi border closing it along the south.
+  */
+  uaeMap: [
+    "M3.5 19.1 7.7 25.6 22.3 25.6 23.7 22.7 23.3 21.6 24 20.2 23.7 18.7 24.8 17.6 24.4 16.2 25.9 15.1 27 14 26.6 12.2 27.4 10.7 26.3 6.4 23.7 8.9 21.5 11.5 19.4 13.6 16.4 15.8 13.6 17.6 10.7 18.7 9.6 18.4 8.9 19.1 6.4 18.9 5.3 19.4Z",
+  ],
+  rosette: [
+    /* Scalloped seal: twelve lobes, drawn as a closed path of arcs. */
+    "M16 4.2a2.6 2.6 0 0 1 3.7-.5 2.6 2.6 0 0 0 2 .5 2.6 2.6 0 0 1 3.1 2.1 2.6 2.6 0 0 0 1.2 1.7 2.6 2.6 0 0 1 1.2 3.6 2.6 2.6 0 0 0 0 2.1 2.6 2.6 0 0 1-1.2 3.6 2.6 2.6 0 0 0-1.2 1.7 2.6 2.6 0 0 1-3.1 2.1 2.6 2.6 0 0 0-2 .5 2.6 2.6 0 0 1-3.7-.5 2.6 2.6 0 0 0-1.4 0 2.6 2.6 0 0 1-3.7.5 2.6 2.6 0 0 0-2-.5 2.6 2.6 0 0 1-3.1-2.1 2.6 2.6 0 0 0-1.2-1.7 2.6 2.6 0 0 1-1.2-3.6 2.6 2.6 0 0 0 0-2.1 2.6 2.6 0 0 1 1.2-3.6 2.6 2.6 0 0 0 1.2-1.7 2.6 2.6 0 0 1 3.1-2.1 2.6 2.6 0 0 0 2-.5A2.6 2.6 0 0 1 16 4.2Z",
+    "M12.6 12.4l2.4 2.4 4.4-4.6",
+  ],
+  registered: [
+    "M7 3.5h13l5 5v15.5a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5V5A1.5 1.5 0 0 1 7 3.5Z",
+    "M19.5 3.8V9h5.2",
+    "M9.5 12h8",
+    "M9.5 16h5",
+    "M20.5 19a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z",
+    "M18.4 24.8 17.6 29l2.9-1.4 2.9 1.4-.8-4.2",
+  ],
   envelope: ["M4 8h24v16H4z", "M4 9.5 16 18 28 9.5"],
   pin: ["M16 29c6-7.2 9-12.1 9-16a9 9 0 1 0-18 0c0 3.9 3 8.8 9 16Z", "M16 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"],
   clock: ["M16 4a12 12 0 1 0 0 24 12 12 0 0 0 0-24Z", "M16 9v7.5l5 3"],

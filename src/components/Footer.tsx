@@ -1,6 +1,7 @@
 import Link from "next/link";
 import BrandMark from "./BrandMark";
 import { footerColumnsFor, socialLinks } from "@/lib/navigation";
+import { uaeCopy } from "@/content/uae";
 import { localePath, type Locale } from "@/lib/i18n";
 
 const t = {
@@ -67,6 +68,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
   const currentYear = new Date().getFullYear();
   const copy = t[locale];
   const footerColumns = footerColumnsFor(locale);
+  const uae = uaeCopy[locale];
 
   return (
     <footer className="relative overflow-hidden bg-forest text-linen">
@@ -84,6 +86,29 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
           <div>
             <BrandMark size="md" tone="light" href={localePath(locale, "/")} />
             <p className="mt-7 max-w-xs text-sm leading-relaxed text-linen/75">{copy.blurb}</p>
+
+            {/*
+              Provenance, in the serif rather than the body sans: it is a seal,
+              not another sentence of the blurb. The flag is the one full-colour
+              thing in the footer and is decorative — the words already carry
+              the claim — so it is hidden rather than read out as "flag of the
+              United Arab Emirates" in the middle of the line.
+            */}
+            <p className="mt-5 font-serif text-[0.9375rem] leading-relaxed text-gold-soft">
+              {/*
+                Each claim is kept whole and the separator travels with the
+                first one. In this column the line nearly always wraps, and
+                without both of those it broke mid-word ("GMP-" / "Certified")
+                and started the second line on a stranded middle dot.
+              */}
+              <span className="whitespace-nowrap">
+                {uae.footer.made} <span aria-hidden="true">🇦🇪</span>
+                <span aria-hidden="true" className="ms-2 text-gold/70">
+                  ·
+                </span>
+              </span>{" "}
+              <span className="whitespace-nowrap">{uae.footer.gmp}</span>
+            </p>
           </div>
 
           {/* Link columns */}

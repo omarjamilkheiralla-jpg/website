@@ -90,13 +90,13 @@ export const aboutCopy: Localised<AboutCopy> = {
       },
       {
         eyebrow: "Our Manufacturing",
-        title: "Crafted with Care",
-        body: "Our products are manufactured in a GMP-certified facility, with careful attention to quality, safety, and hygiene throughout the manufacturing process.",
+        title: "Crafted with Care in the UAE",
+        body: "Rosica products are proudly manufactured in the United Arab Emirates in a GMP-certified facility, with careful attention to quality, safety, hygiene, and controlled manufacturing processes.",
         marks: [
-          "High Quality Standards",
-          "Controlled Manufacturing Processes",
+          "Made in the UAE",
+          "GMP-Certified Manufacturing",
+          "UAE Registered Products",
           "Quality-Controlled Production",
-          "Certified GMP",
         ],
       },
       {
@@ -197,13 +197,13 @@ export const aboutCopy: Localised<AboutCopy> = {
       },
       {
         eyebrow: "تصنيعنا",
-        title: "مصنوعة بعناية",
-        body: "تُصنع منتجاتنا في منشآت عالمية المستوى تلتزم بأعلى معايير الجودة والسلامة والنظافة.",
+        title: "مصنوعة بعناية في الإمارات",
+        body: "تُصنع منتجات روزيكا بكل فخر في الإمارات العربية المتحدة، في منشأة معتمدة وفق معايير GMP، مع عناية دقيقة بالجودة والسلامة والنظافة وضبط عمليات التصنيع.",
         marks: [
-          "معايير جودة عالية",
-          "ممارسات مسؤولة ومدروسة",
-          "مسؤولية تجاه البيئة",
-          "تصنيع وفق معايير GMP",
+          "صُنع في الإمارات",
+          "تصنيع معتمد وفق معايير GMP",
+          "منتجات مسجلة في الإمارات",
+          "إنتاج خاضع لرقابة الجودة",
         ],
       },
       {
